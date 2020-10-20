@@ -23,7 +23,7 @@ app.use(express.json());
 
 
 // Static directory to be served
-app.use(express.static("./app/public"));
+app.use(express.static("app/public"));
 
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));

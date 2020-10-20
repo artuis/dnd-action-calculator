@@ -12,21 +12,24 @@
         <label for="collapsible{{this.id}}">{{this.name}}</label>
           <div class="collapsible-body">
             <h3>Characters</h3>
+            
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th class="paper-btn">+ New Character</th>
+                  <div class="row table-header">
+                    <div class="col-6 col"><h4>Name</h4></div>
+                    <div class="col-6 col new-char text-right"><button>+ New Character</button></div>
+                  </div>
                 </tr>
 
               </thead>
               <tbody>
               {{#each this.characters}}
               <tr>
-                <td>{{this.name}}</td>
-                <td class="paper-btn margin">View</td>
-                <td class="paper-btn margin">Update</td>
-                <td class="paper-btn margin">Action</td></d>
+                <td class="name">{{this.name}}</td>
+                <td class="text-right"><button>View</button></td>
+                <td class="text-right"><button>Update</button></td>
+                <td class="text-right"><button>Action</button></td></d>
               </tr>
               {{/each}}
               </tbody>
