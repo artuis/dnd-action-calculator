@@ -7,25 +7,21 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     category: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    dmg_1h: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+    "1h_dmg": {
+      type: DataTypes.STRING,
+      defaultValue: null
     },
-    dmg_2h: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+    "2h_dmg": {
+      type: DataTypes.STRING,
+      defaultValue: null
     },
     range: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 5
     },
 
   });
