@@ -8,7 +8,7 @@
 var express = require("express");
 const path = require("path")
 
-var db = require("./models");
+var db = require("./app/models");
 
 
 // Sets up the Express App
@@ -23,17 +23,21 @@ app.use(express.json());
 
 
 // Static directory to be served
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static("./app/public"));
 
 var exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+app.set('views', './app/views');
 
-
+// Routes
+// =============================================================
+require("./app/routes/apiroutes.js")(app);
+require("./app/routes/htmlroutes.js")(app);
 // Starts the server to begin listening
 // =============================================================
 db.sequelize.sync({force:false}).then(function() {
   app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+    console.log("App listening on http://localhost:" + PORT);
   });
 });
