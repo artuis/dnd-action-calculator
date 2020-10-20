@@ -8,7 +8,7 @@
 var express = require("express");
 const path = require("path")
 
-var db = require("./app/models");
+var db = require("./models");
 
 
 // Sets up the Express App
@@ -23,19 +23,16 @@ app.use(express.json());
 
 
 // Static directory to be served
-app.use(express.static("app/public"));
+app.use(express.static("public"));
 
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
-app.set('views', './app/views');
 
-<<<<<<< HEAD:server.js
 // Routes
 // =============================================================
-require("./app/routes/apiroutes.js")(app);
-require("./app/routes/htmlroutes.js")(app);
-=======
+require("./controllers/apiroutes.js")(app);
+require("./controllers/htmlroutes.js")(app);
 // Routing
 const weaponRoutes = require("./controllers/weaponcontroller");
 app.use("/api/weapons",weaponRoutes);
@@ -58,7 +55,6 @@ app.use("/api/campaigns",campaignRoutes);
 const characterRoutes = require("./controllers/charactercontroller");
 app.use("/api/characters",characterRoutes);
 
->>>>>>> dev:index.js
 // Starts the server to begin listening
 // =============================================================
 db.sequelize.sync({force:false}).then(function() {
