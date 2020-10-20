@@ -48,6 +48,9 @@ app.use("/api/classes",classRoutes);
 const campaignRoutes = require("./controllers/campaigncontroller");
 app.use("/api/campaigns",campaignRoutes);
 
+const characterRoutes = require("./controllers/charactercontroller");
+app.use("/api/characters",characterRoutes);
+
 // Starts the server to begin listening
 // =============================================================
 db.sequelize.sync({force:false}).then(function() {
