@@ -7,9 +7,53 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    desc: {
-      type: DataTypes.TEXT
-    }
+    experience: {
+      type: DataTypes.INTEGER
+    },
+    level: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    strength: {
+      type: DataTypes.INTEGER
+    },
+    dexterity: {
+      type: DataTypes.INTEGER
+    },
+    constitution: {
+      type: DataTypes.INTEGER
+    },
+    intelligence: {
+      type: DataTypes.INTEGER
+    },
+    wisdom: {
+      type: DataTypes.INTEGER
+    },
+    charisma: {
+      type: DataTypes.INTEGER
+    },
+    perception: {
+      type: DataTypes.INTEGER
+    },
+    initiative: {
+      type: DataTypes.INTEGER
+    },
+    hp_current: {
+      type: DataTypes.INTEGER
+    },
+    hp_temp: {
+      type: DataTypes.INTEGER
+    },
+    hp_max: {
+      type: DataTypes.INTEGER
+    },
+    armor_class: {
+      type: DataTypes.INTEGER
+    },
+    shield: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
   });
 
   Character.associate = function(models) {
