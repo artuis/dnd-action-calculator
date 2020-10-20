@@ -29,6 +29,24 @@ var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// Routing
+const weaponRoutes = require("./controllers/weaponcontroller");
+app.use("/api/weapons",weaponRoutes);
+
+const raceRoutes = require("./controllers/racecontroller");
+app.use("/api/races",raceRoutes);
+
+const accountRoutes = require("./controllers/accountcontroller");
+app.use("/api/accounts",accountRoutes);
+
+const spellRoutes = require("./controllers/spellcontroller");
+app.use("/api/spells",spellRoutes);
+
+const classRoutes = require("./controllers/classcontroller");
+app.use("/api/classes",classRoutes);
+
+const campaignRoutes = require("./controllers/campaigncontroller");
+app.use("/api/campaigns",campaignRoutes);
 
 // Starts the server to begin listening
 // =============================================================
