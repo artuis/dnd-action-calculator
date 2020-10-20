@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     },
@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     },
@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     },
@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     },
@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     },
@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        gte: 0
+        min: 0
       },
       defaultValue: 0
     }
