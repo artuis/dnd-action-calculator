@@ -25,9 +25,14 @@ app.use(express.json());
 // Static directory to be served
 app.use(express.static(path.join(__dirname,"/public")));
 
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+
 // Starts the server to begin listening
 // =============================================================
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force:false}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
