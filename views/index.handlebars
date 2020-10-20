@@ -1,0 +1,42 @@
+
+<div class="paper container margin-bottom-large">
+  <div class="text-center">
+    <h1>Campaigns</h1>
+  </div>
+  
+  <div class="flex-center">
+    
+    {{#each campaigns}}
+    <div class="collapsible">
+      <input id="collapsible{{this.id}}" type="checkbox" name="collapsible">
+        <label for="collapsible{{this.id}}">{{this.name}}</label>
+          <div class="collapsible-body">
+            <h3>Characters</h3>
+            
+            <table>
+              <thead>
+                <tr>
+                  <div class="row table-header">
+                    <div class="col-6 col"><h4>Name</h4></div>
+                    <div class="col-6 col new-char text-right"><button>+ New Character</button></div>
+                  </div>
+                </tr>
+
+              </thead>
+              <tbody>
+              {{#each this.characters}}
+              <tr>
+                <td class="name">{{this.name}}</td>
+                <td class="text-right"><button>View</button></td>
+                <td class="text-right"><button>Update</button></td>
+                <td class="text-right"><button>Action</button></td></d>
+              </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+    </div>
+    {{/each}}
+  </div>
+  
+</div>
