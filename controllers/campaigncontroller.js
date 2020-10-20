@@ -20,6 +20,14 @@ router.get('/:id',function(req,res){
     }).catch(err => res.sendStatus(500))
 })
 
+router.get('/:id/characters',function(req,res){
+    db.Campaign.findByPk(req.params.id).then(data =>
+    
+    data.getCharacters().then(chars=>{
+        res.status(200).json(chars);
+    }).catch(err => res.sendStatus(500)))
+  })
+
 router.post('/',function(req,res){
     db.Campaign.create(req.body).then(data => {
         res.status(200).json(data)
@@ -36,6 +44,13 @@ router.put('/',function(req,res){
         console.log(err)
         res.status(500).json(err);
     })
+})
+
+router.put('/:id/characters', function (req, res) {
+    db.Character.findByPk(req.body.id).then(char =>
+        db.Campaign.findByPk(req.params.id).then(campaign => campaign.addSpell(char)).then(result => {
+            res.status(200).json(result);
+        }).catch(err => res.sendStatus(500)))
 })
 
 router.delete('/:id',function(req,res){
