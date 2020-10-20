@@ -23,12 +23,16 @@ app.use(express.json());
 
 
 // Static directory to be served
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static("public"));
 
 var exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// Routes
+// =============================================================
+require("./controllers/apiroutes.js")(app);
+require("./controllers/htmlroutes.js")(app);
 // Routing
 const weaponRoutes = require("./controllers/weaponcontroller");
 app.use("/api/weapons",weaponRoutes);
@@ -55,6 +59,6 @@ app.use("/api/characters",characterRoutes);
 // =============================================================
 db.sequelize.sync({force:false}).then(function() {
   app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+    console.log("App listening on http://localhost:" + PORT);
   });
 });
