@@ -31,7 +31,7 @@ app.set('view engine', 'handlebars');
 
 // Routes
 // =============================================================
-require("./controllers/apiroutes.js")(app);
+require('./controllers/apiroutes')(app);
 require("./controllers/htmlroutes.js")(app);
 // Routing
 const weaponRoutes = require("./controllers/weaponcontroller");
