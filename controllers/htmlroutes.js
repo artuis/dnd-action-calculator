@@ -18,4 +18,8 @@ module.exports = function(app) {
         console.log("GET account page")
         res.render("account");
     });
+    app.post("/account", (req, res) => {
+        console.log(req.body)
+        res.json(req.body)
+    });
 }
