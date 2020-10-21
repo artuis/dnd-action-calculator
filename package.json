@@ -25,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/artuis/dnd-action-calculator/issues"
   },
-  "homepage": "https://github.com/artuis/dnd-action-calculator#readme"
+  "homepage": "https://github.com/artuis/dnd-action-calculator#readme",
+  "keywords": []
 }
