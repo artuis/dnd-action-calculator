@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    playerName: {
+    player_name: {
       type:DataTypes.STRING,
     },
     experience: {
