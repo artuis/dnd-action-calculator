@@ -2,11 +2,26 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models")
 
-//may not be right
 router.get('/',function(req,res){
     db.Account.findAll({}).then(data=>{
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))
+})
+
+router.get('/:id/characters',function(req,res){
+  db.Account.findByPk(req.params.id).then(data =>
+  
+  data.getCharacters().then(chars=>{
+      res.status(200).json(chars);
+  }).catch(err => res.sendStatus(500)))
+})
+
+router.get('/:id/campaigns',function(req,res){
+  db.Account.findByPk(req.params.id).then(data =>
+  
+  data.getCampaigns().then(camps=>{
+      res.status(200).json(camps);
+  }).catch(err => res.sendStatus(500)))
 })
 
 router.post('/',function(req,res){
