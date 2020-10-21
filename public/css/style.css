@@ -10,8 +10,26 @@ th {
     width: 65%;
 }
 
-.new {
-    width: 40vw;
+
+/* .new-character-modal {
+  width: 50vw;
+} */
+
+.new-character-modal .stat {
+  width: 70%;
+}
+
+.new-character-modal .basic-info input {
+  margin: 0 auto;
+}
+
+.new-character-modal .stat[type="text"]{
+  font-size: 2em;
+  text-align: center;
+}
+
+#save-character {
+  margin: 0 auto;
 }
 
 #campaignName {
@@ -32,9 +50,10 @@ th {
     margin-right: 30px;
 }
 
-.collapsible .new-char {
+.collapsible .new-char-btn {
+    border-bottom-color: var(--primary);
+    border-width: 2px;
     font-weight: normal;
-    border-bottom-width: 1px;
 }
 
 .table-header {
