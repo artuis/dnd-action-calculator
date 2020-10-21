@@ -27,9 +27,9 @@
               {{#each this.characters}}
               <tr>
                 <td class="name">{{this.name}}</td>
-                <td class="text-right"><button>View</button></td>
-                <td class="text-right"><button>Update</button></td>
-                <td class="text-right"><button>Action</button></td>
+                <td class="text-right"><button id="view{{this.id}}">View</button></td>
+                <td class="text-right"><button id="update{{this.id}}">Update</button></td>
+                <td class="text-right"><button id="action{{this.id}}">Action</button></td>
               </tr>
               {{/each}}
               </tbody>
