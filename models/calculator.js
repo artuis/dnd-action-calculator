@@ -1,27 +1,28 @@
-// module.exports = function(sequelize, DataTypes) {
-//     var Calculator = sequelize.define("Calculator", {
-//       name: {
-//         type: DataTypes.STRING,
-//         allowNull: false,
-//         validate: {
-//           len: [1]
-//         }
-//       }
-//     });
+module.exports = function(sequelize, DataTypes) {
+    var Calculator = sequelize.define("Calculator", {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [1]
+        }
+      },
+      body: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        len: [1]
+      }
+    });
   
-//     Calculator.associate = function(models) {
+    Calculator.associate = function(models) {
       
-//       Calculator(models.Character, {
-//         through: 'CalculatorCharacters'
-//       });
+      Calculator.belongsTo(models.Campaign, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    };
   
-//       Calculator.belongsTo(models.Account, {
-//         foreignKey: {
-//           allowNull: false
-//         }
-//       })
-  
-//     };
-//     return Calculator;
-//   };
+    return Calculator;
+  };
   
