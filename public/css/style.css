@@ -10,13 +10,21 @@ th {
     width: 65%;
 }
 
+.new-character-modal .col label {
+  text-align: center;
+}
 
-/* .new-character-modal {
-  width: 50vw;
-} */
+.new-character-modal .col input{
+  margin: 0 auto;
+}
+
+.new-character-modal .hp {
+  width: 160px;
+  margin: 0 auto;
+}
 
 .new-character-modal .stat {
-  width: 70%;
+  width: 80px;
 }
 
 .new-character-modal .basic-info input {
@@ -27,6 +35,7 @@ th {
   font-size: 2em;
   text-align: center;
 }
+
 
 #save-character {
   margin: 0 auto;
