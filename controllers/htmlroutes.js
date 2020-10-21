@@ -14,4 +14,8 @@ module.exports = function(app) {
         console.log("GET login page")
         res.render("login");
     });
+    app.get("/account", (req, res) => {
+        console.log("GET account page")
+        res.render("account");
+    });
 }

@@ -94,3 +94,8 @@ h4 {
  .container form .btn:hover{
    opacity: .7;
  } */
+
+  .login-buttons {
+   display: inline-flex
+   
+ }; 
