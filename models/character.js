@@ -7,6 +7,9 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    playerName: {
+      type:DataTypes.STRING,
+    },
     experience: {
       type: DataTypes.INTEGER
     },
