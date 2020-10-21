@@ -10,7 +10,7 @@
   <input class="modal-state" id="campaignModal" type="checkbox">
   <div class="modal">
       <label class="modal-bg" for="campaignModal"></label>
-        <div class="modal-body text-center new">
+        <div class="modal-body text-center paper container container-xs">
           <label class="btn-close" for="campaignModal">X</label>
           <h4 class="modal-title">Campaign Name</h4>
           <h5 class="modal-subtitle">Name your new campaign!</h5>
@@ -24,11 +24,73 @@
   <input class="modal-state" id="characterModal" type="checkbox">
     <div class="modal">
         <label class="modal-bg" for="characterModal"></label>
-          <div class="modal-body text-center new">
+          <div class="modal-body paper container text-center new-character-modal">
             <label class="btn-close" for="characterModal">X</label>
             <h4 class="modal-title">Add a new Character</h4>
             <div class="form-group">
-              <input type="text" placeholder="" class="characterName" id="characterName">
+
+              <div class="row">
+                
+                <div class="col-2 col">
+                  <div class="row">
+                    <label for="str">Strength</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="str">
+                  </div>
+
+                  <div class="row">
+                    <label for="dex">Dexterity</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="dex">
+                  </div>
+
+                  <div class="row">
+                    <label for="con">Constitution</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="con">
+                  </div>
+
+                  <div class="row">
+                    <label for="wis">Wisdom</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="wis">
+                  </div>
+
+                  <div class="row">
+                    <label for="int">Intelligence</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="int">
+                  </div>
+
+                  <div class="row">
+                    <label for="cha">Charisma</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="cha" min="0">
+                  </div>
+          
+                </div>
+
+                <div class="col-10">
+                  <div class="row">
+                    <div class="col-4 col basic-info">
+                      <label for="characterName">Character Name</label>
+                      <input type="text" placeholder="" class="" id="characterName">
+                      <label for="playerName">Player Name</label>
+                      <input type="text" placeholder="" class="" id="playerName">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Race</label>
+                      <input type="text" placeholder="" class="" id="race">
+                      <label for="level">Level</label>
+                      <input type="text" placeholder="" class="" id="level">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Class</label>
+                      <input type="text" placeholder="" class="" id="class">
+                      <label for="exp">Experience Points</label>
+                      <input type="text" placeholder="" class="" id="exp">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
             <label class="paper-btn margin" id="saveCharacter"for="characterModal">Save</label>
           </div>
@@ -52,7 +114,7 @@
                 <tr>
                   <div class="row table-header">
                     <div class="col-6 col"><h4>Name</h4></div>
-                    <div class="col-6 col text-right"><label id="{{this.id}}" class="paper-btn margin new-char" for="characterModal">+ New Character</label></div>
+                    <div class="col-6 col text-right"><label id="{{this.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
                   </div>
                 </tr>
 
