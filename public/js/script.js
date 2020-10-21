@@ -18,7 +18,9 @@ $(document).ready(function() {
       )
     });
   
-    
+    $("#save-character").click(() => {
+      console.log("hello");
+    })
   
   
   
