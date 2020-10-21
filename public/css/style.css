@@ -10,18 +10,31 @@ th {
     width: 65%;
 }
 
+.new {
+    width: 40vw;
+}
+
+#campaignName {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.characterName {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
 .name-head {
     display: inline-block;
     vertical-align: middle;
 }
+.new-camp {
+    margin-right: 30px;
+}
 
-.new-char {
-    padding-right: 8px !important;
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+.collapsible .new-char {
+    font-weight: normal;
+    border-bottom-width: 1px;
 }
 
 .table-header {
@@ -29,7 +42,7 @@ th {
 }
 
 h3 {
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 
 h4 {
@@ -94,3 +107,8 @@ h4 {
  .container form .btn:hover{
    opacity: .7;
  } */
+
+  .login-buttons {
+   display: inline-flex
+   
+ }; 
