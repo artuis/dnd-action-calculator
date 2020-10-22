@@ -41,7 +41,7 @@ th {
   margin: 0 auto;
 }
 
-#campaignName {
+#campaign-name {
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -142,5 +142,9 @@ h4 {
 
  .text-title {
    justify-content: space-around;
-   text-decoration: none;
+   
  }
+ .account-heading {
+  justify-content: space-around;
+  
+}
