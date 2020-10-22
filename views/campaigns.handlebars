@@ -66,11 +66,12 @@
 
                 <div class="col-10">
                   <div class="row">
+                    
                     <div class="col-4 col basic-info">
                       <label for="characterName">Character Name</label>
-                      <input type="text" placeholder="" class="" id="characterName">
-                      <label for="playerName">Player Name</label>
-                      <input type="text" placeholder="" class="" id="playerName">
+                      <input type="text" placeholder="" class="" id="character-name">
+                      <label for="characterName">Player Name</label>
+                      <input type="text" placeholder="" class="" id="player-name">
                     </div>
 
                     <div class="col-4 col basic-info">
@@ -86,13 +87,40 @@
                       <label for="exp">Experience Points</label>
                       <input type="text" placeholder="" class="" id="exp">
                     </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-8 col">
+                      <div class="row">
+                        <div class="col-4 col">
+                          <label for="ac">Armor Class</label>
+                          <input type="text" placeholder="10" maxlength="2" class="stat" id="ac" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="init">Initiative</label>
+                          <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="spd">Speed</label>
+                          <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col">
+                          <label for="spd">Hit Points</label>
+                          <input type="text" placeholder="" class="hp" id="hp" min="0">
+                        </div>
+                      </div>
+                    </div>
+                    
                   </div>
                 </div>
 
               </div>
 
             </div>
-            <label class="paper-btn margin" id="saveCharacter"for="characterModal">Save</label>
+            <label class="paper-btn margin" id="save-character"for="characterModal">Save</label>
           </div>
     </div>
 
