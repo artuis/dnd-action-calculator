@@ -13,7 +13,7 @@ $(document).ready(function() {
         
       };
       $.post("/account", newUser, data => {
-          
+        console.log(data)
           }
       )
     });
@@ -53,13 +53,27 @@ const modifier = (stat) => {
   Math.floor((stat - 10) / 2)
 }
 
-  $(".delete").click(function() {
+$(".delete").click(function() {
+  console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
+  $(this).closest("tr").remove();
+})
 
-    console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
-    $(this).closest("tr").remove();
-  })
+$("#login-btn").click(() => {
+  location.href = "/login";
+})
+
+$("#create-btn").click(() => {
+  location.href = "/account";
+})
 });
-
-
-
-
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
