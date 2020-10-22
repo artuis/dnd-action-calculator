@@ -10,6 +10,10 @@ module.exports = function(app) {
         console.log("GET campaign page")
         res.render("campaigns", { campaigns: data });
     });
+    app.get("/index", (req, res) => {
+        console.log("GET index page")
+        res.render("index");
+    });
     app.get("/login", (req, res) => {
         console.log("GET login page")
         res.render("login");

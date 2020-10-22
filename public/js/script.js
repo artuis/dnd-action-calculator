@@ -13,7 +13,7 @@ $(document).ready(function() {
         
       };
       $.post("/account", newUser, data => {
-          
+        console.log(data)
           }
       )
     });
@@ -22,8 +22,13 @@ $(document).ready(function() {
       console.log("hello");
     })
   
+    $("#login-btn").click(() => {
+      location.href = "/login";
+    })
   
-  
+    $("#create-btn").click(() => {
+      location.href = "/account";
+    })
   
   
   
