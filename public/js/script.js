@@ -38,10 +38,15 @@ $(document).ready(function() {
         arnor_class : parseInt($("#ac").val().trim()),
         shield : false
       }
+      console.log("hello there")
 
-      $.post("/api/characters", newChar, data => {
-        console.log(data);
-      })
+      // $.post("/api/characters", newChar, data => {
+      //   console.log(data);
+      // })
+    })
+
+    $("#save-campaign").click(() => {
+      console.log("save campaign");
     })
   
   
