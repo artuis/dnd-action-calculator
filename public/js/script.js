@@ -48,21 +48,18 @@ $(document).ready(function() {
     $("#save-campaign").click(() => {
       console.log("save campaign");
     })
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  });
-
-// converts ability score to modifier
+  // converts ability score to modifier
 const modifier = (stat) => {
-    Math.floor((stat - 10) / 2)
+  Math.floor((stat - 10) / 2)
 }
+
+  $(".delete").click(function() {
+
+    console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
+    $(this).closest("tr").remove();
+  })
+});
+
+
+
+
