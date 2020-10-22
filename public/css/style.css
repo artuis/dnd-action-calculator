@@ -136,7 +136,11 @@ h4 {
    opacity: .7;
  } */
 
-  .login-buttons {
-   display: inline-flex
-   
- }; 
+ .main-btn {
+  padding-left: 280px;
+ }
+
+ .text-title {
+   justify-content: space-around;
+   text-decoration: none;
+ }
