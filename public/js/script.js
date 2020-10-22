@@ -21,16 +21,11 @@ $(document).ready(function() {
     $("#save-character").click(() => {
       console.log("hello");
     })
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  });
+
+    $(".delete").click(function() {
+
+      console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
+      $(this).closest("tr").remove();
+    })
+
+});
