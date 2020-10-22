@@ -13,7 +13,7 @@ $(document).ready(function() {
         
       };
       $.post("/account", newUser, data => {
-          
+        console.log(data)
           }
       )
     });
@@ -21,11 +21,21 @@ $(document).ready(function() {
     $("#save-character").click(() => {
       console.log("hello");
     })
-
-    $(".delete").click(function() {
-
-      console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
-      $(this).closest("tr").remove();
+  
+    $("#login-btn").click(() => {
+      location.href = "/login";
     })
-
-});
+  
+    $("#create-btn").click(() => {
+      location.href = "/account";
+    })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  });
