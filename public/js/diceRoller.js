@@ -1,67 +1,198 @@
+const tokenPattern = /\d*[dD]\d+((([+-]\d*[hHlL])|([+-]\d+))(?!d))*/g
+
+const calculate = expr => {
+  expr = format2(expr)
+  const tokens = [...expr.matchAll(tokenPattern)];
+  let result = {};
+  result.subResults = [];
+  result.total = 0;
+  for(let i = 0; i < tokens.length; i++) {
+    let subResult = eval(reOrder(tokens[i][0]));
+    result.subResults.push(subResult);
+    result.total+=subResult.total;
+  }
+  return result;
+}
+
+const eval = token => {
+  // console.log(token)
+  const dicePattern = /\d+d\d+([+-]\d+[HL])*/;
+  const numPattern = /\d+/g
+  const opPattern = /[+-]/g
+  const roll = token.match(dicePattern)[0];
+  const remainder = token.split(dicePattern)[2];
+  // console.log(remainder)
+  const result = rollDice(roll);
+  const vals = remainder.split(opPattern);
+  const ops = remainder.split(numPattern);
+  // console.log(vals)
+  // console.log(ops)
+  let sum = 0;
+  for(let i = 0; i < vals.length-1; i++) {
+    if(ops[i] === "+") sum+=parseInt(vals[i+1])
+    else sum-=parseInt(vals[i+1])
+  }
+  result.modifier = sum;
+  result.total = result.rollSum + sum;
+  // console.log(JSON.stringify(result))
+  return result;
+}
+
 const rollDice = (roll) => {
-  if(!/\d/.test(roll[0])) roll = 1 + roll;
-  const op = roll.split(/\d+/)[2];
-  const tokens = roll.split(/[d+-]/)
-  const rolls = []
-  let sum = 0;
-  for (let j = 0; j < tokens[0]; j++) {
-    const max = parseInt(tokens[1]);
-    const num = Math.floor(Math.random() * max) + 1;
-    rolls.push(num);
-    sum+=num;
+  //roll is of form adb+/-cH+/-dL
+  const result = {};
+  result.expression = roll;
+  let a,b,c,d;
+  const terms = roll.split(/[+-]/);
+  const ops = roll.split(/[^-+]+/);
+  // console.log(terms);
+  const rollParams = terms[0].split(/d/)
+  a = rollParams[0];
+  b = rollParams[1];
+  c = terms.length > 1 ? terms[1].substring(0,terms[1].length-1) : 0;
+  d = terms.length > 2 ? terms[2].substring(0,terms[2].length-1) : 0;
+  // console.log(`a: ${a}, b: ${b}, c: ${c}, d: ${d}`);
+  result.rawRolls = [];
+  //handle the rolls
+  for (let i = 0; i < a; i++) {
+    const num = Math.floor(Math.random() * b) + 1;
+    result.rawRolls.push(num);
   }
-  let mod = 0
-  if(tokens.length === 3) {
-    if(tokens[2] === "l" || tokens[2] === "L") mod = rolls.reduce((a,b) => Math.min(a,b))
-    else if(tokens[2] === "h" || tokens[2] === "H") mod = rolls.reduce((a,b) => Math.max(a,b))
-    else mod = parseInt(tokens[2]);
+
+  //handle dropping rolls
+  const cOp = c != 0 ? ops[1] : "";
+  const dOp = d != 0 ? ops[2] : "";
+  const sortedRolls = [...result.rawRolls];
+  sortedRolls.sort((a,b) => a-b)
+  let rollModifier = "";
+  let firstMod = false;
+
+  if(cOp === "-") {
+    rollModifier += `Drop ${c} highest rolls`;
+    firstMod = true;
+    let num = 0;
+    for(let i = sortedRolls.length-1; i >= 0 && num < c; i--) {
+      sortedRolls[i] = 0;
+      num++;
+    }
   }
-  mod = op==="+" ? mod : -mod;
-  rolls.push(mod)
-  const total = sum + mod;
-  rolls.push(total);
-  return rolls;
+  if(cOp === "+") {
+    rollModifier += `Keep ${c} highest rolls`;
+    firstMod = true;
+    if(c < sortedRolls.length) {
+      let num = 0;
+      for(let i = 0; i < sortedRolls.length && num < sortedRolls.length-c; i++) {
+        sortedRolls[i] = 0;
+        num++;
+      }
+    }
+  }
+
+  if(dOp !== "" && firstMod) rollModifier += " and " 
+
+  if(dOp === "-") {
+    rollModifier += `Drop ${d} lowest rolls`;
+    firstMod = true;
+    let num = 0;
+    for(let i = 0; i < sortedRolls.length && num < d; i++) {
+      sortedRolls[i] = 0;
+      num++;
+    }
+  }
+  if(dOp === "+") {
+    rollModifier += `Keep ${d} lowest rolls`;
+    firstMod = true;
+    if(d < sortedRolls.length) {
+      let num = 0;
+      for(let i = sortedRolls.length-1; i >= 0 && num < sortedRolls.length-d; i--) {
+        sortedRolls[i] = 0;
+        num++;
+      }
+    }
+  }
+
+  const moddedRolls = sortedRolls.filter(e => e!=0);
+  result.keptRolls = moddedRolls.length < result.rawRolls.length ? moddedRolls : result.rawRolls;
+  result.rollModifier = rollModifier
+  result.rollSum = moddedRolls.reduce((a,b) => a+b,0);
+
+  return result;
 }
 
-const rollDie = expr => {
-  if(expr.match(exprPattern) === null || expr.match(exprPattern)[0] != expr) {
-    console.log("bad expression")
-    return;
-  }
-  expr = format(expr);
-  const temp = expr.split(rollPattern);
-  let ops = [];
-  for(let i = 3; i < temp.length-1; i+=3) {
-    ops.push(temp[i]);
-  }
-  const tokens = Array.from(rollPattern[Symbol.matchAll](expr),x=>x[0]);
-  let sum = 0;
-  const rolls = [];
-  rolls.push(rollDice(tokens[0]))
-  logResult(tokens[0],rolls[0])
-  sum+=rolls[0][rolls[0].length-1];
-  for(let i = 1; i < tokens.length; i++) {
-    rolls.push(rollDice(tokens[i]));
-    if(ops[i-1] === "+") sum+=rolls[i][rolls[i].length-1];
-    else sum-=rolls[i][rolls[i].length-1];
-    logResult(tokens[i],rolls[i]);
-  }
-  console.log("Grand total: " + sum);
-  rolls.push(sum);
-  return rolls;
+//TODO convert all D to d
+const format2 = expr => {
+  expr = expr.replace(/\s+/g,"");
+  // console.log(expr)
+  const doubleOpPattern = /[+-]{2}/g
+  const diceRollPattern = /[^\d]d\d+/g
+  const modPattern = /[^\d][hlHL]/g
+  expr = expr.replace(doubleOpPattern, ops => {
+    switch(ops) {
+      case "++": 
+      case "--": return '+';
+      case "+-":
+      case "-+": return '-';
+      default: return "";
+    }
+  })
+  expr = expr.replace(diceRollPattern, match => {
+    return match[0] + "1" + match.substring(1)
+  });
+  expr = expr.replace(modPattern, match => {
+    return match[0] + "1" + match.substring(1)
+  });
+  return expr;
+  //const matches = expr.matchAll(doubleOpPattern);
+  // for (const match of matches) {
+  //   console.log(`Found ${match[0]} start=${match.index} end=${match.index + match[0].length}.`);
+  //   expr.replace()
+  // }
 }
 
-const logResult = (roll, result) => {
-  console.log("roll " + roll);
-  for(let i = 0; i < result.length-2; i++) {
-    console.log("roll " + (i+1) + ": " + result[i]);
+const getDoubleOpReplacement = ops => {
+  switch(ops) {
+    case "++": 
+    case "--": return '+';
+    case "+-":
+    case "-+": return '-';
+    default: return "";
   }
-  console.log("roll modifier: " + result[result.length-2])
-  console.log("roll total: " + result[result.length-1] + "\n\n");
+} 
+
+const reOrder = expr => {
+  // console.log(expr)
+  //combine all +-\d*[lHLh]
+  const pattern = /[+-]\d*[lLhH]/g;
+  const matches = [...expr.matchAll(pattern)]
+  let lMod = 0; hMod = 0;
+  for(let i = 0; i < matches.length; i++) {
+    const lastChar = matches[i][0][matches[i][0].length-1];
+    //console.log(lastChar)
+    if(lastChar === "l" || lastChar === "L") lMod += parseInt(matches[i])
+    else hMod += parseInt(matches[i]);
+  }
+  //console.log(`lMod=${lMod},hMod=${hMod}`);
+  //reorder
+  const values = expr.split(/[+-]/);
+  const ops = expr.split(/[^+-]+/);
+  //console.log(ops)
+  let newExpr = "";
+  newExpr += values[0];
+  if(hMod != 0){
+    if(hMod > 0) newExpr+="+";
+    newExpr += `${hMod}H`;
+  }
+  if(lMod != 0) {
+    if(lMod > 0) newExpr+="+";
+    newExpr += `${lMod}L`;
+  }
+  // console.log(values)
+  for(let i = 1; i < values.length; i++) {
+    const lastChar = values[i][values[i].length-1]
+    if(lastChar.toLowerCase() != "l" && lastChar.toLowerCase() != "h" ) {
+      newExpr += `${ops[i]}${values[i]}`;
+    }
+  }
+  // console.log(newExpr)
+  return newExpr;
 }
-
-const format = expr => expr.split(/\s+/).join("");
-
-const exprPattern = /((\s*\d*\s*d\s*\d+\s*([+-]\s*(\d+|[lLhH]))?\s*)[+-])*\s*\d*\s*d\s*\d+\s*([+-]\s*(\d+|[lLhH]))?\s*$/
-
-const rollPattern = /\d*d\d+([+-](\d+|[lLhH]))?(?=[+-]|$)/g
