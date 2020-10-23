@@ -7,7 +7,7 @@ module.exports = function(app) {
     const db = require("../models")
     app.get("/", (req, res) => {
         console.log("GET index page")
-        res.render("index");
+        res.render("index",{user:req.session.user});
     });
     app.get("/campaigns", (req, res) => {
         console.log("GET campaign page")
@@ -17,7 +17,10 @@ module.exports = function(app) {
             },
             include: db.Character
         }).then(campaigns => {
-            res.render("campaigns", { campaigns: campaigns });
+            res.render("campaigns", { 
+                campaigns: campaigns,
+                user: req.session.user 
+            });
         }).catch(err => res.sendStatus(500));
     });
     
