@@ -17,10 +17,18 @@ module.exports = function(app) {
             },
             include: db.Character
         }).then(campaigns => {
-            res.render("campaigns", { 
-                campaigns: campaigns,
-                user: req.session.user 
-            });
+            db.Character.findAll({
+                where: {
+                    AccountId: req.session.user.id,
+                },
+            }).then (characters => {
+                res.render("campaigns", { 
+                    campaigns: campaigns,
+                    characters: characters,
+                    user: req.session.user 
+                });
+            })
+            
         }).catch(err => res.sendStatus(500));
     });
     
