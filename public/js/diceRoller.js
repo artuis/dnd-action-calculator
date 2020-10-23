@@ -1,8 +1,9 @@
-const tokenPattern = /\d*[dD]\d+((([+-]\d*[hHlL])|([+-]\d+))(?!d))*/g
+// console.log("diceRoller is linked");
+var tokenPattern = /\d*[dD]\d+((([+-]\d*[hHlL])|([+-]\d+))(?!d))*/g
 
-const calculate = expr => {
+var calculate = expr => {
   expr = format2(expr)
-  const tokens = [...expr.matchAll(tokenPattern)];
+  let tokens = [...expr.matchAll(tokenPattern)];
   let result = {};
   result.subResults = [];
   result.total = 0;
@@ -14,7 +15,7 @@ const calculate = expr => {
   return result;
 }
 
-const eval = token => {
+var eval = token => {
   console.log(token)
   const dicePattern = /\d+d\d+([+-]\d+[HL])*/;
   const numPattern = /\d+/g
@@ -34,7 +35,7 @@ const eval = token => {
   return result;
 }
 
-const rollDice = (roll) => {
+var rollDice = (roll) => {
   //roll is of form adb+/-cH+/-dL
   const result = {};
   result.expression = roll;
@@ -133,11 +134,11 @@ const rollDice = (roll) => {
 }
 
 //TODO convert all D to d
-const format2 = expr => {
+var format2 = expr => {
   expr = expr.replace(/\s+/g,"");
-  const doubleOpPattern = /[+-]{2}/g
-  const diceRollPattern = /(^|[^\d])d\d+/g
-  const modPattern = /[^\d][hlHL]/g
+  var doubleOpPattern = /[+-]{2}/g
+  var diceRollPattern = /(^|[^\d])d\d+/g
+  var modPattern = /[^\d][hlHL]/g
   expr = expr.replace(doubleOpPattern, ops => {
     switch(ops) {
       case "++": 
@@ -158,7 +159,7 @@ const format2 = expr => {
   return expr;
 }
 
-const getDoubleOpReplacement = ops => {
+var getDoubleOpReplacement = ops => {
   switch(ops) {
     case "++": 
     case "--": return '+';
@@ -168,7 +169,7 @@ const getDoubleOpReplacement = ops => {
   }
 } 
 
-const reOrder = expr => {
+var reOrder = expr => {
   //combine all
   const pattern = /[+-]\d*[lLhH]/g;
   const matches = [...expr.matchAll(pattern)]
@@ -200,3 +201,5 @@ const reOrder = expr => {
   }
   return newExpr;
 }
+
+    
