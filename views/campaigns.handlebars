@@ -142,7 +142,7 @@
                 <tr>
                   <div class="row table-header">
                     <div class="col-6 col"><h4>Name</h4></div>
-                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
+                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin char-btn" for="characterModal">+ New Character</label></div>
                   </div>
                 </tr>
 
@@ -151,9 +151,9 @@
                 {{#each this.dataValues.Characters}}
                 <tr id="character{{this.dataValues.id}}">
                   <td class="name">{{this.dataValues.name}}</td>
-                  <td class="text-right"><button id="view{{this.dataValues.id}}">View</button></td>
-                  <td class="text-right"><button id="update{{this.dataValues.id}}">Update</button></td>
-                  <td class="text-right"><button id="action{{this.dataValues.id}}">Action</button></td>
+                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn char-btn">View</label></td>
+                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn char-btn">Update</label></td>
+                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn char-btn">Action</label></td>
                   <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
                 </tr>
               {{/each}}
@@ -163,6 +163,30 @@
     </div>
     {{/each}}
   </div>
-  
+  <div class="text-center">
+    <h1>Characters</h1>
+  </div>
+     <table id="all-char-table">
+              <thead>
+                <tr>
+                  <div class="row table-header">
+                    <div class="col-6 col"><h4>Name</h4></div>
+                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
+                  </div>
+                </tr>
+
+              </thead>
+              <tbody>
+                {{#each characters}}
+                <tr id="character{{this.dataValues.id}}">
+                  <td class="name">{{this.dataValues.name}}</td>
+                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn">View</label></td>
+                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn">Update</label></td>
+                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn">Action</label></td>
+                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
 </div>
 

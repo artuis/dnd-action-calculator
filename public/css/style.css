@@ -10,6 +10,7 @@ th {
     width: 65%;
 }
 
+
 .new-character-modal .col label {
   text-align: center;
 }
@@ -59,7 +60,7 @@ th {
     margin-right: 30px;
 }
 
-.collapsible .new-char-btn {
+.collapsible .char-btn {
     border-bottom-color: var(--primary);
     border-width: 2px;
     font-weight: normal;
