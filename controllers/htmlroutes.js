@@ -13,7 +13,7 @@ module.exports = function(app) {
         console.log("GET campaign page")
         db.Campaign.findAll({
             where: {
-                AccountId: 1,
+                AccountId: req.session.user.id,
             },
             include: db.Character
         }).then(campaigns => {
