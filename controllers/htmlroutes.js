@@ -7,7 +7,7 @@ module.exports = function(app) {
     const db = require("../models")
     app.get("/", (req, res) => {
         console.log("GET index page")
-        res.render("index");
+        res.render("index",{user:req.session.user});
     });
     app.get("/campaigns", (req, res) => {
         console.log("GET campaign page")
@@ -22,8 +22,13 @@ module.exports = function(app) {
                     AccountId: req.session.user.id,
                 },
             }).then (characters => {
-                res.render("campaigns", { campaigns: campaigns, characters: characters });
+                res.render("campaigns", { 
+                    campaigns: campaigns,
+                    characters: characters,
+                    user: req.session.user 
+                });
             })
+            
         }).catch(err => res.sendStatus(500));
     });
     
