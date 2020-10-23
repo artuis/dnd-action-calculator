@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../models")
+const db = require("../models");
+const bcrypt = require("bcrypt")
 
 router.get('/',function(req,res){
     db.Account.findAll({}).then(data=>{
@@ -24,13 +25,49 @@ router.get('/:id/campaigns',function(req,res){
   }).catch(err => res.sendStatus(500)))
 })
 
-router.post('/',function(req,res){
-    db.Account.create(req.body).then(data => {
-        res.status(200).json(data)
+router.post('/signup',function(req,res){
+    db.Account.create(req.body).then(newAccount => {
+        req.session.user = {
+            email: newAccount.email,
+            id: newAccount.id
+        }
+        res.redirect("/account")
     }).catch(err=>{
         console.log(err)
         res.status(500).json(err);
     })
+})
+
+router.post('/login',function(req,res){
+    db.Account.findOne({
+        where: {email: req.body.email}
+    }).then(acc => {
+        //check if user entered pass matches db pass
+        if(!acc) {
+            req.session.destroy();
+            return res.status(401).send('incorrect email or password')
+        }
+        else if(bcrypt.compareSync(req.body.password, acc.password)) {
+            req.session.user = {
+                email: acc.email,
+                id:acc.id
+            }
+            return res.redirect('/account')
+        }
+        else {
+            req.session.destroy();
+            return res.status(401).send('incorrect email or password')
+        }
+    })
+})
+
+router.get("/logout", (req,res) => {
+    req.session.destroy();
+    res.send('logged out');
+})
+
+router.get("/sessiondata", (req,res) => {
+    res.json(req.session);
 })
 
 router.put('/',function(req,res){
