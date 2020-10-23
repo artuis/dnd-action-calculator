@@ -4,7 +4,7 @@ const db = require("../models")
 
 //may not be right
 router.get('/', function (req, res) {
-    db.Class.findAll({}).then(data => {
+    db.Class.findAll({include:db.Spell}).then(data => {
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))
 })
