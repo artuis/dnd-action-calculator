@@ -41,7 +41,7 @@ th {
   margin: 0 auto;
 }
 
-#campaignName {
+#campaign-name {
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -136,7 +136,15 @@ h4 {
    opacity: .7;
  } */
 
-  .login-buttons {
-   display: inline-flex
+ .main-btn {
+  padding-left: 280px;
+ }
+
+ .text-title {
+   justify-content: space-around;
    
- }; 
+ }
+ .account-heading {
+  justify-content: space-around;
+  
+}
