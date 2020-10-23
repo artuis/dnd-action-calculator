@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'dndcompanionapp@gmail.com',
-    pass: 'Nodemail20'
+    pass: 'Nodemail20' 
   }
 });
 
