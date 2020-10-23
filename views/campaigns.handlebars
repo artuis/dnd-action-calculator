@@ -90,6 +90,8 @@
 
                   </div>
 
+                  
+
                   <div class="row">
                     <div class="col-8 col">
                       <div class="row">
@@ -108,7 +110,7 @@
                       </div>
                       <div class="row">
                         <div class="col-12 col">
-                          <label for="spd">Hit Points</label>
+                          <label for="spd">Current Hit Points</label>
                           <input type="text" placeholder="" class="hp" id="hp" min="0">
                         </div>
                       </div>
@@ -121,6 +123,117 @@
 
             </div>
             <label class="paper-btn margin" id="save-character"for="characterModal">Save</label>
+          </div>
+    </div>
+
+    <input class="modal-state" id="updateModal" type="checkbox">
+    <div class="modal">
+        <label class="modal-bg" for="updateModal"></label>
+          <div class="modal-body paper container text-center new-character-modal">
+            <label class="btn-close" for="updateModal">X</label>
+            <h4 class="modal-title">Update a Character</h4>
+            <div class="form-group">
+
+              <div class="row">
+                
+                <div class="col-2 col">
+                  <div class="row">
+                    <label for="str">Strength</label>
+                    <input type="text" maxlength="2" class="stat" id="new-str">
+                  </div>
+
+                  <div class="row">
+                    <label for="dex">Dexterity</label>
+                    <input type="text" maxlength="2" class="stat" id="new-dex">
+                  </div>
+
+                  <div class="row">
+                    <label for="con">Constitution</label>
+                    <input type="text" maxlength="2" class="stat" id="new-con">
+                  </div>
+
+                  <div class="row">
+                    <label for="wis">Wisdom</label>
+                    <input type="text" maxlength="2" class="stat" id="new-wis">
+                  </div>
+
+                  <div class="row">
+                    <label for="int">Intelligence</label>
+                    <input type="text" maxlength="2" class="stat" id="new-int">
+                  </div>
+
+                  <div class="row">
+                    <label for="cha">Charisma</label>
+                    <input type="text" maxlength="2" class="stat" id="new-cha" min="0">
+                  </div>
+          
+                </div>
+
+                <div class="col-10">
+                  <div class="row">
+                    
+                    <div class="col-4 col basic-info">
+                      <label for="characterName">Character Name</label>
+                      <input type="text" class="" id="new-character-name">
+                      <label for="characterName">Player Name</label>
+                      <input type="text" class="" id="new-player-name">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Race</label>
+                      <input type="text" class="" id="new-race">
+                      <label for="level">Level</label>
+                      <input type="text" class="" id="new-level">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Class</label>
+                      <input type="text" class="" id="new-class">
+                      <label for="exp">Experience Points</label>
+                      <input type="text" class="" id="new-exp">
+                    </div>
+
+                  </div>
+
+                  
+
+                  <div class="row">
+                    <div class="col-8 col">
+                      <div class="row">
+                        <div class="col-4 col">
+                          <label for="ac">Armor Class</label>
+                          <input type="text"  maxlength="2" class="stat" id="new-ac" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="init">Initiative</label>
+                          <input type="text" maxlength="2" class="stat" id="new-init" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="spd">Speed</label>
+                          <input type="text" maxlength="2" class="stat" id="new-spd" min="0">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col">
+                          <div class="col-12 col">
+                          <label for="hp">Maximum Hit Points</label>
+                          <input type="text" class="hp" id="maxhp" readonly>
+                          <label for="hp">Current Hit Points</label>
+                          <input type="text" class="hp" id="currhp" min="0">
+                          <label for="hp">Temporary Hit Points</label>
+                          <input type="text" class="hp" id="temphp" min="0">
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <label class="paper-btn margin" id="update-character"for="updateModal">Save</label>
           </div>
     </div>
 
@@ -181,7 +294,7 @@
                 <tr id="character{{this.dataValues.id}}">
                   <td class="name">{{this.dataValues.name}}</td>
                   <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn">View</label></td>
-                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn">Update</label></td>
+                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn" for="updateModal">Update</label></td>
                   <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn">Action</label></td>
                   <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
                 </tr>

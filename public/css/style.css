@@ -16,7 +16,7 @@ th {
 
 
 .new-character-modal .col label {
-  text-align: center;
+  margin: 0 auto;
 }
 
 .new-character-modal .col input{
