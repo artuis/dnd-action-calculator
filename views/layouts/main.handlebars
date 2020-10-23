@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-        <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.css" type="text/css" />
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="js/script.js"></script>
-		<script src="js/diceRoller.js"></script>
-		<title>D&amp;D Campaign Manager &amp; Calculator</title>
-	</head>
-	<body>
-		{{{ body }}}
-	</body>
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.css" type="text/css" />
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/diceRoller.js"></script>
+	<title>D&amp;D Campaign Manager &amp; Calculator</title>
+</head>
+
+<body>
+
+	<nav class="border fixed split-nav">
+		<div class="nav-brand">
+			<h3><a href="/">D&amp;D Character Manager</a></h3>
+		</div>
+		<div class="collapsible">
+			<input id="collapsible1" type="checkbox" name="collapsible1">
+			<label for="collapsible1">
+				<div class="bar1"></div>
+				<div class="bar2"></div>
+				<div class="bar3"></div>
+			</label>
+			<div class="collapsible-body">
+				<ul class="inline">
+					{{#if user}}
+					<li><span>Welcome, {{user.email}}</span></li>
+					<li><a href="/campaigns">Profile</a></li>
+					<li><a href="/api/accounts/logout">Logout</a></li>
+					{{/if}}
+					{{#unless user}}
+					<li><a href="/login">Login</a></li>
+					<li><a href="/account">Signup</a></li>
+					{{/unless}}
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	{{{ body }}}
+</body>
+
 </html>
