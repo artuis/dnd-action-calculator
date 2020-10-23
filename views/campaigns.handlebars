@@ -1,0 +1,192 @@
+
+<div class="paper container">
+  <div class="text-center">
+    <h1>Campaigns</h1>
+  </div>
+  <div class="text-right">
+    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+  </div>
+
+  <input class="modal-state" id="campaignModal" type="checkbox">
+  <div class="modal">
+      <label class="modal-bg" for="campaignModal"></label>
+        <div class="modal-body text-center paper container container-xs">
+          <label class="btn-close" for="campaignModal">X</label>
+          <h4 class="modal-title">Campaign Name</h4>
+          <h5 class="modal-subtitle">Name your new campaign!</h5>
+          <div class="form-group">
+            <input type="text" placeholder="" id="campaign-name">
+          </div>
+          <label class="paper-btn margin" id="save-campaign"for="campaignModal">Save</label>
+        </div>
+  </div>
+
+  <input class="modal-state" id="characterModal" type="checkbox">
+    <div class="modal">
+        <label class="modal-bg" for="characterModal"></label>
+          <div class="modal-body paper container text-center new-character-modal">
+            <label class="btn-close" for="characterModal">X</label>
+            <h4 class="modal-title">Add a new Character</h4>
+            <div class="form-group">
+
+              <div class="row">
+                
+                <div class="col-2 col">
+                  <div class="row">
+                    <label for="str">Strength</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="str">
+                  </div>
+
+                  <div class="row">
+                    <label for="dex">Dexterity</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="dex">
+                  </div>
+
+                  <div class="row">
+                    <label for="con">Constitution</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="con">
+                  </div>
+
+                  <div class="row">
+                    <label for="wis">Wisdom</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="wis">
+                  </div>
+
+                  <div class="row">
+                    <label for="int">Intelligence</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="int">
+                  </div>
+
+                  <div class="row">
+                    <label for="cha">Charisma</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="cha" min="0">
+                  </div>
+          
+                </div>
+
+                <div class="col-10">
+                  <div class="row">
+                    
+                    <div class="col-4 col basic-info">
+                      <label for="characterName">Character Name</label>
+                      <input type="text" placeholder="" class="" id="character-name">
+                      <label for="characterName">Player Name</label>
+                      <input type="text" placeholder="" class="" id="player-name">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Race</label>
+                      <input type="text" placeholder="" class="" id="race">
+                      <label for="level">Level</label>
+                      <input type="text" placeholder="" class="" id="level">
+                    </div>
+
+                    <div class="col-4 col basic-info">
+                      <label for="race">Class</label>
+                      <input type="text" placeholder="" class="" id="class">
+                      <label for="exp">Experience Points</label>
+                      <input type="text" placeholder="" class="" id="exp">
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-8 col">
+                      <div class="row">
+                        <div class="col-4 col">
+                          <label for="ac">Armor Class</label>
+                          <input type="text" placeholder="10" maxlength="2" class="stat" id="ac" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="init">Initiative</label>
+                          <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
+                        </div>
+                        <div class="col-4 col">
+                          <label for="spd">Speed</label>
+                          <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col">
+                          <label for="spd">Hit Points</label>
+                          <input type="text" placeholder="" class="hp" id="hp" min="0">
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <label class="paper-btn margin" id="save-character"for="characterModal">Save</label>
+          </div>
+    </div>
+
+  <div class="flex-center">
+  
+    {{#each campaigns}}
+    
+
+    <div class="collapsible">
+      <input id="collapsible{{this.dataValues.id}}" type="checkbox" name="collapsible">
+        <label for="collapsible{{this.dataValues.id}}">{{this.dataValues.name}}</label>
+          <div class="collapsible-body">
+            <h3>Characters</h3>
+
+            
+
+            <table id="table{{this.dataValues.id}}">
+              <thead>
+                <tr>
+                  <div class="row table-header">
+                    <div class="col-6 col"><h4>Name</h4></div>
+                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin char-btn" for="characterModal">+ New Character</label></div>
+                  </div>
+                </tr>
+
+              </thead>
+              <tbody>
+                {{#each this.dataValues.Characters}}
+                <tr id="character{{this.dataValues.id}}">
+                  <td class="name">{{this.dataValues.name}}</td>
+                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn char-btn">View</label></td>
+                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn char-btn">Update</label></td>
+                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn char-btn">Action</label></td>
+                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+    </div>
+    {{/each}}
+  </div>
+  <div class="text-center">
+    <h1>Characters</h1>
+  </div>
+     <table id="all-char-table">
+              <thead>
+                <tr>
+                  <div class="row table-header">
+                    <div class="col-6 col"><h4>Name</h4></div>
+                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
+                  </div>
+                </tr>
+
+              </thead>
+              <tbody>
+                {{#each characters}}
+                <tr id="character{{this.dataValues.id}}">
+                  <td class="name">{{this.dataValues.name}}</td>
+                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn">View</label></td>
+                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn">Update</label></td>
+                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn">Action</label></td>
+                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+</div>
+
