@@ -59,14 +59,12 @@ $(document).ready(function() {
         hp_current : parseInt($("#hp").val().trim()),
         hp_temp : parseInt($("#hp").val().trim()),
         hp_max : parseInt($("#hp").val().trim()),
-        arnor_class : parseInt($("#ac").val().trim()),
+        armor_class : parseInt($("#ac").val().trim()),
         shield : false
       }
-      console.log("hello there")
+      console.log(newChar)
 
-      // $.post("/api/characters", newChar, data => {
-      //   console.log(data);
-      // })
+      ajaxPost("api/characters", newChar)
     })
 
     $("#save-campaign").click(() => {
