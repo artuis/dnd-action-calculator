@@ -72,8 +72,7 @@ $(document).ready(function() {
       var newCampaign = {
           name: $("#campaign-name").val()
       }
-      ajaxPost("api/campaigns", newCampaign
-      )
+      ajaxPost("api/campaigns", newCampaign)
       
       location.reload();
     })
@@ -82,18 +81,18 @@ const modifier = (stat) => {
   Math.floor((stat - 10) / 2)
 }
 
-$(".delete").click(function() {
-  console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
-  $(this).closest("tr").remove();
-})
+  $(".delete").click(function() {
+    console.log("delete " + $(this).attr("id") + " at " +  $(this).closest("table").attr("id"));
+    $(this).closest("tr").remove();
+  })
 
-$("#login-btn").click(() => {
-  location.href = "/login";
-})
+  $("#login-btn").click(() => {
+    location.href = "/login";
+  })
 
-$("#create-btn").click(() => {
-  location.href = "/account";
-})
+  $("#create-btn").click(() => {
+    location.href = "/account";
+  })
 });
   
     
