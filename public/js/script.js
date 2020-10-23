@@ -77,7 +77,7 @@ $(document).ready(function() {
       ajaxPost("api/campaigns", newCampaign
       )
       
-      $("#campaign-name").val("");
+      location.reload();
     })
   // converts ability score to modifier
 const modifier = (stat) => {
