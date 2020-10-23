@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const bcrypt = require("bcrypt")
+const sendEmail = require("./mailercontroller")
 
 router.get('/',function(req,res){
     db.Account.findAll({}).then(data=>{
@@ -31,7 +32,8 @@ router.post('/signup',function(req,res){
             email: newAccount.email,
             id: newAccount.id
         }
-        res.redirect("/account")
+        sendEmail(newAccount.email);
+        res.redirect("/campaigns")
     }).catch(err=>{
         console.log(err)
         res.status(500).json(err);
@@ -52,7 +54,7 @@ router.post('/login',function(req,res){
                 email: acc.email,
                 id:acc.id
             }
-            return res.redirect('/account')
+            return res.redirect('/campaigns')
         }
         else {
             req.session.destroy();
@@ -63,7 +65,7 @@ router.post('/login',function(req,res){
 
 router.get("/logout", (req,res) => {
     req.session.destroy();
-    res.send('logged out');
+    return res.redirect('/')
 })
 
 router.get("/sessiondata", (req,res) => {

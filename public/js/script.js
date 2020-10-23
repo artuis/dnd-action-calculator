@@ -3,20 +3,44 @@ $(document).ready(function() {
     var emailCreate = $("#email-account");
     var passCreate = $("#pass-account");
     var accountCreate = $("#account-create");
-  
-    $(accountCreate).on("submit", function userCreation(event) {
-      event.preventDefault();
-  
-      var newUser = {
-        email: emailCreate.val().trim(),
-        password: passCreate.val().trim(),
-        
-      };
-      $.post("/account", newUser, data => {
-        console.log(data)
-          }
-      )
-    });
+
+    const ajaxPost = (url,body) => {
+      $.ajax({
+        method:"POST",
+        url:url,
+        data:body
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxGet = (url) => {
+      $.ajax({
+        method:"GET",
+        url:url,
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxPut = (url,body) => {
+      $.ajax({
+        method:"PUT",
+        url:url,
+        data:body
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxDelete = (url) => {
+      $.ajax({
+        method:"DELETE",
+        url:url,
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
   
     $("#save-character").click(() => {
       const newChar = {
@@ -35,18 +59,23 @@ $(document).ready(function() {
         hp_current : parseInt($("#hp").val().trim()),
         hp_temp : parseInt($("#hp").val().trim()),
         hp_max : parseInt($("#hp").val().trim()),
-        arnor_class : parseInt($("#ac").val().trim()),
+        armor_class : parseInt($("#ac").val().trim()),
         shield : false
       }
-      console.log("hello there")
+      console.log(newChar)
 
-      // $.post("/api/characters", newChar, data => {
-      //   console.log(data);
-      // })
+      ajaxPost("api/characters", newChar)
     })
 
     $("#save-campaign").click(() => {
       console.log("save campaign");
+      var newCampaign = {
+          name: $("#campaign-name").val()
+      }
+      ajaxPost("api/campaigns", newCampaign
+      )
+      
+      location.reload();
     })
   // converts ability score to modifier
 const modifier = (stat) => {
