@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt")
+
 module.exports = function(sequelize, DataTypes) {
   var Account = sequelize.define("Account", {
     email: {
@@ -5,7 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         len: [1]
-      }
+      },
+      unique:true
     },
     password: {
       type: DataTypes.STRING,
@@ -21,11 +24,22 @@ module.exports = function(sequelize, DataTypes) {
     Account.hasMany(models.Character, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      onDelete:"cascade"
     });
 
-    Account.hasMany(models.Campaign);
+    Account.hasMany(models.Campaign, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete:"cascade"
+    });
 
   };
+
+  Account.beforeCreate(function(account){
+    account.password = bcrypt.hashSync(account.password, bcrypt.genSaltSync(10),null);
+  })
+
   return Account;
 };
