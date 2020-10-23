@@ -1,16 +1,18 @@
 <div class="paper container margin-bottom-large margin-top-large">
-        <form id="account-create" action="">
+        <form id="account-create" action="/api/accounts/signup" method="POST">
           <h1>D&amp;D Account Creation</h1>
+          
             <div class="form-group">
-                <label for="">Email</label>
-                <input type="text" class="form-control" id="email-account" required>
+              <label for="">Email</label>
+              <input type="text" class="form-control" name="email" id="email-account" required>
             </div>
             <div class="form-group">
               <label for="">Password</label>
-              <input type="password" class="form-control" id="pass-account" required>
-          </div>
-          <div class="login-buttons">
-          <input type="submit" class="btn" value="Create Account">
-          </div>
+              <input type="password" class="form-control" name="password" id="pass-account" required>
+            </div>
+            <div class="login-buttons">
+              <input type="submit" class="btn" value="Create Account"> 
+            </div>
+          
         </form>
 </div>

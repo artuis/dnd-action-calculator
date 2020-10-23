@@ -3,20 +3,44 @@ $(document).ready(function() {
     var emailCreate = $("#email-account");
     var passCreate = $("#pass-account");
     var accountCreate = $("#account-create");
-  
-    $(accountCreate).on("submit", function userCreation(event) {
-      event.preventDefault();
-  
-      var newUser = {
-        email: emailCreate.val().trim(),
-        password: passCreate.val().trim(),
-        
-      };
-      $.post("/account", newUser, data => {
-        console.log(data)
-          }
-      )
-    });
+
+    const ajaxPost = (url,body) => {
+      $.ajax({
+        method:"POST",
+        url:url,
+        data:body
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxGet = (url) => {
+      $.ajax({
+        method:"GET",
+        url:url,
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxPut = (url,body) => {
+      $.ajax({
+        method:"PUT",
+        url:url,
+        data:body
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
+
+    const ajaxDelete = (url) => {
+      $.ajax({
+        method:"DELETE",
+        url:url,
+      }).then(apiRes=>{
+        return apiRes;
+      })
+    }
   
     $("#save-character").click(() => {
       const newChar = {

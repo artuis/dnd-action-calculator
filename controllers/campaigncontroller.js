@@ -14,7 +14,7 @@ router.get('/:id',function(req,res){
         where:{
             id:req.params.id
         },
-        include:[db.Account]
+        include:{all:true}
     }).then(data=>{
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))

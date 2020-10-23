@@ -130,31 +130,31 @@
     
 
     <div class="collapsible">
-      <input id="collapsible{{this.id}}" type="checkbox" name="collapsible">
-        <label for="collapsible{{this.id}}">{{this.name}}</label>
+      <input id="collapsible{{this.dataValues.id}}" type="checkbox" name="collapsible">
+        <label for="collapsible{{this.dataValues.id}}">{{this.dataValues.name}}</label>
           <div class="collapsible-body">
             <h3>Characters</h3>
 
             
 
-            <table id="table{{this.id}}">
+            <table id="table{{this.dataValues.id}}">
               <thead>
                 <tr>
                   <div class="row table-header">
                     <div class="col-6 col"><h4>Name</h4></div>
-                    <div class="col-6 col text-right"><label id="new{{this.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
+                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
                   </div>
                 </tr>
 
               </thead>
               <tbody>
-                {{#each this.characters}}
-                <tr id="character{{this.id}}">
-                  <td class="name">{{this.name}}</td>
-                  <td class="text-right"><button id="view{{this.id}}">View</button></td>
-                  <td class="text-right"><button id="update{{this.id}}">Update</button></td>
-                  <td class="text-right"><button id="action{{this.id}}">Action</button></td>
-                  <td class="text-right"><label class="btn-close delete" id="{{this.id}}">X</label></td>
+                {{#each this.dataValues.Characters}}
+                <tr id="character{{this.dataValues.id}}">
+                  <td class="name">{{this.dataValues.name}}</td>
+                  <td class="text-right"><button id="view{{this.dataValues.id}}">View</button></td>
+                  <td class="text-right"><button id="update{{this.dataValues.id}}">Update</button></td>
+                  <td class="text-right"><button id="action{{this.dataValues.id}}">Action</button></td>
+                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
                 </tr>
               {{/each}}
               </tbody>
