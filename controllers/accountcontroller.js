@@ -31,7 +31,7 @@ router.post('/signup',function(req,res){
             email: newAccount.email,
             id: newAccount.id
         }
-        res.redirect("/account")
+        res.redirect("/campaigns")
     }).catch(err=>{
         console.log(err)
         res.status(500).json(err);
@@ -52,7 +52,7 @@ router.post('/login',function(req,res){
                 email: acc.email,
                 id:acc.id
             }
-            return res.redirect('/account')
+            return res.redirect('/campaigns')
         }
         else {
             req.session.destroy();
