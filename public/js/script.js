@@ -47,6 +47,15 @@ $(document).ready(function() {
 
     $("#save-campaign").click(() => {
       console.log("save campaign");
+      var newCampaign = {
+          name: $("#campaign-name").val()
+      }
+      $.post("/api/campaigns", function(req, res){
+        
+       console.log(res);
+      }
+      )
+      $("#campaign-name").val("");
     })
   // converts ability score to modifier
 const modifier = (stat) => {
