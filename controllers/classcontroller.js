@@ -2,9 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models")
 
-//may not be right
 router.get('/', function (req, res) {
     db.Class.findAll({include:db.Spell}).then(data => {
+        res.status(200).json(data);
+    }).catch(err => res.sendStatus(500))
+})
+
+router.get('/:id', function (req, res) {
+    db.Class.findByPk(req.params.id,{include:db.Spell}).then(data => {
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))
 })
