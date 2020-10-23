@@ -5,16 +5,17 @@
 
 // Dependencies
 // =============================================================
-var express = require("express");
+const express = require("express");
 const path = require("path")
 
-var db = require("./models");
-
+const db = require("./models");
+const session = require('express-session')
+require("dotenv").config();
 
 // Sets up the Express App
 // =============================================================
-var app = express();
-var PORT = process.env.PORT || 8080;
+const app = express();
+const PORT = process.env.PORT || 8080;
 
 
 // Sets up the Express app to handle data parsing
@@ -25,13 +26,22 @@ app.use(express.json());
 // Static directory to be served
 app.use(express.static("public"));
 
-var exphbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// session
+app.use(session({
+  secret: "potato",//process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 2*60*60*1000
+  }
+}))
+
 // Routes
 // =============================================================
-require('./controllers/apiroutes')(app);
 require("./controllers/htmlroutes.js")(app);
 // Routing
 const weaponRoutes = require("./controllers/weaponcontroller");
