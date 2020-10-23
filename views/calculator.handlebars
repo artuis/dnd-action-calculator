@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.min.css">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="public/js/script.js"></script>
-    <script src="public/js/diceRoller.js"></script>
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.min.css">
+
+  <title>Document</title>
 </head>
+
 <body>
 
-    <div class="container paper margin-top-large">
-      <h2>Calculator</h2>
+  <div class="container paper margin-top-large">
+    <h2>Calculator</h2>
 
-      <input type="text" name="num-one" id="num-one">
-      <!-- <input type="text" name="num-two" id="num-two"> -->
-      <br><br>
+    <input type="text" name="num-one" id="num-one">
 
-      <input type="radio" name="sign-area" id="box1" value="add" checked><b>+</b>
-      <input type="radio" name="sign-area" id="box2" value="subtract"><b>-</b>
-      
-      
-      <br><br>
+    <br><br>
 
-      <button id="roll-btn" type="button">Roll</button>
-
-      <h1 id="resultArea"></h1>
+    <input type="radio" name="sign-area" id="box1" value="add" checked><b>+</b>
+    <input type="radio" name="sign-area" id="box2" value="subtract"><b>-</b>
 
 
-    </div>
- 
-    
+    <br><br>
 
-<script>
- $("#roll-btn").click(function(){
-  
-  console.log(calculate($("#num-one").val()));
- }) 
+    <button id="roll-btn" type="button">Roll</button>
 
- 
+    <h1 id="resultArea"></h1>
 
- 
-</script>
- 
+
+    {{!-- <input type="text" name="num-two" id="num-two"> --}}
+    <p>Results: <output id="subResult" form="calcForm"></output></p>
+
+  </div>
+
+
+
+  <script>
+    $("#roll-btn").click(function (data) {
+      $("#subResult").val(calculate($("#num-one").val()).total);
+      if ("#calculate") {
+        $("#totalScore").show()
+        $("#allRolls").text(data.allRolls)
+        $("#subResults").text(data.subResults)
+      }
+    })
+
+
+
+
+  </script>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/diceRoller.js"></script>
 </body>
+
 </html>
