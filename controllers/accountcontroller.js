@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const bcrypt = require("bcrypt")
+const sendEmail = require("./mailercontroller")
 
 router.get('/',function(req,res){
     db.Account.findAll({}).then(data=>{
@@ -31,6 +32,7 @@ router.post('/signup',function(req,res){
             email: newAccount.email,
             id: newAccount.id
         }
+        sendEmail(newAccount.email);
         res.redirect("/campaigns")
     }).catch(err=>{
         console.log(err)
