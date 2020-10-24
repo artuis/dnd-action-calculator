@@ -22,11 +22,21 @@ module.exports = function(app) {
                     AccountId: req.session.user.id,
                 },
             }).then (characters => {
-                res.render("campaigns", { 
-                    campaigns: campaigns,
-                    characters: characters,
-                    user: req.session.user 
-                });
+                db.Class.findAll({}).then(classes => {
+                    db.Race.findAll({}).then(races => {
+                        db.Weapon.findAll({}).then(weapons => {
+                            res.render("campaigns", { 
+                                campaigns: campaigns,
+                                characters: characters,
+                                races: races,
+                                classes: classes,
+                                weapons: weapons,
+                                user: req.session.user 
+                            });
+                        })
+                        
+                    })
+                })
             })
             
         }).catch(err => res.sendStatus(500));

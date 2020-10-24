@@ -90,6 +90,11 @@ h4 {
     margin-block-start: 1em;
     margin-block-end: 0em;
 }
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  opacity: 0.3 !important;
+}
+
 /* *{
 
     margin: 0;
