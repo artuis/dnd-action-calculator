@@ -179,7 +179,7 @@
           </thead>
           <tbody>
             {{#each this.dataValues.Characters}}
-            <tr id="character{{this.dataValues.id}}">
+            <tr data-id={{this.dataValues.id}}">
               <td class="name">{{this.dataValues.name}}</td>
               <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
               <td class="text-right"><label class="paper-btn char-btn action">Action</label>
