@@ -23,7 +23,7 @@
   <input class="modal-state" id="characterModal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="characterModal"></label>
-    <div class="modal-body paper container text-center new-character-modal">
+    <div class="modal-body paper container text-center new-character-modal" data-id="">
       <label class="btn-close" for="characterModal">X</label>
       <h4 class="modal-title">Add a new Character</h4>
       <div class="form-group">
@@ -75,7 +75,7 @@
                 <label for="race">Race</label>
                 <select placeholder="" class="" id="race">
                   {{#each races}}
-                  <option data-id={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                  <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
                   {{/each}}
                 </select>
                 <label for="level">Level</label>
@@ -86,7 +86,7 @@
                 <label for="race">Class</label>
                 <select placeholder="" class="" id="class">
                   {{#each classes}}
-                  <option data-id={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                  <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
                   {{/each}}
                 </select>
                 <label for="exp">Experience Points</label>
@@ -108,10 +108,10 @@
                     <label for="init">Initiative</label>
                     <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
                   </div>
-                  <div class="col-4 col">
+                  {{!-- <div class="col-4 col">
                     <label for="spd">Speed</label>
                     <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
-                  </div>
+                  </div> --}}
                 </div>
                 <div class="row">
                   <div class="col-12 col">
@@ -130,7 +130,7 @@
                     <label for="weapon">Weapon</label>
                     <select name="weapon" id="weapon">
                       {{#each weapons}}
-                      <option data-id={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                      <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
                       {{/each}}
                     </select>
                   </div>
@@ -166,7 +166,7 @@
                 <div class="col-6 col">
                   <h4>Name</h4>
                 </div>
-                <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}"
+                <div class="col-6 col text-right" id="add-character"><label id="new{{this.dataValues.id}}"
                     class="paper-btn margin char-btn" for="characterModal">+ New Character</label></div>
               </div>
             </tr>
@@ -200,7 +200,7 @@
           <div class="col-6 col">
             <h4>Name</h4>
           </div>
-          <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn"
+          <div class="col-6 col text-right" ><label id="add-character" class="paper-btn margin new-char-btn"
               for="characterModal">+ New Character</label></div>
         </div>
       </tr>
@@ -210,11 +210,11 @@
       {{#each characters}}
       <tr id="character{{this.dataValues.id}}" data-id={{this.dataValues.id}}>
         <td class="name">{{this.dataValues.name}}</td>
-        <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn">View</label></td>
-        <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn"
-            for="updateModal">Update</label></td>
-        <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn">Action</label></td>
-        <td class="text-right"><label class="btn-close delete" id="delete{{this.dataValues.id}}">X</label></td>
+        <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
+        <td class="text-right"><label class="paper-btn update"
+            for="characterModal">Update</label></td>
+        <td class="text-right"><label class="paper-btn action">Action</label></td>
+        <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
       </tr>
       {{/each}}
     </tbody>
