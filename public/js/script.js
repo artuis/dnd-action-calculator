@@ -56,14 +56,17 @@ $("#save-character").click(() => {
     perception: modifier(parseInt($("#wis").val().trim())),
     initiative: parseInt($("#init").val().trim()),
     hp_current: parseInt($("#hp").val().trim()),
-    hp_temp: parseInt($("#hp").val().trim()),
+    hp_temp: 0,
     hp_max: parseInt($("#hp").val().trim()),
     armor_class: parseInt($("#ac").val().trim()),
-    shield: false
+    shield: $("#shield").is(':checked'),
+    RaceId: $("#race").find(":selected").attr("data-id"),
+    ClassId: $("#class").find(":selected").attr("data-id"),
+    WeaponId: $("#weapon").find(":selected").attr("data-id"),
   }
   console.log(newChar)
 
-  ajaxPost("api/characters", newChar)
+  ajaxPost("api/characters", newChar);//.then(res => location.reload());
 })
 
 //create campaign
@@ -72,9 +75,7 @@ $("#save-campaign").click(() => {
   var newCampaign = {
     name: $("#campaign-name").val()
   }
-  ajaxPost("api/campaigns", newCampaign)
-
-  location.reload();
+  ajaxPost("api/campaigns", newCampaign).then(res => location.reload())
 })
 
 
@@ -112,9 +113,9 @@ loginForm.on("submit", function(event) {
 })
 
 
-$(".delete").click(function () {
-  console.log("delete " + $(this).attr("id") + " at " + $(this).closest("table").attr("id"));
-  $(this).closest("tr").remove();
+$(".delete").click(function (e) {
+  //console.log("delete " + $(this).attr("id") + " at " + $(this).closest("table").attr("id"));
+  ajaxDelete("api/characters/" + $(this).closest("tr").attr("data-id")).then($(this).closest("tr").remove());
 })
 
 $("#login-btn").click(() => {
