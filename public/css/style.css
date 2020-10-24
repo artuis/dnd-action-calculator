@@ -1,5 +1,13 @@
+body {
+  background-image: url("../img/background.jpg");
+}
+
 .container {
   top: 5em;
+}
+
+.error-message {
+  color: red;
 }
 
 .table-btn {

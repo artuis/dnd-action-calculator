@@ -4,12 +4,6 @@ const db = require("../models");
 const bcrypt = require("bcrypt")
 const sendEmail = require("./mailercontroller")
 
-router.get('/',function(req,res){
-    db.Account.findAll({}).then(data=>{
-        res.status(200).json(data);
-    }).catch(err => res.sendStatus(500))
-})
-
 router.get('/:id/characters',function(req,res){
   db.Account.findByPk(req.params.id).then(data =>
   
@@ -72,6 +66,7 @@ router.get("/sessiondata", (req,res) => {
     res.json(req.session);
 })
 
+//might disable these routes
 router.put('/',function(req,res){
     db.Account.update(req.body,{where:{id:req.body.id}}).then(data => {
         res.status(200).json(data)
