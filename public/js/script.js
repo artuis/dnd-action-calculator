@@ -41,6 +41,37 @@ const ajaxDelete = (url) => {
   })
 }
 
+
+//signup and login
+accountCreate.on("submit", function(event) {
+  event.preventDefault();
+  const newAcct = {
+    email: emailCreate.val().trim(),
+    password: passCreate.val().trim()
+  }
+  
+  ajaxPost("/api/accounts/signup",newAcct).then(res => location.href = '/campaigns').fail(err => {
+    let msg;
+    if(err.responseJSON.errors[0].message === "accounts.email must be unique") msg = "An account with that email already exists";
+    else if(err.responseJSON.errors[0].message === "Validation isEmail on email failed") msg = "Please enter a valid email address";
+    else msg = "Something went wrong"
+    $(".error-message").text(msg)
+  });
+})
+
+loginForm.on("submit", function(event) {
+  event.preventDefault();
+  const acct = {
+    email: loginEmail.val().trim(),
+    password: loginPass.val().trim()
+  }
+  ajaxPost("/api/accounts/login",acct).then(res => location.href = '/campaigns').fail(err => {
+    $(".error-message").text("Incorrect email or password")
+    loginPass.val("");
+  });
+})
+
+
 //handle character modal button
 $("#save-character").on("click", () => {
   if(charModalFunction === "view") return;
@@ -77,11 +108,22 @@ $("#save-character").on("click", () => {
 
 //create campaign
 $("#save-campaign").click(() => {
-  console.log("save campaign");
   var newCampaign = {
     name: $("#campaign-name").val()
   }
   ajaxPost("api/campaigns", newCampaign).then(res => location.reload())
+})
+
+$(".campaign-add-char-btn").on("click",function() {
+  const char = {
+    id: $(this).prev().find(":selected").attr("value")
+  }
+  
+  ajaxPut('api/campaigns/' + $(this).parent().attr("data-id") + "/characters", char).then(res=>location.reload());
+})
+
+$(".remove-from-campaign").on("click", function() {
+  ajaxDelete(`api/campaigns/${$(this).closest("table").attr("data-id")}/characters/${$(this).attr("data-id")}`).then(res=>location.reload());
 })
 
 
@@ -89,35 +131,6 @@ $("#save-campaign").click(() => {
 const modifier = (stat) => {
   Math.floor((stat - 10) / 2)
 }
-
-accountCreate.on("submit", function(event) {
-  event.preventDefault();
-  const newAcct = {
-    email: emailCreate.val().trim(),
-    password: passCreate.val().trim()
-  }
-  
-  ajaxPost("/api/accounts/signup",newAcct).then(res => location.href = '/campaigns').fail(err => {
-    let msg;
-    if(err.responseJSON.errors[0].message === "accounts.email must be unique") msg = "An account with that email already exists";
-    else if(err.responseJSON.errors[0].message === "Validation isEmail on email failed") msg = "Please enter a valid email address";
-    else msg = "Something went wrong"
-    $(".error-message").text(msg)
-  });
-})
-
-loginForm.on("submit", function(event) {
-  event.preventDefault();
-  const acct = {
-    email: loginEmail.val().trim(),
-    password: loginPass.val().trim()
-  }
-  ajaxPost("/api/accounts/login",acct).then(res => location.href = '/campaigns').fail(err => {
-    $(".error-message").text("Incorrect email or password")
-    loginPass.val("");
-  });
-})
-
 
 $(".delete").click(function (e) {
   //console.log("delete " + $(this).attr("id") + " at " + $(this).closest("table").attr("id"));
@@ -193,13 +206,17 @@ const setCharModalState = () => {
     $(".new-character-modal select :nth-child(1)").prop("selected",true);
     $(".new-character-modal input").prop("disabled",false);
     $("#save-character").text("Save");
+    
   }
+  if(charModalFunction === "add") $("#character-modal-title").text("Create New Character");
+  if(charModalFunction === "edit") $("#character-modal-title").text("Edit Character");
   if(charModalFunction === "view") {
     //disable all fields
     $(".new-character-modal input").val("");
     $(".new-character-modal select").prop("disabled",true);
     $(".new-character-modal input").prop("disabled",true);
     $("#save-character").text("Close");
+    $("#character-modal-title").text("View Character");
   }
 }
 
