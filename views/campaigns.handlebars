@@ -9,7 +9,7 @@
   <input class="modal-state" id="campaignModal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="campaignModal"></label>
-    <div class="modal-body text-center paper container container-xs">
+    <div class="modal-body text-center paper container container-xs campaign-modal">
       <label class="btn-close" for="campaignModal">X</label>
       <h4 class="modal-title">Campaign Name</h4>
       <h5 class="modal-subtitle">Name your new campaign!</h5>
@@ -25,7 +25,7 @@
     <label class="modal-bg" for="characterModal"></label>
     <div class="modal-body paper container text-center new-character-modal" data-id="">
       <label class="btn-close" for="characterModal">X</label>
-      <h4 class="modal-title">Add a new Character</h4>
+      <h4 class="modal-title" id="character-modal-title">Add a new Character</h4>
       <div class="form-group">
         <div class="row">
           <div class="col-2 col">
@@ -152,22 +152,27 @@
 
 
     <div class="collapsible">
-      <input id="collapsible{{this.dataValues.id}}" type="checkbox" name="collapsible">
-      <label for="collapsible{{this.dataValues.id}}">{{this.dataValues.name}}</label>
+      <input id="collapsible" type="checkbox" name="collapsible">
+      <label for="collapsible">{{this.dataValues.name}}</label>
       <div class="collapsible-body">
         <h3>Characters</h3>
-
-
-
-        <table id="table{{this.dataValues.id}}">
+        <table data-id={{this.dataValues.id}}>
           <thead>
             <tr>
               <div class="row table-header">
                 <div class="col-6 col">
                   <h4>Name</h4>
                 </div>
-                <div class="col-6 col text-right" id="add-character"><label id="new{{this.dataValues.id}}"
-                    class="paper-btn margin char-btn" for="characterModal">+ New Character</label></div>
+                
+                <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
+                  <select class="campaign-char-select">
+                  {{#each ../characters}}
+                    <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                  {{/each}}
+                </select>
+                  <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
+                  </div>
+                    
               </div>
             </tr>
 
@@ -176,12 +181,10 @@
             {{#each this.dataValues.Characters}}
             <tr id="character{{this.dataValues.id}}">
               <td class="name">{{this.dataValues.name}}</td>
-              <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn char-btn">View</label></td>
-              <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn char-btn">Update</label>
+              <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
+              <td class="text-right"><label class="paper-btn char-btn action">Action</label>
               </td>
-              <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn char-btn">Action</label>
-              </td>
-              <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
+              <td class="text-right"><label class="btn-close remove-from-campaign" data-id="{{this.dataValues.id}}">X</label></td>
             </tr>
             {{/each}}
           </tbody>
