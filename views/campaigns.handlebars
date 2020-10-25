@@ -1,11 +1,9 @@
 <div class="paper container">
   <div class="text-center">
-    <h1>Campaigns</h1>
-  </div>
-  <div class="text-right">
-    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+    <h1>PROFILE</h1>
   </div>
 
+  {{!-- campaign modal --}}
   <input class="modal-state" id="campaignModal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="campaignModal"></label>
@@ -20,6 +18,7 @@
     </div>
   </div>
 
+{{!-- character modal --}}
   <input class="modal-state" id="characterModal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="characterModal"></label>
@@ -144,18 +143,74 @@
     </div>
   </div>
 
-  
+{{!-- calculator modal --}}
+  <div class="row flex-spaces child-borders">
+  <label class="paper-btn margin" for="calc-modal">Test Calculator Open</label>
+</div>
+<input class="modal-state" id="calc-modal" type="checkbox">
+<div class="modal">
+  <label class="modal-bg" for="calc-modal"></label>
+  <div class="modal-body">
+    <label class="btn-close" for="calc-modal">X</label>
+    <h4 class="modal-title">Calculator</h4>
+    <h5>Character</h5>
+    <input type="text" name="num-one" id="num-one">
+    <br><br>
+    <h5>Attack Roll</h5>
+    <p>Results: <output id="subResult" form="calcForm"></output></p>
+    <br><br>
+    <div class="row">
+      <input class="col-md-2" type="number" name="modifier" id="attackModifier" value="0"><b>+</b>
+      <input type="number" name="proficiency" class="col-md-2" id="attackProficiency" value="0"><b>-</b>
+      <div class="col-md-4">
+        <span id="attackResult">100</span><br>
+        <button id="roll-btn" type="button">Roll</button><br>
+        <input type="checkbox" id="attAdd" />
+        <label for="attAdd"> Advantage</label><br>
+        <input type="checkbox" id="addDis" />
+        <label for="addDis"> disAdvantage</label><br>
+      </div>
+   </div>
+    <h1 id="resultArea"></h1>
+    <h5>Damage Roll</h5>
+    <p>Results: <output id="subResult" form="calcForm"></output></p>
+    <div class="row">
+      <input class="col-md-2" type="number" name="modifier" id="damageModifier" value="0"><b>+</b>
+      <input type="number" name="proficiency" class="col-md-2" id="damageProficiency" value="0"><b>-</b>
+      <div class="col-md-4">
+        <span id="damageResult">100</span><br>
+        <button id="roll-btn" type="button">Roll</button><br>
+        <input type="checkbox" id="disAdd" />
+        <label for="attAdd"> Advantage</label><br>
+        <input type="checkbox" id="addDis" />
+        <label for="addDis"> disAdvantage</label><br>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
 
   <div class="flex-center">
-
+    <div class="text-center">
+    <h1>Campaigns</h1>
+  </div>
+  <div class="text-right">
+    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+  </div>
     {{#each campaigns}}
 
 
     <div class="collapsible">
-      <input id="collapsible" type="checkbox" name="collapsible">
-      <label for="collapsible">{{this.dataValues.name}}</label>
+      <input id="collapsible-{{this.dataValues.id}}" type="checkbox" name="collapsible">
+      <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
       <div class="collapsible-body">
-        <h3>Characters</h3>
+        <div class="row flex-edges">
+          <div class="col-8 col"><h3>Characters</h3></div>
+          <div class="col-4 col"><button class="delete-campaign float-right" data-id={{this.dataValues.id}}>Delete</button></div>
+        </div>      
         <table data-id={{this.dataValues.id}}>
           <thead>
             <tr>
@@ -179,7 +234,7 @@
           </thead>
           <tbody>
             {{#each this.dataValues.Characters}}
-            <tr data-id={{this.dataValues.id}}">
+            <tr data-id={{this.dataValues.id}}>
               <td class="name">{{this.dataValues.name}}</td>
               <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
               <td class="text-right"><label class="paper-btn char-btn action">Action</label>
