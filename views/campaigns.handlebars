@@ -18,7 +18,7 @@
     </div>
   </div>
 
-{{!-- character modal --}}
+  {{!-- character modal --}}
   <input class="modal-state" id="characterModal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="characterModal"></label>
@@ -143,63 +143,203 @@
     </div>
   </div>
 
-{{!-- calculator modal --}}
+  {{!-- calculator modal --}}
   <div class="row flex-spaces child-borders">
-  <label class="paper-btn margin" for="calc-modal">Test Calculator Open</label>
-</div>
-<input class="modal-state" id="calc-modal" type="checkbox">
-<div class="modal">
-  <label class="modal-bg" for="calc-modal"></label>
-  <div class="modal-body">
-    <label class="btn-close" for="calc-modal">X</label>
-    <h4 class="modal-title">Calculator</h4>
-    <h5>Character</h5>
-    <input type="text" name="num-one" id="num-one">
-    <br><br>
-    <h5>Attack Roll</h5>
-    <p>Results: <output id="subResult" form="calcForm"></output></p>
-    <br><br>
-    <div class="row">
-      <input class="col-md-2" type="number" name="modifier" id="attackModifier" value="0"><b>+</b>
-      <input type="number" name="proficiency" class="col-md-2" id="attackProficiency" value="0"><b>-</b>
-      <div class="col-md-4">
-        <span id="attackResult">100</span><br>
-        <button id="roll-btn" type="button">Roll</button><br>
-        <input type="checkbox" id="attAdd" />
-        <label for="attAdd"> Advantage</label><br>
-        <input type="checkbox" id="addDis" />
-        <label for="addDis"> disAdvantage</label><br>
+    <label class="paper-btn margin" for="calc-modal">Test Calculator Open</label>
+  </div>
+  <input class="modal-state" id="calc-modal" type="checkbox">
+  <div class="modal">
+    <label class="modal-bg" for="calc-modal"></label>
+    <div class="modal-body calc-modal-body">
+      <label class="btn-close" for="calc-modal">X</label>
+      <h3 class="modal-title">Calculator</h3>
+      <div class="row">
+        <div class="col-12 col">
+          <h5>Character</h5>
+          <select class="calc-char-select"></select>
+        </div>
       </div>
-   </div>
-    <h1 id="resultArea"></h1>
-    <h5>Damage Roll</h5>
-    <p>Results: <output id="subResult" form="calcForm"></output></p>
-    <div class="row">
-      <input class="col-md-2" type="number" name="modifier" id="damageModifier" value="0"><b>+</b>
-      <input type="number" name="proficiency" class="col-md-2" id="damageProficiency" value="0"><b>-</b>
-      <div class="col-md-4">
-        <span id="damageResult">100</span><br>
-        <button id="roll-btn" type="button">Roll</button><br>
-        <input type="checkbox" id="disAdd" />
-        <label for="attAdd"> Advantage</label><br>
-        <input type="checkbox" id="addDis" />
-        <label for="addDis"> disAdvantage</label><br>
+      <div class="row flex-spaces tabs">
+        <input class="tab-input" id="tab1" type="radio" name="tabs" checked>
+        <label class="tab-input-label" for="tab1">Attack</label>
+
+        <input class="tab-input" id="tab2" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab2">Spell</label>
+
+        <input class="tab-input" id="tab3" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab3">Tab 3</label>
+
+        <input class="tab-input" id="tab4" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab4">Custom</label>
+
+        <div class="content" id="content1">
+
+          <div class="row">
+            <div class="col-12 col">
+              <h5>Attack Roll</h5>
+
+            </div>
+          </div>
+          <h5>Options</h5>
+          <div class="row paper">
+
+            <div class="col-4 col option-pane">
+              <div class="row">
+                <div class="col">
+                  <h5 class="text-center">Stat Bonus</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <fieldset class="form-group">
+
+                    <label for="paperRadios1" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="paperRadios1" value="strength" checked>
+                      <span>Strength</span>
+                    </label>
+                    <label for="paperRadios2" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="paperRadios2" value="dexterity"> <span>Dexterity</span>
+                    </label>
+                  </fieldset>
+                </div>
+
+
+
+              </div>
+
+
+              <div class="flex-horizontal space-between position-relative">
+                <div>
+                  <p class="text-center">Stat</p>
+                  <input type="text" value="10" class="square-normal">
+                </div>
+
+                <p class="center big">=</p>
+                <div>
+                  <p class="text-center">Modifier</p>
+                  <input type="text" value="0" class="square-normal">
+                </div>
+              </div>
+              {{!-- <p>Ability Modifier: <span></span></p> --}}
+            </div>
+            <div class="col-4 col option-pane">
+              <div>
+                <h5 class="text-center">Proficiency Bonus</h5>
+              </div>
+              <div>
+                <input type="text" value="0" class="calc-input">
+              </div>
+              <fieldset class="form-group">
+                <label for="use-prof-bonus" class="paper-check">
+                  <input type="checkbox" name="paperChecks" id="use-prof-bonus" value="usePBonus" checked> <span>Use
+                    Proficiency Bonus</span>
+                </label>
+
+                {{!-- <input type="checkbox" id="use-prof-bonus" />
+                <label for="use-prof-bonus">Use Proficiency Bonus</label> --}}
+              </fieldset>
+
+
+            </div>
+            <div class="col-4 col">
+              <div class="row">
+                <h5 class="text-center">Status</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="attAdd" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attAdd" value="advantage" />
+                    <span>Advantage</span></label>
+                </div>
+                <div>
+                  <label for="attDis" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attDis" value="disadvantage" />
+                    <span>Disadvantage</span></label>
+                </div>
+              </fieldset>
+              <div class="row">
+                <h5>Other Modifiers</h5>
+                <input type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 col">
+              <button id="roll-btn" type="button">Roll</button>
+            </div>
+            <div class="col-4 col">
+              <p>Results: <span id="attackResult"></span></p>
+            </div>
+          </div>
+
+
+          <h5>Damage Roll</h5>
+          <p>Results: <output id="subResult" form="calcForm"></output></p>
+          <div class="row">
+            <div class="col-md-4">
+              <span id="damageResult"></span>
+              <button id="roll-btn" type="button">Roll</button><br>
+            </div>
+          </div>
+        </div>
+        <div class="content" id="content2">
+          <p>
+            Bacon ipsum dolor sit amet landjaeger sausage brisket...
+          </p>
+        </div>
+        <div class="content" id="content3">
+          <p>
+            Bacon ipsum dolor sit amet beef venison beef ribs kielbasa...
+          </p>
+          <p>
+            Brisket meatball turkey short loin boudin leberkas meatloaf...
+          </p>
+        </div>
+        <div class="content" id="content4">
+
+
+
+          <div class="row">
+            <div class="col-9 col">
+              <p>Enter expression:</p>
+              <div class="form-group">
+
+                <input class="input-block" type="text" name="expr" placeholder="6d6-2L" id="custom-expression">
+              </div>
+
+            </div>
+            <div class="col-3 col">
+              <button id="custom-calculate">Calculate</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col">
+              <p>Result: <span id="custom-result"></span></p>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+
+
+
+
+
     </div>
   </div>
-  </div>
 
 
 
 
-
+  {{!-- campaign area --}}
   <div class="flex-center">
     <div class="text-center">
-    <h1>Campaigns</h1>
-  </div>
-  <div class="text-right">
-    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
-  </div>
+      <h1>Campaigns</h1>
+    </div>
+    <div class="text-right">
+      <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+    </div>
     {{#each campaigns}}
 
 
@@ -208,9 +348,12 @@
       <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
       <div class="collapsible-body">
         <div class="row flex-edges">
-          <div class="col-8 col"><h3>Characters</h3></div>
-          <div class="col-4 col"><button class="delete-campaign float-right" data-id={{this.dataValues.id}}>Delete</button></div>
-        </div>      
+          <div class="col-8 col">
+            <h3>Characters</h3>
+          </div>
+          <div class="col-4 col"><button class="delete-campaign float-right"
+              data-id={{this.dataValues.id}}>Delete</button></div>
+        </div>
         <table class="campaign-char-table" data-id={{this.dataValues.id}}>
           <thead>
             <tr>
@@ -218,16 +361,16 @@
                 <div class="col-6 col">
                   <h4>Name</h4>
                 </div>
-                
+
                 <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
                   <select class="campaign-char-select">
-                  {{#each ../characters}}
+                    {{#each ../characters}}
                     <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
-                  {{/each}}
-                </select>
+                    {{/each}}
+                  </select>
                   <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
-                  </div>
-                    
+                </div>
+
               </th>
             </tr>
 
@@ -239,7 +382,8 @@
               <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
               <td class="text-right"><label class="paper-btn char-btn action">Action</label>
               </td>
-              <td class="text-right"><label class="btn-close remove-from-campaign" data-id="{{this.dataValues.id}}">X</label></td>
+              <td class="text-right"><label class="btn-close remove-from-campaign"
+                  data-id="{{this.dataValues.id}}">X</label></td>
             </tr>
             {{/each}}
           </tbody>
@@ -248,6 +392,8 @@
     </div>
     {{/each}}
   </div>
+
+  {{!-- characters area --}}
   <div class="text-center">
     <h1>Characters</h1>
   </div>
@@ -258,7 +404,7 @@
           <div class="col-6 col">
             <h4>Name</h4>
           </div>
-          <div class="col-6 col text-right" ><label id="add-character" class="paper-btn margin new-char-btn"
+          <div class="col-6 col text-right"><label id="add-character" class="paper-btn margin new-char-btn"
               for="characterModal">+ New Character</label></div>
         </div>
       </tr>
@@ -269,8 +415,7 @@
       <tr id="character{{this.dataValues.id}}" data-id={{this.dataValues.id}}>
         <td class="name">{{this.dataValues.name}}</td>
         <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
-        <td class="text-right"><label class="paper-btn update"
-            for="characterModal">Update</label></td>
+        <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
         <td class="text-right"><label class="paper-btn action">Action</label></td>
         <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
       </tr>
