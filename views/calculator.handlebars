@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.min.css">
+  <link rel="stylesheet" href="./css/style.css">
 
   <title>Document</title>
 </head>
@@ -12,26 +13,54 @@
 <body>
 
   <div class="container paper margin-top-large">
-    <h2>Calculator</h2>
+    <h1>Character</h1>
 
     <input type="text" name="num-one" id="num-one">
 
     <br><br>
 
-    <input type="radio" name="sign-area" id="box1" value="add" checked><b>+</b>
-    <input type="radio" name="sign-area" id="box2" value="subtract"><b>-</b>
+
+
+    <h3>Attack Roll</h3>
+
+    <p>Results: <output id="subResult" form="calcForm"></output></p>
+
 
 
     <br><br>
+    <div class="row">
+      <input class="col-md-2" type="number" name="modifier" id="attackModifier" value="0"><b>+</b>
+      <input type="number" name="proficiency" class="col-md-2" id="attackProficiency" value="0"><b>-</b>
+      <div class="col-md-4">
+        <span id="attackResult">100</span><br>
+        <button id="roll-btn" type="button">Roll</button><br>
+        <input type="checkbox" id="attAdd" />
+        <label for="attAdd"> Advantage</label><br>
+        <input type="checkbox" id="addDis" />
+        <label for="addDis"> disAdvantage</label><br>
+      </div>
+    </div>
 
-    <button id="roll-btn" type="button">Roll</button>
+
 
     <h1 id="resultArea"></h1>
 
+    <h3>Damage Roll</h3>
 
-    {{!-- <input type="text" name="num-two" id="num-two"> --}}
     <p>Results: <output id="subResult" form="calcForm"></output></p>
 
+    <div class="row">
+      <input class="col-md-2" type="number" name="modifier" id="damageModifier" value="0"><b>+</b>
+      <input type="number" name="proficiency" class="col-md-2" id="damageProficiency" value="0"><b>-</b>
+      <div class="col-md-4">
+        <span id="damageResult">100</span><br>
+        <button id="roll-btn" type="button">Roll</button><br>
+        <input type="checkbox" id="disAdd" />
+        <label for="attAdd"> Advantage</label><br>
+        <input type="checkbox" id="addDis" />
+        <label for="addDis"> disAdvantage</label><br>
+      </div>
+    </div>
   </div>
 
 

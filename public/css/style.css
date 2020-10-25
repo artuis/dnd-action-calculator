@@ -178,3 +178,41 @@ h4 {
   justify-content: space-around;
   
 }
+.subResult {
+  margin-right: 50%;
+  float: right;
+}
+
+#attackResult {
+  color: var(--primary);
+  background: transparent;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border: 2px solid #41403e;
+  border-color: var(--primary);
+  display: block;
+  font-size: 1rem;
+  outline: none;
+  padding: .5rem;
+  
+
+}
+
+#damageResult {
+  color: var(--primary);
+  background: transparent;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border: 2px solid #41403e;
+  border-color: var(--primary);
+  display: block;
+  font-size: 1rem;
+  outline: none;
+  padding: .5rem;
+}
+
+
