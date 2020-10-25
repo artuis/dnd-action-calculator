@@ -115,30 +115,55 @@ $("#save-campaign").click(() => {
 })
 
 $(".campaign-add-char-btn").on("click",function() {
+  const button = $(this);
+  const newName = button.prev().find(":selected").text();
+  const newID = button.prev().find(":selected").attr("value");
   const char = {
-    id: $(this).prev().find(":selected").attr("value")
+    id: newID
   }
   
-  ajaxPut('api/campaigns/' + $(this).parent().attr("data-id") + "/characters", char).then(res=>location.reload());
+  ajaxPut('api/campaigns/' + $(this).parent().attr("data-id") + "/characters", char).then(function(res){
+    
+    //add row to table
+    const row = $("<tr>").attr("data-id",newID)
+    row.append($("<td>").addClass("name").text(newName));
+    row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
+    row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action">Action</label>'));
+    row.append($("<td>").addClass("text-right").html(`<label class="btn-close remove-from-campaign" data-id=${newID}>X</label>`));
+    button.closest("thead").next().append(row);
+    //remove option from select
+    button.prev().find(`option[value=${newID}]`).remove();
+  });
 })
 
-$(".remove-from-campaign").on("click", function() {
-  ajaxDelete(`api/campaigns/${$(this).closest("table").attr("data-id")}/characters/${$(this).attr("data-id")}`).then(res=>location.reload());
-})
+// $(".remove-from-campaign").on("click", function() {
+  
+// })
 
 $(".delete-campaign").on("click", function() {
   ajaxDelete(`api/campaigns/${$(this).attr("data-id")}`).then(res=>location.reload());
 })
 
+$(".campaign-char-table").on("click", function(e) {
+  if($(e.target).hasClass("view")) viewChar(e);
+  if($(e.target).hasClass("remove-from-campaign")) removeFromCampaign(e);
+})
 
-// converts ability score to modifier
-const modifier = (stat) => {
-  Math.floor((stat - 10) / 2)
+function removeFromCampaign(e) {
+  const button = $(e.target);
+  const charName = button.closest("tr").find(".name").text();
+  console.log(charName)
+  const charId = button.attr("data-id");
+  ajaxDelete(`api/campaigns/${button.closest("table").attr("data-id")}/characters/${charId}`).then(res=>{
+    button.closest("table").find(".campaign-char-select").append(new Option(charName,charId));
+    button.closest("tr").remove();
+    //add to select
+    
+  });
 }
 
 $(".delete").click(function (e) {
-  //console.log("delete " + $(this).attr("id") + " at " + $(this).closest("table").attr("id"));
-  ajaxDelete("api/characters/" + $(this).closest("tr").attr("data-id")).then($(this).closest("tr").remove());
+  ajaxDelete("api/characters/" + $(this).closest("tr").attr("data-id")).then(res=>location.reload());
 })
 
 $(".new-char-btn").on("click", () => {
@@ -146,10 +171,10 @@ $(".new-char-btn").on("click", () => {
   setCharModalState();
 })
 
-$(".view").click(function(e) {
+function viewChar(e) {
   charModalFunction = "view";
   setCharModalState();
-  const id = $(this).closest("tr").attr("data-id");
+  const id = $(e.target).closest("tr").attr("data-id");
   characterModal.attr("data-id", id);
   ajaxGet("/api/characters/" + id).then(char => {
     $("#character-name").val(char.name),
@@ -171,7 +196,10 @@ $(".view").click(function(e) {
     $(`#class option[value=${char.ClassId}]`).prop("selected",true),
     $(`#weapon option[value=${char.WeaponId}]`).prop("selected",true)
   });
-  
+}
+
+$(".view").click(function(e) {
+  viewChar(e);
 })
 
 $(".update").click(function(e) {
@@ -199,7 +227,6 @@ $(".update").click(function(e) {
     $(`#class option[value=${char.ClassId}]`).prop("selected",true),
     $(`#weapon option[value=${char.WeaponId}]`).prop("selected",true)
   });
-  
 })
 
 const setCharModalState = () => {
@@ -232,6 +259,12 @@ $("#create-btn").click(() => {
   location.href = "/account";
 })
 
+// utility functions
+
+// converts ability score to modifier
+const modifier = (stat) => {
+  Math.floor((stat - 10) / 2)
+}
 
 
 
