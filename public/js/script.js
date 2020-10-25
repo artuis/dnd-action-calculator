@@ -283,6 +283,27 @@ $("#attack-disadvantage").on("click",function() {
   if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
 })
 
+$("#use-prof-bonus").on("click",function() {
+  if($(this).prop("checked") === false) $("#prof-bonus-field").prop("disabled",true);
+  else $("#prof-bonus-field").prop("disabled",false)
+})
+
+$("#attack-roll-button").on("click", function() {
+  let str = "";
+  //advantage
+  if($("#attack-advantage").prop("checked")) str+="2d20-L";
+  else if($("#attack-disadvantage").prop("checked")) str+="2d20-H"
+  else str+="d20"
+  //stat modifier
+  str+=`+${$("#attack-stat-modifier").val()}`
+  //prof
+  if($("#use-prof-bonus").prop("checked")) str+=`+${$("#prof-bonus-field").val()}`;
+  //other mods
+  str+=$("#other-attack-mods-field").val().trim()
+  const result = calculate(str).total;
+  $("#attack-result").text(result);
+})
+
 $("#custom-calculate").on("click",function() {
   let expr = $("#custom-expression").val().trim();
   let result = calculate(expr);
