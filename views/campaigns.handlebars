@@ -211,10 +211,10 @@
           <div class="col-8 col"><h3>Characters</h3></div>
           <div class="col-4 col"><button class="delete-campaign float-right" data-id={{this.dataValues.id}}>Delete</button></div>
         </div>      
-        <table data-id={{this.dataValues.id}}>
+        <table class="campaign-char-table" data-id={{this.dataValues.id}}>
           <thead>
             <tr>
-              <div class="row table-header">
+              <th class="row table-header">
                 <div class="col-6 col">
                   <h4>Name</h4>
                 </div>
@@ -228,7 +228,7 @@
                   <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
                   </div>
                     
-              </div>
+              </th>
             </tr>
 
           </thead>
