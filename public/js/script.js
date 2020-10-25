@@ -22,8 +22,6 @@ $(document).ready(function() {
   }
 })
 
-
-
 //ajax functions
 const ajaxPost = (url, body) => {
   return $.ajax({
@@ -273,12 +271,32 @@ $("#create-btn").click(() => {
   location.href = "/account";
 })
 
+//calculator stuff
+
+$("#attack-advantage").on("click",function() {
+  let other = $("#attack-disadvantage");
+  if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
+})
+
+$("#attack-disadvantage").on("click",function() {
+  let other = $("#attack-advantage");
+  if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
+})
+
+$("#custom-calculate").on("click",function() {
+  let expr = $("#custom-expression").val().trim();
+  let result = calculate(expr);
+  $("#custom-result").text(result.total);
+})
+
 // utility functions
 
 // converts ability score to modifier
 const modifier = (stat) => {
   Math.floor((stat - 10) / 2)
 }
+
+const profBonus = level => Math.floor((level+7)/4);
 
 
 
