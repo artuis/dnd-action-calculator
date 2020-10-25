@@ -126,6 +126,10 @@ $(".remove-from-campaign").on("click", function() {
   ajaxDelete(`api/campaigns/${$(this).closest("table").attr("data-id")}/characters/${$(this).attr("data-id")}`).then(res=>location.reload());
 })
 
+$(".delete-campaign").on("click", function() {
+  ajaxDelete(`api/campaigns/${$(this).attr("data-id")}`).then(res=>location.reload());
+})
+
 
 // converts ability score to modifier
 const modifier = (stat) => {
