@@ -217,7 +217,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input type="text" value="0" class="square-normal">
+                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal">
                 </div>
               </div>
               {{!-- <p>Ability Modifier: <span></span></p> --}}
@@ -227,7 +227,7 @@
                 <h5 class="text-center">Proficiency Bonus</h5>
               </div>
               <div>
-                <input type="text" value="0" class="calc-input">
+                <input id="prof-bonus-field" type="text" value="0" class="calc-input">
               </div>
               <fieldset class="form-group">
                 <label for="use-prof-bonus" class="paper-check">
@@ -247,28 +247,28 @@
               </div>
               <fieldset class="form-group">
                 <div>
-                  <label for="attAdd" class="paper-check">
-                    <input type="checkbox" name="paperChecks" id="attAdd" value="advantage" />
+                  <label for="attack-advantage" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attack-advantage" value="advantage" />
                     <span>Advantage</span></label>
                 </div>
                 <div>
-                  <label for="attDis" class="paper-check">
-                    <input type="checkbox" name="paperChecks" id="attDis" value="disadvantage" />
+                  <label for="attack-disadvantage" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attack-disadvantage" value="disadvantage" />
                     <span>Disadvantage</span></label>
                 </div>
               </fieldset>
               <div class="row">
                 <h5>Other Modifiers</h5>
-                <input type="text" placeholder="-2 + 5 + -3" class="calc-input">
+                <input id="other-attack-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-8 col">
-              <button id="roll-btn" type="button">Roll</button>
+              <button id="attack-roll-button" type="button">Roll</button>
             </div>
             <div class="col-4 col">
-              <p>Results: <span id="attackResult"></span></p>
+              <p>Results: <span id="attack-result"></span></p>
             </div>
           </div>
 
