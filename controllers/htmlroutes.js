@@ -47,17 +47,8 @@ module.exports = function(app) {
         console.log("GET login page")
         res.render("login");
     });
-    app.get("/calculator", (req, res) => {
-        console.log("GET calculator page")
-        res.render("calculator");
-    });
     app.get("/account", (req, res) => {
         console.log("GET account page")
         res.render("account");
     });
-    app.post("/account", (req, res) => {
-        console.log(req.body)
-        res.json(req.body)
-    });
-    
 }
