@@ -10,6 +10,20 @@ const loginPass = $("#login-pass")
 const characterModal = $(".new-character-modal");
 let charModalFunction = "";
 
+$(document).ready(function() {
+  const campaigns = $(".campaign");
+  for(let i = 0; i < campaigns.length; i++) {
+    let chars = $(campaigns[i]).find("tbody tr");
+    let charList = $(campaigns[i]).find(".campaign-char-select");
+    for(let j = 0; j < chars.length; j++) {
+      let id = $(chars[j]).attr("data-id");
+      charList.find(`option[value=${id}]`).remove();
+    }
+  }
+})
+
+
+
 //ajax functions
 const ajaxPost = (url, body) => {
   return $.ajax({
