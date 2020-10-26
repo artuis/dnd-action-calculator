@@ -1,5 +1,7 @@
 body {
   background-image: url("../img/background.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;
 }
 
 .container {
@@ -20,6 +22,10 @@ th {
 
 .name {
     width: 65%;
+}
+
+.name-generated {
+    width: 75%;
 }
 
 h1 {
@@ -88,10 +94,36 @@ nav {
     border-bottom-color: var(--primary);
     border-width: 2px;
     font-weight: normal;
+    margin: auto 0;
+    margin-bottom: 0;
 }
 
 .table-header {
     margin-bottom: 0 !important;
+}
+
+.add-character {
+  display: flex;
+  align-content: right;
+  padding-right: 0;
+}
+
+.campaign-char-select {
+  display: flex;
+  margin: auto 0;
+  margin-bottom: 0;
+  max-width: 60%;
+}
+
+select {
+  height: 57px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-size: 1.2em;
+  display: block;
+  margin: 0 auto;
+  width: 95%;
 }
 
 /* .content input {
