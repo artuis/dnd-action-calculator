@@ -637,6 +637,14 @@ $("#custom-calculate").on("click",function() {
   $("#custom-result").text(result.total);
 })
 
+$("#light-dark").click(function() {
+  if (this.checked) {
+    $("html").addClass("dark");
+  } else {
+    $(".dark").removeClass("dark");
+  }
+});
+
 // utility functions
 
 // converts ability score to modifier
