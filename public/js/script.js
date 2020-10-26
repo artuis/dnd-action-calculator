@@ -1,5 +1,4 @@
 
-
 //references
 var emailCreate = $("#email-account");
 var passCreate = $("#pass-account");
@@ -20,8 +19,15 @@ $(document).ready(function() {
       charList.find(`option[value=${id}]`).remove();
     }
   }
+  
+})
+
+$(window).on("load",function() {
+  
+  $(".calc-char-select :nth-child(1)").prop("selected",true).change();
   $("#spellType1").prop("checked",true).change();
-  $("#dmgType2").prop("checked",true).change();
+  $("#spell-select :nth-child(1)").prop("selected",true).change();
+  //$("#dmgType2").prop("checked",true).change();
 })
 
 //ajax functions
@@ -142,7 +148,7 @@ $(".campaign-add-char-btn").on("click",function() {
     const row = $("<tr>").attr("data-id",newID)
     row.append($("<td>").addClass("name").text(newName));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
-    row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action">Action</label>'));
+    row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action" for="calc-modal">Action</label>'));
     row.append($("<td>").addClass("text-right").html(`<label class="btn-close remove-from-campaign" data-id=${newID}>X</label>`));
     button.closest("thead").next().append(row);
     //remove option from select
@@ -160,6 +166,10 @@ $(".delete-campaign").on("click", function() {
 
 $(".campaign-char-table").on("click", function(e) {
   if($(e.target).hasClass("view")) viewChar(e);
+  if($(e.target).hasClass("action")) {
+    const id = $(e.target).closest("tr").attr('data-id')
+    $(`.calc-char-select option[value=${id}]`).prop("selected",true).change();
+  }
   if($(e.target).hasClass("remove-from-campaign")) removeFromCampaign(e);
 })
 
@@ -243,6 +253,11 @@ $(".update").click(function(e) {
   });
 })
 
+$(".action").on("click",function() {
+  const id = $(this).closest("tr").attr('data-id')
+    $(`.calc-char-select option[value=${id}]`).prop("selected",true).change();
+})
+
 const setCharModalState = () => {
   if(charModalFunction === "add" || charModalFunction === "update") {
     //enable and clear all fields
@@ -277,28 +292,123 @@ $("#create-btn").click(() => {
 
 //char select
 $(".calc-char-select").on("change", function() {
+  if($(this).find(":selected").attr("value") === "null") {
+    //attack tab
+  
+    //enable stat bonus fields
+    $("#attack-stat").prop("disabled",false);
+    //hide strength/dex buttons
+    $("#attack-stat-choice-area").hide();
+    //enable proficiency bonus field
+    $("#prof-bonus-field").prop("disabled",false)
+    //hide equipped
+    $("#damageType1").parent().hide();
+    //set weapon to another
+    $("#damageType2").prop("checked",true).change();
+    //set weapon select to index 1
+    $("#other-weapon-select :nth-child(1)").prop("selected",true).change();
+    $("#dmg-stat").prop("disabled",false);
+    //spells tab
+    //hide attributes buttons
+    $("#spell-stat-choice-area").hide();
+    //enable stat bonus fields
+    $("#spell-attack-stat").prop("disabled",false);
+    //enable proficiency bonus field
+    $("#spell-prof-bonus-field").prop("disabled",false);
+    //populate list of spells from all
+    const spellSelect = $("#spell-select")
+    spellSelect.empty();
+    ajaxGet("api/spells/").then(spells => {
+      for(let i = 0; i < spells.length; i++) {
+        const newOption = new Option(spells[i].name,spells[i].id);
+        $(newOption).attr("data",JSON.stringify(spells[i]));
+        spellSelect.append(newOption);
+      }
+      //set to standard spell
+      $("#spellType1").prop("checked",true).change();
+      $("#spell-select :nth-child(1)").prop("selected",true).change();
+    })
+  }
+  else {
   const data = JSON.parse($(this).find(":selected").attr("data"));
   console.log(data);
   //attack tab
   
   //disable stat bonus fields
+  $("#attack-stat").prop("disabled",true);
   //show strength/dex buttons
+  $("#attack-stat-choice-area").show();
   //select strength button
+  $("#attack-stat-choice1").prop("checked",true).change();
   //set proficiency bonus from level
+  $("#prof-bonus-field").val(profBonus(parseInt(data.level)))
   //disable proficiency bonus field
+  $("#prof-bonus-field").prop("disabled",true)
+  //show equipped if equipped
+  if(data.WeaponId != null) {
+    $("#damageType1").parent().show();
+    $("#damageType1").prop("checked",true).change();
+    $(`#other-weapon-select option[value=${data.WeaponId}]`).prop("selected",true).change();
+  }
+  else {
+    $("#damageType1").parent().hide();
+    $("#damageType2").prop("checked",true).change();
+    $(`#other-weapon-select :nth-child(1)`).prop("selected",true).change();
+  }
+  
   //set weapon to equipped
+  
   //set weapon select
+  
+  //set
+  $("#dmg-stat").prop("disabled",true);
 
   //spells tab
   //show attributes buttons
+  $("#spell-stat-choice-area").show();
+  //select int
+  $("#spell-ability1").prop("checked",true).change();
   //disable stat bonus fields
+  $("#spell-attack-stat").prop("disabled",true);
   //set proficiency bonus from level
+  $("#spell-prof-bonus-field").val(profBonus(parseInt(data.level)))
   //disable proficiency bonus field
+  $("#spell-prof-bonus-field").prop("disabled",true);
   //populate list of spells from class
-  //set to standard spell
+  const spellSelect = $("#spell-select")
+  spellSelect.empty();
+  ajaxGet(`api/classes/${data.ClassId}/spells`).then(spells => {
+    for(let i = 0; i < spells.length; i++) {
+      const newOption = new Option(spells[i].name,spells[i].id);
+      $(newOption).attr("data",JSON.stringify(spells[i]));
+      spellSelect.append(newOption);
+    }
+    //set to standard spell
+    $("#spellType1").prop("checked",true).change();
+    $("#spell-select :nth-child(1)").prop("selected",true).change();
+  })
+  }
 })
 
 //attack section
+
+$("#attack-stat-choice-area").on("change",function(e) {
+  //console.log(($("#calc-char-select").find(":selected").attr("value")))
+  if($(".calc-char-select").find(":selected").attr("value") === "null") return;
+  const data = JSON.parse($(".calc-char-select").find(":selected").attr("data"));
+  if($(e.target).attr("value") === 'strength') {
+    $("#attack-stat").val(data.strength);
+    $("#attack-stat-modifier").val(modifier(parseInt(data.strength)));
+    $("#dmg-stat").val(data.strength);
+    $("#dmg-stat-modifier").val(modifier(parseInt(data.strength)));
+  }
+  if($(e.target).attr("value") === 'dexterity') {
+    $("#attack-stat").val(data.dexterity);
+    $("#attack-stat-modifier").val(modifier(parseInt(data.dexterity)));
+    $("#dmg-stat").val(data.dexterity);
+    $("#dmg-stat-modifier").val(modifier(parseInt(data.dexterity)));
+  }
+})
 
 $("#attack-stat").on("input", function() {
   const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
@@ -379,22 +489,25 @@ $("#weapon-choice").on("change", function(e) {
   if($(e.target).prop("value") === "equipped-weapon") {
     //set weapon select to equipped weapon
     //disable weapon select
+    $("#other-weapon-select-area").show();
     $("#other-weapon-select").prop("disabled",true);
     //disable damage
     $("#custom-weapon").prop("disabled",true);
   }
   if($(e.target).prop("value") === "another-weapon") {
     //enable weapon select
+    $("#other-weapon-select-area").show();
     $("#other-weapon-select").prop("disabled",false);
     //disable damage
     $("#custom-weapon").prop("disabled",true);
   }
   if($(e.target).prop("value") === "custom-weapon") {
-    $("#other-weapon-select :nth-child(1)").prop("selected",true).change();
+    $("#other-weapon-select-area").hide();
     //disable weapon select
     $("#other-weapon-select").prop("disabled",true);
     //enable damage
     $("#custom-weapon").prop("disabled",false);
+    $("#custom-weapon").val("");
   }
   
 })
@@ -414,6 +527,23 @@ $("#dmg-roll-button").on("click", function() {
 })
 
 //spell attack
+
+$("#spell-stat-choice-area").on("change",function(e) {
+  if($(".calc-char-select").find(":selected").attr("value") === "null") return;
+  const data = JSON.parse($(".calc-char-select").find(":selected").attr("data"));
+  if($(e.target).attr("value") === 'intelligence') {
+    $("#spell-attack-stat").val(data.intelligence);
+    $("#spell-attack-stat-modifier").val(modifier(parseInt(data.intelligence)));
+  }
+  if($(e.target).attr("value") === 'wisdom') {
+    $("#spell-attack-stat").val(data.wisdom);
+    $("#spell-attack-stat-modifier").val(modifier(parseInt(data.wisdom)));
+  }
+  if($(e.target).attr("value") === 'charisma') {
+    $("#spell-attack-stat").val(data.charisma);
+    $("#spell-attack-stat-modifier").val(modifier(parseInt(data.charisma)));
+  }
+})
 
 $("#spell-attack-stat").on("input", function() {
   const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
