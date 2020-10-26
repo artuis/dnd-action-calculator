@@ -10,13 +10,6 @@ const characterModal = $(".new-character-modal");
 let charModalFunction = "";
 
 $(document).ready(function() {
-<<<<<<< HEAD
-=======
-  $("body").mutate("scrollHeight", function() {
-    console.log("scrollheight");
-  })
-  $("main").height(document.body.scrollHeight);
->>>>>>> parent of c1e2c52... general styling
   const campaigns = $(".campaign");
   for(let i = 0; i < campaigns.length; i++) {
     let chars = $(campaigns[i]).find("tbody tr");
