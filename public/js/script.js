@@ -11,6 +11,10 @@ const characterModal = $(".new-character-modal");
 let charModalFunction = "";
 
 $(document).ready(function() {
+  $("body").mutate("scrollHeight", function() {
+    console.log("scrollheight");
+  })
+  $("main").height(document.body.scrollHeight);
   const campaigns = $(".campaign");
   for(let i = 0; i < campaigns.length; i++) {
     let chars = $(campaigns[i]).find("tbody tr");
@@ -182,7 +186,6 @@ $(".new-char-btn").on("click", () => {
   charModalFunction="add"
   setCharModalState();
 })
-
 function viewChar(e) {
   charModalFunction = "view";
   setCharModalState();
@@ -395,6 +398,14 @@ $("#custom-calculate").on("click",function() {
   let result = calculate(expr);
   $("#custom-result").text(result.total);
 })
+
+$("#light-dark").click(function() {
+  if (this.checked) {
+    $("html").addClass("dark");
+  } else {
+    $(".dark").removeClass("dark");
+  }
+});
 
 // utility functions
 

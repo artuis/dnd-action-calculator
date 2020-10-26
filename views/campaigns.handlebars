@@ -435,7 +435,7 @@
             <h3>Characters</h3>
           </div>
           <div class="col-4 col"><button class="delete-campaign float-right"
-              data-id={{this.dataValues.id}}>Delete</button></div>
+              data-id={{this.dataValues.id}}>- Delete Campaign</button></div>
         </div>
         <table class="campaign-char-table" data-id={{this.dataValues.id}}>
               <div class="row table-header">
@@ -462,7 +462,7 @@
               <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
               <td class="text-right"><label class="paper-btn char-btn action">Action</label>
               </td>
-              <td class="text-right"><label class="btn-close remove-from-campaign"
+              <td class="remove"><label class="x remove-from-campaign"
                   data-id="{{this.dataValues.id}}">X</label></td>
             </tr>
             {{/each}}
@@ -497,7 +497,7 @@
         <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
         <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
         <td class="text-right"><label class="paper-btn action">Action</label></td>
-        <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
+        <td class="remove"><label class="btn-close delete x" id="delete">X</label></td>
       </tr>
       {{/each}}
     </tbody>

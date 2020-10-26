@@ -1,7 +1,33 @@
+/* main {
+  background-color: rgba(219,186,127,0.25);
+  background-repeat: repeat-y;
+  height: 110vh;
+  position: sticky;
+}
+
+.dark main {
+  background-color: rgba(2, 10, 31, 0.75);
+  background-size: cover;
+} */
+
+.inline .form-group {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.inline .paper-switch-2 {
+  border: none
+}
+
 body {
   background-image: url("../img/background.jpg");
   background-repeat: repeat-y;
   background-size: 100%;
+}
+
+.index {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
 }
 
 .container {
@@ -90,14 +116,43 @@ nav {
     margin-right: 30px;
 }
 
+.delete-campaign {
+  margin-top: 2rem;
+}
+
+.collapsible .x, .x {
+    color: #41403e;
+    color: var(--primary-light);
+    transition: all 235ms ease-in-out 0s;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: normal;
+    height: 1.1rem;
+    text-decoration: none;
+    top: 1rem;
+    width: 2rem;
+    border-bottom: 0;
+    padding: 0.5rem;
+    display: inline-block;
+}
+
+.x:hover {
+    color: #41403e !important;
+    color: var(--primary) !important;
+}
+
 .collapsible .char-btn {
+    display: inline-block;
     border-bottom-color: var(--primary);
     border-width: 2px;
     font-weight: normal;
-    margin: auto 0;
+    margin: auto;
+    margin-right: 0;
     margin-bottom: 0;
 }
-
+.table-header .col h4{
+  margin-bottom: 0.5em;
+}
 .table-header {
     margin-bottom: 0 !important;
 }
@@ -105,7 +160,7 @@ nav {
 .add-character {
   display: flex;
   align-content: right;
-  padding-right: 0;
+  padding-right: 1rem;
 }
 
 .campaign-char-select {
@@ -239,29 +294,8 @@ h4 {
    border: 1px solid silver;
    margin: 10px 0 18px;
    padding: 0 10px;
- }
- .container form .btn{
-   margin-left: 50%;
-   transform: translateX(-50%)
-   width 120px;
-   height: 34px;
-   border: none;
-   outline: none;
-   background: orangered;
-   cursor: pointer;
-   font-size: 16px;
-   text-transform: uppercase;
-   color: whitesmoke;
-   border-radius: 4px;
-   transition: .3s;
- }
- .container form .btn:hover{
-   opacity: .7;
- } */
+ }*/
 
- .main-btn {
-  padding-left: 280px;
- }
 
  .text-title {
    justify-content: space-around;
