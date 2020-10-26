@@ -107,10 +107,6 @@
                     <label for="init">Initiative</label>
                     <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
                   </div>
-                  {{!-- <div class="col-4 col">
-                    <label for="spd">Speed</label>
-                    <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
-                  </div> --}}
                 </div>
                 <div class="row">
                   <div class="col-12 col">
@@ -128,6 +124,7 @@
                   <div class="col-12 col">
                     <label for="weapon">Weapon</label>
                     <select name="weapon" id="weapon">
+                      <option value="null"></option>
                       {{#each weapons}}
                       <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
                       {{/each}}
@@ -145,25 +142,32 @@
 
   {{!-- calculator modal --}}
   <div class="row flex-spaces child-borders">
-    <label class="paper-btn margin" for="calc-modal">Open Calculator</label>
+    <label class="paper-btn margin" for="calc-modal">Calculator</label>
   </div>
   <input class="modal-state" id="calc-modal" type="checkbox">
   <div class="modal">
     <label class="modal-bg" for="calc-modal"></label>
     <div class="modal-body calc-modal-body">
       <label class="btn-close" for="calc-modal">X</label>
-      <h3 class="modal-title">Calculator</h3>
+      <h1 class="modal-title text-center">Calculator</h1>
       <div class="row">
-        <div class="col-12 col">
-          <h5>Character</h5>
-          <form>
+        <h3>Character</h3>
+      </div>
+      <div class="row margin-bottom-small">
+
+        <div class="col-3 col">
+
+          {{!-- <form> --}}
           <select class="calc-char-select">
-              <option value="null"></option>
+            <option value="null"></option>
             {{#each characters}}
-              <option value='{{this.dataValues.id}}' data='{{JSON2string this}}'>{{this.dataValues.name}}</option>
+            <option value='{{this.dataValues.id}}' data='{{JSON2string this}}'>{{this.dataValues.name}}</option>
             {{/each}}
           </select>
-          </form>
+          {{!-- </form> --}}
+        </div>
+        <div class="col-9 col">
+          <p id="char-description" class="big"></p>
         </div>
       </div>
       <div class="row flex-spaces tabs">
@@ -177,46 +181,34 @@
         <label class="tab-input-label" for="tab3">Custom</label>
 
         <div class="content" id="content1">
-
-          <div class="row">
-            <div class="col-12 col">
-              <h5>Attack Roll</h5>
-
-            </div>
-          </div>
+          <h3>Attack Roll</h3>
           <h5>Options</h5>
           <div class="row paper">
 
             <div class="col-4 col option-pane">
               <div class="row">
                 <div class="col">
-                  <h5 class="text-center">Stat Bonus</h5>
+                  <h5 class="text-center">Ability Modifier</h5>
                 </div>
               </div>
               <div class="row">
                 <div id="attack-stat-choice-area" class="col">
                   <fieldset class="form-group">
-                    {{!-- <form> --}}
                     <label for="attack-stat-choice1" class="paper-radio">
                       <input type="radio" name="paperRadios" id="attack-stat-choice1" value="strength">
                       <span>Strength</span>
                     </label>
                     <label for="attack-stat-choice2" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="attack-stat-choice2" value="dexterity"> <span>Dexterity</span>
+                      <input type="radio" name="paperRadios" id="attack-stat-choice2" value="dexterity">
+                      <span>Dexterity</span>
                     </label>
-                    {{!-- </form> --}}
                   </fieldset>
                 </div>
-
-
-
               </div>
-
-
               <div class="flex-horizontal space-between position-relative">
                 <div>
                   <p class="text-center">Stat</p>
-                  <input id="attack-stat" type="text" value="10" class="square-normal">
+                  <input id="attack-stat" type="number" min="0" max="99" value="10" class="square-normal">
                 </div>
 
                 <p class="center big">=</p>
@@ -232,7 +224,7 @@
                 <h5 class="text-center">Proficiency Bonus</h5>
               </div>
               <div>
-                <input id="prof-bonus-field" type="text" value="0" class="calc-input">
+                <input id="prof-bonus-field" type="number" min="0" max="99" value="0" class="calc-input">
               </div>
               <fieldset class="form-group">
                 <label for="use-prof-bonus" class="paper-check">
@@ -264,21 +256,30 @@
               </fieldset>
               <div class="row">
                 <h5>Other Modifiers</h5>
-                <input id="other-attack-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+                <input id="other-attack-mods-field" type="text" maxlength="20" placeholder="-2 + 5 + -3"
+                  class="calc-input">
               </div>
             </div>
           </div>
+          <input class="alert-state" id="invalid-attack-value" type="checkbox" checked>
+          <div class="alert alert-danger dismissible">
+            One or more fields has an invalid value
+            {{!-- <label class="btn-close" for="invalid-attack-value">X</label> --}}
+          </div>
           <div class="row">
-            <div class="col-8 col">
+            <div class="col-2 col">
               <button id="attack-roll-button" type="button">Roll</button>
             </div>
+            <div class="col-6 col">
+              <p class="big">Attack Roll: <span id="attack-expr"></span></p>
+            </div>
             <div class="col-4 col">
-              <p class="big">Attack Roll: <span id="attack-result"></span></p>
+              <p class="big">Attack Result: <span id="attack-result"></span></p>
             </div>
           </div>
 
 
-          <h5>Damage Roll</h5>
+          <h3>Damage Roll</h3>
           <h5>Options</h5>
           <div class="row paper">
             <div class="col-4 col option-pane">
@@ -293,7 +294,8 @@
                     Weapon</span>
                 </label>
                 <label for="damageType3" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="damageType3" value="custom-weapon" checked> <span>Custom</span>
+                  <input type="radio" name="weapon-choices" id="damageType3" value="custom-weapon" checked>
+                  <span>Custom</span>
                 </label>
               </fieldset>
               <div id="other-weapon-select-area" class="form-group">
@@ -308,20 +310,20 @@
               </div>
               <div id="custom-area" class="form-group">
                 <label for="custom-weapon">Damage</label>
-                <input type="text" placeholder="e.g. 2d4" id="custom-weapon">
+                <input type="text" maxlength="20" placeholder="e.g. 2d4" id="custom-weapon">
               </div>
             </div>
             <div class="col-4 col option-pane">
               <div class="row">
                 <div class="col">
-                  <h5 class="text-center">Stat Bonus</h5>
+                  <h5 class="text-center">Ability Modifier</h5>
                 </div>
               </div>
 
               <div class="flex-horizontal space-between position-relative">
                 <div>
                   <p class="text-center">Stat</p>
-                  <input id="dmg-stat" type="text" value="10" class="square-normal">
+                  <input id="dmg-stat" type="number" min="0" max="99" value="10" class="square-normal">
                 </div>
 
                 <p class="center big">=</p>
@@ -330,7 +332,6 @@
                   <input id="dmg-stat-modifier" type="text" value="0" class="square-normal" disabled>
                 </div>
               </div>
-              {{!-- <p>Ability Modifier: <span></span></p> --}}
             </div>
 
             <div class="col-4 col">
@@ -363,28 +364,34 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-8 col">
+            <input class="alert-state" id="invalid-dmg-value" type="checkbox" checked>
+            <div class="alert alert-danger dismissible">
+              One or more fields has an invalid value
+              {{!-- <label class="btn-close" for="invalid-dmg-value">X</label> --}}
+            </div>
+            <div class="col-2 col">
               <button id="dmg-roll-button" type="button">Roll</button>
             </div>
+            <div class="col-6 col">
+              <p class="big">Damage Roll: <span id="dmg-expr"></span></p>
+            </div>
             <div class="col-4 col">
-              <p class="big">Damage Roll: <span id="dmg-result"></span></p>
+              <p class="big">Damage Result: <span id="dmg-result"></span></p>
             </div>
           </div>
         </div>
         <div class="content" id="content2">
-          <div class="row">
-            <div class="col-12 col">
-              <h5>Attack Roll</h5>
+          
+              <h3>Attack Roll</h3>
 
-            </div>
-          </div>
+            
           <h5>Options</h5>
           <div class="row paper">
 
             <div class="col-4 col option-pane">
               <div class="row">
                 <div class="col">
-                  <h5 class="text-center">Stat Bonus</h5>
+                  <h5 class="text-center">Ability Modifier</h5>
                 </div>
               </div>
               <div class="row">
@@ -456,16 +463,24 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-8 col">
+            <input class="alert-state" id="invalid-spell-attack-value" type="checkbox" checked>
+            <div class="alert alert-danger dismissible">
+              One or more fields has an invalid value
+              {{!-- <label class="btn-close" for="invalid-attack-value">X</label> --}}
+            </div>
+            <div class="col-2 col">
               <button id="spell-attack-roll-button" type="button">Roll</button>
             </div>
+            <div class="col-6 col">
+              <p class="big">Attack Roll: <span id="spell-attack-expr"></span></p>
+            </div>
             <div class="col-4 col">
-              <p class="big">Attack Roll: <span id="spell-attack-result"></span></p>
+              <p class="big">Attack Result: <span id="spell-attack-result"></span></p>
             </div>
           </div>
 
 
-          <h5>Damage Roll</h5>
+          <h3>Damage Roll</h3>
           <h5>Options</h5>
           <div class="row paper">
             <div class="col-4 col option-pane">
@@ -512,167 +527,185 @@
                   <option value="dmg_slot_7">Level 7</option>
                   <option value="dmg_slot_8">Level 8</option>
                   <option value="dmg_slot_9">Level 9</option>
-                  
+
                 </select>
               </div>
 
             </div>
 
-          
 
-          <div class="col-4 col">
-            <div class="row">
-              <h5 class="text-center">Critical Hit</h5>
-            </div>
-            <fieldset class="form-group">
-              <div>
-                <label for="crit-spell" class="paper-check">
-                  <input type="checkbox" name="paperChecks" id="crit-spell" value="crit" />
-                  <span></span></label>
+
+            <div class="col-4 col">
+              <div class="row">
+                <h5 class="text-center">Critical Hit</h5>
               </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="crit-spell" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="crit-spell" value="crit" />
+                    <span></span></label>
+                </div>
 
-            </fieldset>
-            
-            <div class="row">
-              <h5>Other Modifiers</h5>
-              <input id="other-spell-dmg-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </fieldset>
+
+              <div class="row">
+                <h5>Other Modifiers</h5>
+                <input id="other-spell-dmg-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <input class="alert-state" id="invalid-spell-dmg-value" type="checkbox" checked>
+            <div class="alert alert-danger dismissible">
+              One or more fields has an invalid value
+              {{!-- <label class="btn-close" for="invalid-attack-value">X</label> --}}
+            </div>
+            <div class="col-2 col">
+              <button id="spell-dmg-roll-button" type="button">Roll</button>
+            </div>
+            <div class="col-6 col">
+              <p class="big">Damage Roll: <span id="spell-dmg-expr"></span></p>
+            </div>
+            <div class="col-4 col">
+              <p class="big">Damage Result: <span id="spell-dmg-result"></span></p>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="content" id="content3">
+
+
+
+          <div class="row flex-middle">
+            <div class="col-9 col">
+              <p>Enter expression:</p>
+              <div class="form-group">
+
+                <input class="input-block" type="text" name="expr" placeholder="6d6-2L" id="custom-expression">
+              </div>
+
+            </div>
+            <div class="col-3 col ">
+              <button id="custom-calculate">Calculate</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col">
+              <p>Result: <span id="custom-result"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+  {{!-- campaign area --}}
+  <div class="flex-center">
+    <div class="text-center">
+      <h1>Campaigns</h1>
+    </div>
+    <input class="alert-state" id="invalid-camp-alert" type="checkbox" checked>
+    <div class="alert alert-danger dismissible">
+      Campaign could not be created
+      <label class="btn-close" for="invalid-camp-alert">X</label>
+    </div>
+    <div class="text-right">
+      <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+    </div>
+    {{#each campaigns}}
+
+
+    <div class="collapsible campaign">
+      <input id="collapsible-{{this.dataValues.id}}" type="checkbox" name="collapsible">
+      <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
+      <div class="collapsible-body">
+        <div class="row flex-edges">
           <div class="col-8 col">
-            <button id="spell-dmg-roll-button" type="button">Roll</button>
+            <h3>Characters</h3>
           </div>
-          <div class="col-4 col">
-            <p class="big">Damage Roll: <span id="spell-dmg-result"></span></p>
-          </div>
+          <div class="col-4 col"><button class="delete-campaign float-right"
+              data-id={{this.dataValues.id}}>Delete</button></div>
         </div>
-      </div>
-      <div class="content" id="content3">
+        <table class="campaign-char-table" data-id={{this.dataValues.id}}>
+          <thead>
+            <tr>
+              <th class="row table-header">
+                <div class="col-6 col">
+                  <h4>Name</h4>
+                </div>
 
+                <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
+                  <select class="campaign-char-select">
+                    {{#each ../characters}}
+                    <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                    {{/each}}
+                  </select>
+                  <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
+                </div>
 
+              </th>
+            </tr>
 
-        <div class="row">
-          <div class="col-9 col">
-            <p>Enter expression:</p>
-            <div class="form-group">
-
-              <input class="input-block" type="text" name="expr" placeholder="6d6-2L" id="custom-expression">
-            </div>
-
-          </div>
-          <div class="col-3 col">
-            <button id="custom-calculate">Calculate</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col">
-            <p>Result: <span id="custom-result"></span></p>
-          </div>
-        </div>
+          </thead>
+          <tbody>
+            {{#each this.dataValues.Characters}}
+            <tr data-id={{this.dataValues.id}}>
+              <td class="name">{{this.dataValues.name}}</td>
+              <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
+              <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
+              </td>
+              <td class="text-right"><label class="btn-close remove-from-campaign"
+                  data-id="{{this.dataValues.id}}">X</label></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
       </div>
     </div>
-
-
-
-
-
-
-
-  </div>
-</div>
-
-
-
-
-{{!-- campaign area --}}
-<div class="flex-center">
-  <div class="text-center">
-    <h1>Campaigns</h1>
-  </div>
-  <div class="text-right">
-    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
-  </div>
-  {{#each campaigns}}
-
-
-  <div class="collapsible campaign">
-    <input id="collapsible-{{this.dataValues.id}}" type="checkbox" name="collapsible">
-    <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
-    <div class="collapsible-body">
-      <div class="row flex-edges">
-        <div class="col-8 col">
-          <h3>Characters</h3>
-        </div>
-        <div class="col-4 col"><button class="delete-campaign float-right"
-            data-id={{this.dataValues.id}}>Delete</button></div>
-      </div>
-      <table class="campaign-char-table" data-id={{this.dataValues.id}}>
-        <thead>
-          <tr>
-            <th class="row table-header">
-              <div class="col-6 col">
-                <h4>Name</h4>
-              </div>
-
-              <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
-                <select class="campaign-char-select">
-                  {{#each ../characters}}
-                  <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
-                  {{/each}}
-                </select>
-                <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
-              </div>
-
-            </th>
-          </tr>
-
-        </thead>
-        <tbody>
-          {{#each this.dataValues.Characters}}
-          <tr data-id={{this.dataValues.id}}>
-            <td class="name">{{this.dataValues.name}}</td>
-            <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
-            <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
-            </td>
-            <td class="text-right"><label class="btn-close remove-from-campaign"
-                data-id="{{this.dataValues.id}}">X</label></td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  {{/each}}
-</div>
-
-{{!-- characters area --}}
-<div class="text-center">
-  <h1>Characters</h1>
-</div>
-<table id="all-char-table">
-  <thead>
-    <tr>
-      <div class="row table-header">
-        <div class="col-6 col">
-          <h4>Name</h4>
-        </div>
-        <div class="col-6 col text-right"><label id="add-character" class="paper-btn margin new-char-btn"
-            for="characterModal">+ New Character</label></div>
-      </div>
-    </tr>
-
-  </thead>
-  <tbody>
-    {{#each characters}}
-    <tr id="character{{this.dataValues.id}}" data-id={{this.dataValues.id}}>
-      <td class="name">{{this.dataValues.name}}</td>
-      <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
-      <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
-      <td class="text-right"><label class="paper-btn action" for="calc-modal">Action</label></td>
-      <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
-    </tr>
     {{/each}}
-  </tbody>
-</table>
+  </div>
+
+  {{!-- characters area --}}
+  <div class="text-center">
+    <h1>Characters</h1>
+  </div>
+  <input class="alert-state" id="invalid-char-alert" type="checkbox" checked>
+  <div class="alert alert-danger dismissible">
+    Character could not be created
+    <label class="btn-close" for="invalid-char-alert">X</label>
+  </div>
+  <table id="all-char-table">
+    <thead>
+      <tr>
+        <div class="row table-header">
+          <div class="col-6 col">
+            <h4>Name</h4>
+          </div>
+          <div class="col-6 col text-right"><label id="add-character" class="paper-btn margin new-char-btn"
+              for="characterModal">+ New Character</label></div>
+        </div>
+      </tr>
+
+    </thead>
+    <tbody>
+      {{#each characters}}
+      <tr id="character{{this.dataValues.id}}" data-id={{this.dataValues.id}}>
+        <td class="name">{{this.dataValues.name}}</td>
+        <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
+        <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
+        <td class="text-right"><label class="paper-btn action" for="calc-modal">Action</label></td>
+        <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
