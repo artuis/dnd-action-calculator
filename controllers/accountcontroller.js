@@ -66,24 +66,24 @@ router.get("/sessiondata", (req,res) => {
     res.json(req.session);
 })
 
-//might disable these routes
-router.put('/',function(req,res){
-    db.Account.update(req.body,{where:{id:req.body.id}}).then(data => {
-        res.status(200).json(data)
-    }).catch(err=>{
-        console.log(err)
-        res.status(500).json(err);
-    })
-})
+// //might disable these routes
+// router.put('/',function(req,res){
+//     db.Account.update(req.body,{where:{id:req.body.id}}).then(data => {
+//         res.status(200).json(data)
+//     }).catch(err=>{
+//         console.log(err)
+//         res.status(500).json(err);
+//     })
+// })
 
-router.delete('/:id',function(req,res){
-    db.Account.destroy({where:{id:req.params.id}}).then(data => {
-      if(data.affectedRows === 0) res.status(404).send("Not Found")  
-      res.status(200).json(data)
-    }).catch(err=>{
-        console.log(err)
-        res.status(500).json(err);
-    })
-})
+// router.delete('/:id',function(req,res){
+//     db.Account.destroy({where:{id:req.params.id}}).then(data => {
+//       if(data.affectedRows === 0) res.status(404).send("Not Found")  
+//       res.status(200).json(data)
+//     }).catch(err=>{
+//         console.log(err)
+//         res.status(500).json(err);
+//     })
+// })
 
 module.exports = router;
