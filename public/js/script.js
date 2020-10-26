@@ -273,6 +273,8 @@ $("#create-btn").click(() => {
 
 //calculator stuff
 
+//attack section
+
 $("#attack-stat").on("input", function() {
   const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
   $("#attack-stat-modifier").val(value)
@@ -390,6 +392,40 @@ $("#dmg-roll-button").on("click", function() {
   $("#dmg-result").text(calculate(str).total);
 })
 
+//spell attack
+
+$("#spell-attack-stat").on("input", function() {
+  const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
+  $("#spell-attack-stat-modifier").val(value)
+})
+
+$("#spell-attack-advantage").on("click",function() {
+  let other = $("#spell-attack-disadvantage");
+  if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
+})
+
+$("#spell-attack-disadvantage").on("click",function() {
+  let other = $("#spell-attack-advantage");
+  if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
+})
+
+$("#spell-attack-roll-button").on("click", function() {
+  let str = "";
+  //advantage
+  if($("#spell-attack-advantage").prop("checked")) str+="2d20-L";
+  else if($("#spell-attack-disadvantage").prop("checked")) str+="2d20-H"
+  else str+="d20"
+  //stat modifier
+  str+=`+${$("#spell-attack-stat-modifier").val().trim()}`
+  //prof
+  str+=`+${$("#spell-prof-bonus-field").val().trim()}`;
+  //other mods
+  str+=$("#other-spell-attack-mods-field").val().trim()
+  const result = calculate(str).total;
+  $("#spell-attack-result").text(result);
+})
+
+//custom tab
 $("#custom-calculate").on("click",function() {
   let expr = $("#custom-expression").val().trim();
   let result = calculate(expr);
