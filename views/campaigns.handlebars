@@ -211,7 +211,7 @@
               <div class="flex-horizontal space-between position-relative">
                 <div>
                   <p class="text-center">Stat</p>
-                  <input type="text" value="10" class="square-normal">
+                  <input id="attack-stat" type="text" value="10" class="square-normal">
                 </div>
 
                 <p class="center big">=</p>
@@ -268,17 +268,100 @@
               <button id="attack-roll-button" type="button">Roll</button>
             </div>
             <div class="col-4 col">
-              <p>Results: <span id="attack-result"></span></p>
+              <p class="big">Attack Roll: <span id="attack-result"></span></p>
             </div>
           </div>
 
 
           <h5>Damage Roll</h5>
-          <p>Results: <output id="subResult" form="calcForm"></output></p>
+          <h5>Options</h5>
+          <div class="row paper">
+            <div class="col-4 col option-pane">
+              <fieldset id="weapon-choice" class="form-group">
+
+                <label for="dmgType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
+                  <span>Equipped Weapon</span>
+                </label>
+                <label for="dmgType2" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType2" value="another-weapon" checked> <span>Another
+                    Weapon</span>
+                </label>
+                <label for="dmgType3" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType3" value="custom-weapon"> <span>Custom</span>
+                </label>
+              </fieldset>
+              <div id="other-weap-select-area" class="form-group">
+                <label for="other-weapon-select">Weapon</label>
+                <select id="other-weapon-select">
+                  <option value="null"></option>
+                  {{#each weapons}}
+                      <option value={{this.dataValues.id}} data={{JSON2string this.dataValues}}>{{this.dataValues.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div id="custom-area" class="form-group">
+                <label for="custom-weapon">Damage</label>
+                <input type="text" placeholder="e.g. 2d4" id="custom-weapon">
+              </div>
+            </div>
+            <div class="col-4 col option-pane">
+              <div class="row">
+                <div class="col">
+                  <h5 class="text-center">Stat Bonus</h5>
+                </div>
+              </div>
+              
+              <div class="flex-horizontal space-between position-relative">
+                <div>
+                  <p class="text-center">Stat</p>
+                  <input id="dmg-stat" type="text" value="10" class="square-normal">
+                </div>
+
+                <p class="center big">=</p>
+                <div>
+                  <p class="text-center">Modifier</p>
+                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal">
+                </div>
+              </div>
+              {{!-- <p>Ability Modifier: <span></span></p> --}}
+            </div>
+
+            <div class="col-4 col">
+              <div class="row">
+                <h5 class="text-center">Critical Hit</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="crit-hit" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="crit-hit" value="crit" />
+                    <span></span></label>
+                </div>
+
+              </fieldset>
+              <div class="row">
+                <h5 class="text-center">2 handed</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="two-handed" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="two-handed" value="twohand" />
+                    <span></span></label>
+                </div>
+
+              </fieldset>
+              <div class="row">
+                <h5>Other Modifiers</h5>
+                <input id="other-dmg-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </div>
+            </div>
+          </div>
           <div class="row">
-            <div class="col-md-4">
-              <span id="damageResult"></span>
-              <button id="roll-btn" type="button">Roll</button><br>
+            <div class="col-8 col">
+              <button id="dmg-roll-button" type="button">Roll</button>
+            </div>
+            <div class="col-4 col">
+              <p class="big">Damage Roll: <span id="dmg-result"></span></p>
             </div>
           </div>
         </div>
