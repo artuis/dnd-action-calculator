@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models")
 
-//may not be right
 router.get('/',function(req,res){
     db.Spell.findAll({}).then(data=>{
         res.status(200).json(data);
