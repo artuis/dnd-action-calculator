@@ -4,6 +4,11 @@ body {
   background-size: 100%;;
 }
 
+.index {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+}
+
 .container {
   top: 2em;
 }
