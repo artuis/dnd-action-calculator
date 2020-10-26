@@ -10,10 +10,10 @@ const characterModal = $(".new-character-modal");
 let charModalFunction = "";
 
 $(document).ready(function() {
-  $("body").mutate("scrollHeight", function() {
-    console.log("scrollheight");
-  })
-  $("main").height(document.body.scrollHeight);
+  // $("body").mutate("scrollHeight", function() {
+  //   console.log("scrollheight");
+  // })
+  // $("main").height(document.body.scrollHeight);
   const campaigns = $(".campaign");
   for(let i = 0; i < campaigns.length; i++) {
     let chars = $(campaigns[i]).find("tbody tr");
@@ -153,9 +153,9 @@ $(".campaign-add-char-btn").on("click",function() {
     row.append($("<td>").addClass("name").text(newName));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action" for="calc-modal">Action</label>'));
-    row.append($("<td>").addClass("text-right").html(`<label class="btn-close remove-from-campaign" data-id=${newID}>X</label>`));
-    button.closest("thead").next().append(row);
-    //remove option from select
+    row.append($("<td>").addClass("text-right").html(`<label class="x remove-from-campaign" data-id=${newID}>X</label>`));
+    console.log(button.parent().attr("data-id"));
+    $("#campaign-char-" + button.parent().attr("data-id")).append(row);
     button.prev().find(`option[value=${newID}]`).remove();
   });
 })
