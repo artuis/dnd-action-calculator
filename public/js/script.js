@@ -9,6 +9,9 @@ const loginPass = $("#login-pass")
 const characterModal = $(".new-character-modal");
 let charModalFunction = "";
 
+const otherModsPattern = /(^\d+|^[+-]{1,2}\d+)([+-]{1,2}\d+)*($|[+-]{1,2}\d+$){1}/;
+const dicePattern = /^\d*d\d+([+-]{1,2}(\d*d\d+|\d+))*($|[+-]{1,2}(\d*d\d+|\d+)$)/;
+
 $(document).ready(function() {
   const campaigns = $(".campaign");
   for(let i = 0; i < campaigns.length; i++) {
@@ -19,15 +22,15 @@ $(document).ready(function() {
       charList.find(`option[value=${id}]`).remove();
     }
   }
+  $(".calc-char-select :nth-child(1)").prop("selected",true).change();
   
 })
 
 $(window).on("load",function() {
   
-  $(".calc-char-select :nth-child(1)").prop("selected",true).change();
-  $("#spellType1").prop("checked",true).change();
-  $("#spell-select :nth-child(1)").prop("selected",true).change();
-  //$("#dmgType2").prop("checked",true).change();
+  //$(".calc-char-select :nth-child(1)").prop("selected",true).change();
+  //$("#spellType1").prop("checked",true).change();
+  //$("#spell-select :nth-child(1)").prop("selected",true).change();
 })
 
 //ajax functions
@@ -95,6 +98,8 @@ loginForm.on("submit", function(event) {
 //handle character modal button
 $("#save-character").on("click", () => {
   if(charModalFunction === "view") return;
+  let weapid = $("#weapon").find(":selected").attr("value");
+  if(weapid === "") weapid = null;
   const newChar = {
     name: $("#character-name").val().trim(),
     player_name: $("#player-name").val().trim(),
@@ -115,14 +120,15 @@ $("#save-character").on("click", () => {
     shield: $("#shield").is(':checked'),
     RaceId: $("#race").find(":selected").attr("value"),
     ClassId: $("#class").find(":selected").attr("value"),
-    WeaponId: $("#weapon").find(":selected").attr("value"),
   }
+  if(weapid != "null") newChar.WeaponId = weapid;
+  else newChar.WeaponId = null;
   console.log(newChar)
-  if(charModalFunction === "add") ajaxPost("api/characters", newChar).then(res => location.reload());
+  if(charModalFunction === "add") ajaxPost("api/characters", newChar).then(res => location.reload()).fail(res => $("#invalid-char-alert").prop("checked",false));
   if(charModalFunction === "update") {
     console.log(characterModal.attr("data-id"));
     newChar.id = characterModal.attr("data-id");
-    ajaxPut("api/characters", newChar).then(res => location.reload());
+    ajaxPut("api/characters", newChar).then(res => location.reload()).fail(res => $("#invalid-char-alert").prop("checked",false));
   }
 })
 
@@ -131,7 +137,7 @@ $("#save-campaign").click(() => {
   var newCampaign = {
     name: $("#campaign-name").val()
   }
-  ajaxPost("api/campaigns", newCampaign).then(res => location.reload())
+  ajaxPost("api/campaigns", newCampaign).then(res => location.reload()).fail($("#invalid-camp-alert").prop("checked",false));
 })
 
 $(".campaign-add-char-btn").on("click",function() {
@@ -293,6 +299,7 @@ $("#create-btn").click(() => {
 //char select
 $(".calc-char-select").on("change", function() {
   if($(this).find(":selected").attr("value") === "null") {
+    $("#char-description").text("");
     //attack tab
   
     //enable stat bonus fields
@@ -331,7 +338,10 @@ $(".calc-char-select").on("change", function() {
   }
   else {
   const data = JSON.parse($(this).find(":selected").attr("data"));
-  console.log(data);
+  const race = $(`#race option[value=${data.RaceId}]`).text();
+  const theClass = $(`#class option[value=${data.ClassId}]`).text();
+
+  $("#char-description").text(`Level ${data.level} ${race} ${theClass}`);
   //attack tab
   
   //disable stat bonus fields
@@ -355,12 +365,6 @@ $(".calc-char-select").on("change", function() {
     $("#damageType2").prop("checked",true).change();
     $(`#other-weapon-select :nth-child(1)`).prop("selected",true).change();
   }
-  
-  //set weapon to equipped
-  
-  //set weapon select
-  
-  //set
   $("#dmg-stat").prop("disabled",true);
 
   //spells tab
@@ -425,12 +429,16 @@ $("#attack-disadvantage").on("click",function() {
   if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
 })
 
-$("#use-prof-bonus").on("click",function() {
-  if($(this).prop("checked") === false) $("#prof-bonus-field").prop("disabled",true);
-  else $("#prof-bonus-field").prop("disabled",false)
-})
-
 $("#attack-roll-button").on("click", function() {
+  let otherMods = $("#other-attack-mods-field").val().trim();
+  if(otherMods === "") otherMods = "0";
+  if(!otherModsPattern.test(otherMods)) {
+    $("#invalid-attack-value").prop("checked",false);
+    setTimeout(() => {
+      $("#invalid-attack-value").prop("checked",true);
+    },2000);
+    return
+  }
   let str = "";
   //advantage
   if($("#attack-advantage").prop("checked")) str+="2d20-L";
@@ -441,9 +449,12 @@ $("#attack-roll-button").on("click", function() {
   //prof
   if($("#use-prof-bonus").prop("checked")) str+=`+${$("#prof-bonus-field").val()}`;
   //other mods
-  str+=$("#other-attack-mods-field").val().trim()
-  const result = calculate(str).total;
-  $("#attack-result").text(result);
+  
+  if(/^\d/.test(otherMods)) str += "+"
+  str += otherMods;
+  const result = calculate(str);
+  $("#attack-expr").text(str);
+  $("#attack-result").text(result.total);
 })
 
 //damage section
@@ -488,6 +499,8 @@ $("#two-handed").on("click", function() {
 $("#weapon-choice").on("change", function(e) {
   if($(e.target).prop("value") === "equipped-weapon") {
     //set weapon select to equipped weapon
+    const data = JSON.parse($(".calc-char-select").find(":selected").attr("data"));
+    $(`#other-weapon-select option[value=${data.WeaponId}]`).prop("selected",true).change();
     //disable weapon select
     $("#other-weapon-select-area").show();
     $("#other-weapon-select").prop("disabled",true);
@@ -498,6 +511,7 @@ $("#weapon-choice").on("change", function(e) {
     //enable weapon select
     $("#other-weapon-select-area").show();
     $("#other-weapon-select").prop("disabled",false);
+    $("#other-weapon-select").change();
     //disable damage
     $("#custom-weapon").prop("disabled",true);
   }
@@ -513,16 +527,28 @@ $("#weapon-choice").on("change", function(e) {
 })
 
 $("#dmg-roll-button").on("click", function() {
+  const dmgEntry = $("#custom-weapon").val().trim();
+  let otherMods = $("#other-dmg-mods-field").val().trim();
+  if(otherMods === "") otherMods = "0";
+  if(!dicePattern.test(dmgEntry) || !otherModsPattern.test(otherMods)) {
+    $("#invalid-dmg-value").prop("checked",false);
+    setTimeout(() => {
+      $("#invalid-dmg-value").prop("checked",true);
+    },2000);
+    return
+  }
   let str = "";
   //damage
-  str += $("#custom-weapon").val().trim();
+  str += dmgEntry
   //crit
-  if($("#crit-hit").prop("checked")) str += `+${$("#custom-weapon").val().trim()}`
+  if($("#crit-hit").prop("checked")) str += `+${dmgEntry}`
   //modifier
   str += `+${$("#dmg-stat-modifier").val().trim()}`
   //other mods
-  str += $("#other-dmg-mods-field").val().trim();
-  console.log(str);
+  
+  if(/^\d/.test(otherMods)) str += "+"
+  str += otherMods;
+  $("#dmg-expr").text(str);
   $("#dmg-result").text(calculate(str).total);
 })
 
@@ -561,6 +587,16 @@ $("#spell-attack-disadvantage").on("click",function() {
 })
 
 $("#spell-attack-roll-button").on("click", function() {
+  let otherMods = $("#other-spell-attack-mods-field").val().trim();
+  if(otherMods === "") otherMods = "0";
+  if(!otherModsPattern.test(otherMods)) {
+    $("#invalid-spell-attack-value").prop("checked",false);
+    setTimeout(() => {
+      $("#invalid-spell-attack-value").prop("checked",true);
+    },2000);
+    return
+  }
+
   let str = "";
   //advantage
   if($("#spell-attack-advantage").prop("checked")) str+="2d20-L";
@@ -571,8 +607,10 @@ $("#spell-attack-roll-button").on("click", function() {
   //prof
   str+=`+${$("#spell-prof-bonus-field").val().trim()}`;
   //other mods
-  str+=$("#other-spell-attack-mods-field").val().trim()
+  if(/^\d/.test(otherMods)) str += "+"
+  str += otherMods;
   const result = calculate(str).total;
+  $("#spell-attack-expr").text(str);
   $("#spell-attack-result").text(result);
 })
 
@@ -581,9 +619,8 @@ $("#spell-attack-roll-button").on("click", function() {
 $("#spell-choice").on("change", function(e) {
   if($(e.target).prop("value") === "standard-spell") {
     $("#spell-select-area").show();
-    $("#spell-select :nth-child(1)").prop("selected",true).change();
+    if($("#spell-select").children().length > 0) $("#spell-select").change();
     $("#spell-slot-select").prop("disabled",false);
-    $("#custom-spell").val("")
     $("#custom-spell").prop("disabled",true);
   }
   else {
@@ -604,7 +641,6 @@ $("#spell-select").on("change", function() {
   }
   else {
     const data = JSON.parse($(this).find(":selected").attr("data"))
-    
     const dmgArray = [data.dmg_slot_1,data.dmg_slot_2,data.dmg_slot_3,data.dmg_slot_4,data.dmg_slot_5,data.dmg_slot_6,data.dmg_slot_7,data.dmg_slot_8,data.dmg_slot_9];
     spellSlotSelect.empty();
     for(let i = 0; i < dmgArray.length; i++) {
@@ -622,11 +658,23 @@ $("#spell-slot-select").on("change", function() {
 })
 
 $("#spell-dmg-roll-button").on("click", function() {
+  const dmgEntry = $("#custom-weapon").val().trim();
+  let otherMods = $("#other-spell-dmg-mods-field").val().trim();
+  if(otherMods === "") otherMods = "0";
+  if(!dicePattern.test(dmgEntry) || !otherModsPattern.test(otherMods)) {
+    $("#invalid-spell-dmg-value").prop("checked",false);
+    setTimeout(() => {
+      $("#invalid-spell-dmg-value").prop("checked",true);
+    },2000);
+    return
+  }
   let str = "";
   str+=$("#custom-spell").val().trim();
   if($("#crit-spell").prop("checked")) str += `+${$("#custom-spell").val().trim()}`;
-  str+=$("#other-spell-dmg-mods-field").val().trim();
+  if(/^\d/.test(otherMods)) str += "+"
+  str += otherMods;
   console.log(str);
+  $("#spell-dmg-expr").text(str);
   $("#spell-dmg-result").text(calculate(str).total);
 })
 
@@ -649,12 +697,3 @@ const doubleExpr = expr => {
     temp[0] = 2*parseInt(temp[0]);
     return temp.join("d"); 
 }
-
-
-
-
-
-
-
-
-
