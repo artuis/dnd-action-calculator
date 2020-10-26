@@ -20,6 +20,8 @@ $(document).ready(function() {
       charList.find(`option[value=${id}]`).remove();
     }
   }
+  $("#spellType1").prop("checked",true).change();
+  $("#dmgType2").prop("checked",true).change();
 })
 
 //ajax functions
@@ -273,6 +275,29 @@ $("#create-btn").click(() => {
 
 //calculator stuff
 
+//char select
+$(".calc-char-select").on("change", function() {
+  const data = JSON.parse($(this).find(":selected").attr("data"));
+  console.log(data);
+  //attack tab
+  
+  //disable stat bonus fields
+  //show strength/dex buttons
+  //select strength button
+  //set proficiency bonus from level
+  //disable proficiency bonus field
+  //set weapon to equipped
+  //set weapon select
+
+  //spells tab
+  //show attributes buttons
+  //disable stat bonus fields
+  //set proficiency bonus from level
+  //disable proficiency bonus field
+  //populate list of spells from class
+  //set to standard spell
+})
+
 //attack section
 
 $("#attack-stat").on("input", function() {
@@ -379,11 +404,7 @@ $("#dmg-roll-button").on("click", function() {
   //damage
   str += $("#custom-weapon").val().trim();
   //crit
-  if($("#crit-hit").prop("checked")) {
-    const temp = str.split("d");
-    temp[0] = 2*parseInt(temp[0]);
-    str = temp.join("d");
-  }
+  if($("#crit-hit").prop("checked")) str += `+${$("#custom-weapon").val().trim()}`
   //modifier
   str += `+${$("#dmg-stat-modifier").val().trim()}`
   //other mods
@@ -425,6 +446,60 @@ $("#spell-attack-roll-button").on("click", function() {
   $("#spell-attack-result").text(result);
 })
 
+// damage section
+
+$("#spell-choice").on("change", function(e) {
+  if($(e.target).prop("value") === "standard-spell") {
+    $("#spell-select-area").show();
+    $("#spell-select :nth-child(1)").prop("selected",true).change();
+    $("#spell-slot-select").prop("disabled",false);
+    $("#custom-spell").val("")
+    $("#custom-spell").prop("disabled",true);
+  }
+  else {
+    $("#spell-select-area").hide();
+    $("#spell-slot-select").prop("disabled",true);
+    $("#custom-spell").val("")
+    $("#custom-spell").prop("disabled",false);
+  }
+})
+
+$("#spell-select").on("change", function() {
+  const spellSlotSelect = $("#spell-slot-select")
+  if($(this).find(":selected").attr("value") === "null") {
+    $("#custom-spell").val("");
+    $("#custom-spell").prop("disabled",false);
+    spellSlotSelect.prop("disabled",true);
+    return;
+  }
+  else {
+    const data = JSON.parse($(this).find(":selected").attr("data"))
+    
+    const dmgArray = [data.dmg_slot_1,data.dmg_slot_2,data.dmg_slot_3,data.dmg_slot_4,data.dmg_slot_5,data.dmg_slot_6,data.dmg_slot_7,data.dmg_slot_8,data.dmg_slot_9];
+    spellSlotSelect.empty();
+    for(let i = 0; i < dmgArray.length; i++) {
+      if(dmgArray[i] != null) spellSlotSelect.append(new Option(`Level ${i+1}`,`dmg_slot_${i+1}`));
+    }
+    spellSlotSelect.find(":nth-child(1)").prop("selected",true).change();
+    spellSlotSelect.prop("disabled",false);
+    $("#custom-spell").prop("disabled",true);
+  }
+})
+
+$("#spell-slot-select").on("change", function() {
+  const data = JSON.parse($("#spell-select").find(":selected").attr("data"))
+  $("#custom-spell").val(data[$(this).find(":selected").prop("value")]);
+})
+
+$("#spell-dmg-roll-button").on("click", function() {
+  let str = "";
+  str+=$("#custom-spell").val().trim();
+  if($("#crit-spell").prop("checked")) str += `+${$("#custom-spell").val().trim()}`;
+  str+=$("#other-spell-dmg-mods-field").val().trim();
+  console.log(str);
+  $("#spell-dmg-result").text(calculate(str).total);
+})
+
 //custom tab
 $("#custom-calculate").on("click",function() {
   let expr = $("#custom-expression").val().trim();
@@ -439,7 +514,11 @@ const modifier = stat => Math.floor((stat - 10) / 2);
 
 const profBonus = level => Math.floor((level+7)/4);
 
-
+const doubleExpr = expr => {
+    const temp = expr.split("d");
+    temp[0] = 2*parseInt(temp[0]);
+    return temp.join("d"); 
+}
 
 
 
