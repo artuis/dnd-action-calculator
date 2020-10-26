@@ -12,7 +12,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.4.14",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "session": "^0.1.0",
+    "sessions": "0.0.2-7"
   },
   "devDependencies": {},
   "scripts": {

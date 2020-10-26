@@ -1,192 +1,505 @@
-
 <div class="paper container">
   <div class="text-center">
-    <h1>Campaigns</h1>
-  </div>
-  <div class="text-right">
-    <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+    <h1>PROFILE</h1>
   </div>
 
+  {{!-- campaign modal --}}
   <input class="modal-state" id="campaignModal" type="checkbox">
   <div class="modal">
-      <label class="modal-bg" for="campaignModal"></label>
-        <div class="modal-body text-center paper container container-xs">
-          <label class="btn-close" for="campaignModal">X</label>
-          <h4 class="modal-title">Campaign Name</h4>
-          <h5 class="modal-subtitle">Name your new campaign!</h5>
-          <div class="form-group">
-            <input type="text" placeholder="" id="campaign-name">
-          </div>
-          <label class="paper-btn margin" id="save-campaign"for="campaignModal">Save</label>
-        </div>
+    <label class="modal-bg" for="campaignModal"></label>
+    <div class="modal-body text-center paper container container-xs campaign-modal">
+      <label class="btn-close" for="campaignModal">X</label>
+      <h4 class="modal-title">Campaign Name</h4>
+      <h5 class="modal-subtitle">Name your new campaign!</h5>
+      <div class="form-group">
+        <input type="text" placeholder="" id="campaign-name">
+      </div>
+      <label class="paper-btn margin" id="save-campaign" for="campaignModal">Save</label>
+    </div>
   </div>
 
+  {{!-- character modal --}}
   <input class="modal-state" id="characterModal" type="checkbox">
-    <div class="modal">
-        <label class="modal-bg" for="characterModal"></label>
-          <div class="modal-body paper container text-center new-character-modal">
-            <label class="btn-close" for="characterModal">X</label>
-            <h4 class="modal-title">Add a new Character</h4>
-            <div class="form-group">
+  <div class="modal">
+    <label class="modal-bg" for="characterModal"></label>
+    <div class="modal-body paper container text-center new-character-modal" data-id="">
+      <label class="btn-close" for="characterModal">X</label>
+      <h4 class="modal-title" id="character-modal-title">Add a new Character</h4>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-2 col">
+            <div class="row">
+              <label for="str">Strength</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="str">
+            </div>
 
-              <div class="row">
-                
-                <div class="col-2 col">
-                  <div class="row">
-                    <label for="str">Strength</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="str">
-                  </div>
+            <div class="row">
+              <label for="dex">Dexterity</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="dex">
+            </div>
 
-                  <div class="row">
-                    <label for="dex">Dexterity</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="dex">
-                  </div>
+            <div class="row">
+              <label for="con">Constitution</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="con">
+            </div>
 
-                  <div class="row">
-                    <label for="con">Constitution</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="con">
-                  </div>
+            <div class="row">
+              <label for="wis">Wisdom</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="wis">
+            </div>
 
-                  <div class="row">
-                    <label for="wis">Wisdom</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="wis">
-                  </div>
+            <div class="row">
+              <label for="int">Intelligence</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="int">
+            </div>
 
-                  <div class="row">
-                    <label for="int">Intelligence</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="int">
-                  </div>
+            <div class="row">
+              <label for="cha">Charisma</label>
+              <input type="text" placeholder="10" maxlength="2" class="stat" id="cha" min="0">
+            </div>
 
-                  <div class="row">
-                    <label for="cha">Charisma</label>
-                    <input type="text" placeholder="10" maxlength="2" class="stat" id="cha" min="0">
-                  </div>
-          
-                </div>
+          </div>
 
-                <div class="col-10">
-                  <div class="row">
-                    
-                    <div class="col-4 col basic-info">
-                      <label for="characterName">Character Name</label>
-                      <input type="text" placeholder="" class="" id="character-name">
-                      <label for="characterName">Player Name</label>
-                      <input type="text" placeholder="" class="" id="player-name">
-                    </div>
+          <div class="col-10">
+            <div class="row">
 
-                    <div class="col-4 col basic-info">
-                      <label for="race">Race</label>
-                      <input type="text" placeholder="" class="" id="race">
-                      <label for="level">Level</label>
-                      <input type="text" placeholder="" class="" id="level">
-                    </div>
+              <div class="col-4 col basic-info">
+                <label for="characterName">Character Name</label>
+                <input type="text" placeholder="" class="" id="character-name">
+                <label for="characterName">Player Name</label>
+                <input type="text" placeholder="" class="" id="player-name">
+              </div>
 
-                    <div class="col-4 col basic-info">
-                      <label for="race">Class</label>
-                      <input type="text" placeholder="" class="" id="class">
-                      <label for="exp">Experience Points</label>
-                      <input type="text" placeholder="" class="" id="exp">
-                    </div>
+              <div class="col-4 col basic-info">
+                <label for="race">Race</label>
+                <select placeholder="" class="" id="race">
+                  {{#each races}}
+                  <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                  {{/each}}
+                </select>
+                <label for="level">Level</label>
+                <input type="text" placeholder="1" class="" id="level">
+              </div>
 
-                  </div>
-
-                  <div class="row">
-                    <div class="col-8 col">
-                      <div class="row">
-                        <div class="col-4 col">
-                          <label for="ac">Armor Class</label>
-                          <input type="text" placeholder="10" maxlength="2" class="stat" id="ac" min="0">
-                        </div>
-                        <div class="col-4 col">
-                          <label for="init">Initiative</label>
-                          <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
-                        </div>
-                        <div class="col-4 col">
-                          <label for="spd">Speed</label>
-                          <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 col">
-                          <label for="spd">Hit Points</label>
-                          <input type="text" placeholder="" class="hp" id="hp" min="0">
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
+              <div class="col-4 col basic-info">
+                <label for="race">Class</label>
+                <select placeholder="" class="" id="class">
+                  {{#each classes}}
+                  <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                  {{/each}}
+                </select>
+                <label for="exp">Experience Points</label>
+                <input type="text" placeholder="0" class="" id="exp">
               </div>
 
             </div>
-            <label class="paper-btn margin" id="save-character"for="characterModal">Save</label>
-          </div>
-    </div>
 
-  <div class="flex-center">
-  
-    {{#each campaigns}}
-    
 
-    <div class="collapsible">
-      <input id="collapsible{{this.dataValues.id}}" type="checkbox" name="collapsible">
-        <label for="collapsible{{this.dataValues.id}}">{{this.dataValues.name}}</label>
-          <div class="collapsible-body">
-            <h3>Characters</h3>
 
-            
-
-            <table id="table{{this.dataValues.id}}">
-              <thead>
-                <tr>
-                  <div class="row table-header">
-                    <div class="col-6 col"><h4>Name</h4></div>
-                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin char-btn" for="characterModal">+ New Character</label></div>
+            <div class="row">
+              <div class="col-8 col">
+                <div class="row">
+                  <div class="col-4 col">
+                    <label for="ac">Armor Class</label>
+                    <input type="text" placeholder="10" maxlength="2" class="stat" id="ac" min="0">
                   </div>
-                </tr>
-
-              </thead>
-              <tbody>
-                {{#each this.dataValues.Characters}}
-                <tr id="character{{this.dataValues.id}}">
-                  <td class="name">{{this.dataValues.name}}</td>
-                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn char-btn">View</label></td>
-                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn char-btn">Update</label></td>
-                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn char-btn">Action</label></td>
-                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
-                </tr>
-              {{/each}}
-              </tbody>
-            </table>
+                  <div class="col-4 col">
+                    <label for="init">Initiative</label>
+                    <input type="text" placeholder="0" maxlength="2" class="stat" id="init" min="0">
+                  </div>
+                  {{!-- <div class="col-4 col">
+                    <label for="spd">Speed</label>
+                    <input type="text" placeholder="30" maxlength="2" class="stat" id="spd" min="0">
+                  </div> --}}
+                </div>
+                <div class="row">
+                  <div class="col-12 col">
+                    <label for="hp">Current Hit Points</label>
+                    <input type="text" placeholder="" class="hp" id="hp" min="0">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col">
+                    <label for="shield">Shield</label>
+                    <input type="checkbox" name="shield" id="shield">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col">
+                    <label for="weapon">Weapon</label>
+                    <select name="weapon" id="weapon">
+                      {{#each weapons}}
+                      <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+      <label class="paper-btn margin" id="save-character" for="characterModal">Save</label>
+    </div>
+  </div>
+
+  {{!-- calculator modal --}}
+  <div class="row flex-spaces child-borders">
+    <label class="paper-btn margin" for="calc-modal">Test Calculator Open</label>
+  </div>
+  <input class="modal-state" id="calc-modal" type="checkbox">
+  <div class="modal">
+    <label class="modal-bg" for="calc-modal"></label>
+    <div class="modal-body calc-modal-body">
+      <label class="btn-close" for="calc-modal">X</label>
+      <h3 class="modal-title">Calculator</h3>
+      <div class="row">
+        <div class="col-12 col">
+          <h5>Character</h5>
+          <select class="calc-char-select"></select>
+        </div>
+      </div>
+      <div class="row flex-spaces tabs">
+        <input class="tab-input" id="tab1" type="radio" name="tabs" checked>
+        <label class="tab-input-label" for="tab1">Attack</label>
+
+        <input class="tab-input" id="tab2" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab2">Spell</label>
+
+        <input class="tab-input" id="tab3" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab3">Tab 3</label>
+
+        <input class="tab-input" id="tab4" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab4">Custom</label>
+
+        <div class="content" id="content1">
+
+          <div class="row">
+            <div class="col-12 col">
+              <h5>Attack Roll</h5>
+
+            </div>
+          </div>
+          <h5>Options</h5>
+          <div class="row paper">
+
+            <div class="col-4 col option-pane">
+              <div class="row">
+                <div class="col">
+                  <h5 class="text-center">Stat Bonus</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <fieldset class="form-group">
+
+                    <label for="paperRadios1" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="paperRadios1" value="strength" checked>
+                      <span>Strength</span>
+                    </label>
+                    <label for="paperRadios2" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="paperRadios2" value="dexterity"> <span>Dexterity</span>
+                    </label>
+                  </fieldset>
+                </div>
+
+
+
+              </div>
+
+
+              <div class="flex-horizontal space-between position-relative">
+                <div>
+                  <p class="text-center">Stat</p>
+                  <input id="attack-stat" type="text" value="10" class="square-normal">
+                </div>
+
+                <p class="center big">=</p>
+                <div>
+                  <p class="text-center">Modifier</p>
+                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal">
+                </div>
+              </div>
+              {{!-- <p>Ability Modifier: <span></span></p> --}}
+            </div>
+            <div class="col-4 col option-pane">
+              <div>
+                <h5 class="text-center">Proficiency Bonus</h5>
+              </div>
+              <div>
+                <input id="prof-bonus-field" type="text" value="0" class="calc-input">
+              </div>
+              <fieldset class="form-group">
+                <label for="use-prof-bonus" class="paper-check">
+                  <input type="checkbox" name="paperChecks" id="use-prof-bonus" value="usePBonus" checked> <span>Use
+                    Proficiency Bonus</span>
+                </label>
+
+                {{!-- <input type="checkbox" id="use-prof-bonus" />
+                <label for="use-prof-bonus">Use Proficiency Bonus</label> --}}
+              </fieldset>
+
+
+            </div>
+            <div class="col-4 col">
+              <div class="row">
+                <h5 class="text-center">Status</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="attack-advantage" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attack-advantage" value="advantage" />
+                    <span>Advantage</span></label>
+                </div>
+                <div>
+                  <label for="attack-disadvantage" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="attack-disadvantage" value="disadvantage" />
+                    <span>Disadvantage</span></label>
+                </div>
+              </fieldset>
+              <div class="row">
+                <h5>Other Modifiers</h5>
+                <input id="other-attack-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 col">
+              <button id="attack-roll-button" type="button">Roll</button>
+            </div>
+            <div class="col-4 col">
+              <p class="big">Attack Roll: <span id="attack-result"></span></p>
+            </div>
+          </div>
+
+
+          <h5>Damage Roll</h5>
+          <h5>Options</h5>
+          <div class="row paper">
+            <div class="col-4 col option-pane">
+              <fieldset id="weapon-choice" class="form-group">
+
+                <label for="dmgType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
+                  <span>Equipped Weapon</span>
+                </label>
+                <label for="dmgType2" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType2" value="another-weapon" checked> <span>Another
+                    Weapon</span>
+                </label>
+                <label for="dmgType3" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType3" value="custom-weapon"> <span>Custom</span>
+                </label>
+              </fieldset>
+              <div id="other-weap-select-area" class="form-group">
+                <label for="other-weapon-select">Weapon</label>
+                <select id="other-weapon-select">
+                  <option value="null"></option>
+                  {{#each weapons}}
+                      <option value={{this.dataValues.id}} data={{JSON2string this.dataValues}}>{{this.dataValues.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div id="custom-area" class="form-group">
+                <label for="custom-weapon">Damage</label>
+                <input type="text" placeholder="e.g. 2d4" id="custom-weapon">
+              </div>
+            </div>
+            <div class="col-4 col option-pane">
+              <div class="row">
+                <div class="col">
+                  <h5 class="text-center">Stat Bonus</h5>
+                </div>
+              </div>
+              
+              <div class="flex-horizontal space-between position-relative">
+                <div>
+                  <p class="text-center">Stat</p>
+                  <input id="dmg-stat" type="text" value="10" class="square-normal">
+                </div>
+
+                <p class="center big">=</p>
+                <div>
+                  <p class="text-center">Modifier</p>
+                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal">
+                </div>
+              </div>
+              {{!-- <p>Ability Modifier: <span></span></p> --}}
+            </div>
+
+            <div class="col-4 col">
+              <div class="row">
+                <h5 class="text-center">Critical Hit</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="crit-hit" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="crit-hit" value="crit" />
+                    <span></span></label>
+                </div>
+
+              </fieldset>
+              <div class="row">
+                <h5 class="text-center">2 handed</h5>
+              </div>
+              <fieldset class="form-group">
+                <div>
+                  <label for="two-handed" class="paper-check">
+                    <input type="checkbox" name="paperChecks" id="two-handed" value="twohand" />
+                    <span></span></label>
+                </div>
+
+              </fieldset>
+              <div class="row">
+                <h5>Other Modifiers</h5>
+                <input id="other-dmg-mods-field" type="text" placeholder="-2 + 5 + -3" class="calc-input">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 col">
+              <button id="dmg-roll-button" type="button">Roll</button>
+            </div>
+            <div class="col-4 col">
+              <p class="big">Damage Roll: <span id="dmg-result"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="content" id="content2">
+          <p>
+            Bacon ipsum dolor sit amet landjaeger sausage brisket...
+          </p>
+        </div>
+        <div class="content" id="content3">
+          <p>
+            Bacon ipsum dolor sit amet beef venison beef ribs kielbasa...
+          </p>
+          <p>
+            Brisket meatball turkey short loin boudin leberkas meatloaf...
+          </p>
+        </div>
+        <div class="content" id="content4">
+
+
+
+          <div class="row">
+            <div class="col-9 col">
+              <p>Enter expression:</p>
+              <div class="form-group">
+
+                <input class="input-block" type="text" name="expr" placeholder="6d6-2L" id="custom-expression">
+              </div>
+
+            </div>
+            <div class="col-3 col">
+              <button id="custom-calculate">Calculate</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col">
+              <p>Result: <span id="custom-result"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+  {{!-- campaign area --}}
+  <div class="flex-center">
+    <div class="text-center">
+      <h1>Campaigns</h1>
+    </div>
+    <div class="text-right">
+      <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
+    </div>
+    {{#each campaigns}}
+
+
+    <div class="collapsible campaign">
+      <input id="collapsible-{{this.dataValues.id}}" type="checkbox" name="collapsible">
+      <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
+      <div class="collapsible-body">
+        <div class="row flex-edges">
+          <div class="col-8 col">
+            <h3>Characters</h3>
+          </div>
+          <div class="col-4 col"><button class="delete-campaign float-right"
+              data-id={{this.dataValues.id}}>- Delete Campaign</button></div>
+        </div>
+        <table class="campaign-char-table" data-id={{this.dataValues.id}}>
+              <div class="row table-header">
+                <div class="col-6 col">
+                  <h4>Name</h4>
+                </div>
+                
+                  <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
+                  <select class="campaign-char-select">
+                    {{#each ../characters}}
+                    <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
+                    {{/each}}
+                  </select>
+                  <label class="paper-btn char-btn campaign-add-char-btn">Add Character</label>
+                </div>
+              </div>
+           
+          <thead></thead>
+          </thead>
+          <tbody id="campaign-char-{{this.dataValues.id}}">
+            {{#each this.dataValues.Characters}}
+            <tr data-id={{this.dataValues.id}}>
+              <td class="name-generated">{{this.dataValues.name}}</td>
+              <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
+              <td class="text-right"><label class="paper-btn char-btn action">Action</label>
+              </td>
+              <td class="remove"><label class="x remove-from-campaign"
+                  data-id="{{this.dataValues.id}}">X</label></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
     {{/each}}
   </div>
+
+  {{!-- characters area --}}
   <div class="text-center">
     <h1>Characters</h1>
   </div>
-     <table id="all-char-table">
-              <thead>
-                <tr>
-                  <div class="row table-header">
-                    <div class="col-6 col"><h4>Name</h4></div>
-                    <div class="col-6 col text-right"><label id="new{{this.dataValues.id}}" class="paper-btn margin new-char-btn" for="characterModal">+ New Character</label></div>
-                  </div>
-                </tr>
+  <table id="all-char-table">
+    <thead>
+      <tr>
+        <div class="row table-header">
+          <div class="col-6 col">
+            <h4>Name</h4>
+          </div>
+          <div class="col-6 col text-right"><label id="add-character" class="paper-btn margin new-char-btn"
+              for="characterModal">+ New Character</label></div>
+        </div>
+      </tr>
 
-              </thead>
-              <tbody>
-                {{#each characters}}
-                <tr id="character{{this.dataValues.id}}">
-                  <td class="name">{{this.dataValues.name}}</td>
-                  <td class="text-right"><label id="view{{this.dataValues.id}}" class="paper-btn">View</label></td>
-                  <td class="text-right"><label id="update{{this.dataValues.id}}" class="paper-btn">Update</label></td>
-                  <td class="text-right"><label id="action{{this.dataValues.id}}" class="paper-btn">Action</label></td>
-                  <td class="text-right"><label class="btn-close delete" id="{{this.dataValues.id}}">X</label></td>
-                </tr>
-              {{/each}}
-              </tbody>
-            </table>
+    </thead>
+    <tbody>
+      {{#each characters}}
+      <tr id="character{{this.dataValues.id}}" data-id={{this.dataValues.id}}>
+        <td class="name">{{this.dataValues.name}}</td>
+        <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
+        <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
+        <td class="text-right"><label class="paper-btn action">Action</label></td>
+        <td class="remove"><label class="btn-close delete x" id="delete">X</label></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
-

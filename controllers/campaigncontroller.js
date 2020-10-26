@@ -3,39 +3,39 @@ const router = express.Router();
 const db = require("../models")
 
 //may not be right
-router.get('/',function(req,res){
-    db.Campaign.findAll({include:{all:true}}).then(data=>{
+router.get('/', function (req, res) {
+    db.Campaign.findAll({ include: { all: true } }).then(data => {
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))
 })
 
-router.get('/:id',function(req,res){
+router.get('/:id', function (req, res) {
     db.Campaign.findOne({
-        where:{
-            id:req.params.id
+        where: {
+            id: req.params.id
         },
-        include:{all:true}
-    }).then(data=>{
+        include: { all: true }
+    }).then(data => {
         res.status(200).json(data);
     }).catch(err => res.sendStatus(500))
 })
 
-router.get('/:id/characters',function(req,res){
+router.get('/:id/characters', function (req, res) {
     db.Campaign.findByPk(req.params.id).then(data =>
-    
-    data.getCharacters().then(chars=>{
-        res.status(200).json(chars);
-    }).catch(err => res.sendStatus(500)))
-  })
 
-router.post('/',function(req,res){
-    if(req.session.user) {
+        data.getCharacters().then(chars => {
+            res.status(200).json(chars);
+        }).catch(err => res.sendStatus(500)))
+})
+
+router.post('/', function (req, res) {
+    if (req.session.user) {
         db.Campaign.create({
-            name:req.body.name,
-            AccountId:req.session.user.id
+            name: req.body.name,
+            AccountId: req.session.user.id
         }).then(newCamp => {
             res.status(200).json(newCamp)
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
             res.status(500).json(err);
         })
@@ -45,20 +45,20 @@ router.post('/',function(req,res){
     }
 })
 
-router.put('/',function(req,res){
-    if(req.session.user) {
+router.put('/', function (req, res) {
+    if (req.session.user) {
         db.Campaign.findByPk(req.body.id).then(camp => {
-            if(!camp) {
+            if (!camp) {
                 return res.status(404).send("no such character")
             }
-            else if(camp.AccountId===req.session.user.id) {
-                db.Camp.update(req.body,{
-                    where:{
-                        id:req.body.id
+            else if (camp.AccountId === req.session.user.id) {
+                db.Camp.update(req.body, {
+                    where: {
+                        id: req.body.id
                     }
                 }).then(editCamp => {
                     res.json(editCamp)
-                }).catch(err=>{
+                }).catch(err => {
                     res.status(500).send("Server Error")
                 })
             }
@@ -76,17 +76,43 @@ router.put('/:id/characters', function (req, res) {
         }).catch(err => res.sendStatus(500)))
 })
 
-router.delete('/:id',function(req,res){
-    if(req.session.user) {
+router.delete('/:id', function (req, res) {
+    if (req.session.user) {
         db.Campaign.findByPk(req.params.id).then(camp => {
-            if(camp.AccountId === req.session.user.id) {
+            if (camp.AccountId === req.session.user.id) {
                 db.Campaign.destroy({
                     where: {
-                        id:req.params.id
+                        id: req.params.id
                     }
                 }).then(delCamp => {
                     res.json(delCamp);
                 })
+            }
+            else {
+                res.status(401).send("cannot delete")
+            }
+        })
+    }
+    else {
+        res.status(401).send("not logged in")
+    }
+})
+
+router.delete("/:campId/characters/:charId", function (req, res) {
+    if (req.session.user) {
+        db.Campaign.findByPk(req.params.campId).then(camp => {
+            if (camp.AccountId === req.session.user.id) {
+                db.Character.findByPk(req.params.charId).then(char => {
+                    if (char.AccountId === req.session.user.id) {
+                        camp.removeCharacter(char).then(resp => {
+                            res.json(resp);
+                        })
+                    }
+                    else {
+                        res.status(401).send("cannot delete")
+                    }
+                })
+
             }
             else {
                 res.status(401).send("cannot delete")

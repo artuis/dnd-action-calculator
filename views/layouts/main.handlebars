@@ -3,23 +3,22 @@
 
 <head>
 	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="css/paper.css" type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
-	<link rel="stylesheet" href="https://unpkg.com/papercss@1.8.1/dist/paper.css" type="text/css" />
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/diceRoller.js"></script>
+	
 	<title>D&amp;D Campaign Manager &amp; Calculator</title>
 </head>
 
 <body>
 
-	<nav class="border fixed split-nav">
+	<nav class="border split-nav">
 		<div class="nav-brand">
 			<h3><a href="/">D&amp;D Character Manager</a></h3>
 		</div>
 		<div class="collapsible">
-			<input id="collapsible1" type="checkbox" name="collapsible1">
-			<label for="collapsible1">
+			<input id="collapsibleNav" type="checkbox" name="collapsibleNav">
+			<label for="collapsibleNav">
 				<div class="bar1"></div>
 				<div class="bar2"></div>
 				<div class="bar3"></div>
@@ -27,6 +26,11 @@
 			<div class="collapsible-body">
 				<ul class="inline">
 					{{#if user}}
+					<li><fieldset class="form-group">
+					<label class="paper-switch-2">
+					<input id="light-dark" type="checkbox" />
+					<span class="paper-switch-slider round"></span>
+  					</label></fieldset></li>
 					<li><span>Welcome, {{user.email}}</span></li>
 					<li><a href="/campaigns">Profile</a></li>
 					<li><a href="/api/accounts/logout">Logout</a></li>
@@ -39,8 +43,12 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	{{{ body }}}
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/diceRoller.js"></script>
+
 </body>
 
 </html>
