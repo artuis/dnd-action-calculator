@@ -8,6 +8,16 @@ body {
   top: 2em;
 }
 
+.campaign-char-select {
+  display: inline-block;
+  width: 50%;
+  height: 2.8rem;
+}
+
+.campaign-add-char-btn {
+  display: inline-block;
+}
+
 .error-message {
   color: red;
 }
