@@ -28,7 +28,12 @@ app.use(express.static("public"));
 
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  helpers: {
+    'JSON2string': function (object) {
+      return JSON.stringify(object);
+    }
+  }
 });
 
 app.engine('handlebars', hbs.engine);
