@@ -1,5 +1,7 @@
 body {
   background-image: url("../img/background.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;;
 }
 
 .container {

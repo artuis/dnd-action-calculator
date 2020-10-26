@@ -604,42 +604,7 @@
         <div class="col-8 col">
           <h3>Characters</h3>
         </div>
-<<<<<<< HEAD
-        <div class="col-4 col"><button class="delete-campaign float-right"
-            data-id={{this.dataValues.id}}>Delete</button></div>
-=======
-        <table class="campaign-char-table" data-id={{this.dataValues.id}}>
-              <div class="row table-header">
-                <div class="col-6 col">
-                  <h4>Name</h4>
-                </div>
-                
-                  <div class="col-6 col text-right add-character" data-id={{this.dataValues.id}}>
-                  <select class="campaign-char-select">
-                    {{#each ../characters}}
-                    <option value={{this.dataValues.id}}>{{this.dataValues.name}}</option>
-                    {{/each}}
-                  </select>
-                  <label class="paper-btn char-btn campaign-add-char-btn">Add Character</label>
-                </div>
-              </div>
-           
-          <thead></thead>
-          </thead>
-          <tbody>
-            {{#each this.dataValues.Characters}}
-            <tr data-id={{this.dataValues.id}}>
-              <td class="name-generated">{{this.dataValues.name}}</td>
-              <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
-              <td class="text-right"><label class="paper-btn char-btn action">Action</label>
-              </td>
-              <td class="remove"><label class="x remove-from-campaign"
-                  data-id="{{this.dataValues.id}}">X</label></td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
->>>>>>> parent of c1e2c52... general styling
+        
       </div>
       <table class="campaign-char-table" data-id={{this.dataValues.id}}>
         <thead>
