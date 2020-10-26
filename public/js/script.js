@@ -149,7 +149,7 @@ $(".campaign-add-char-btn").on("click",function() {
     row.append($("<td>").addClass("name").text(newName));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action" for="calc-modal">Action</label>'));
-    row.append($("<td>").addClass("text-right").html(`<label class="btn-close remove-from-campaign" data-id=${newID}>X</label>`));
+    row.append($("<td>").addClass("text-right").html(`<label class="btn-close x remove-from-campaign" data-id=${newID}>X</label>`));
     button.closest("thead").next().append(row);
     //remove option from select
     button.prev().find(`option[value=${newID}]`).remove();
