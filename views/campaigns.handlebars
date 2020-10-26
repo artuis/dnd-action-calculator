@@ -145,7 +145,7 @@
 
   {{!-- calculator modal --}}
   <div class="row flex-spaces child-borders">
-    <label class="paper-btn margin" for="calc-modal">Test Calculator Open</label>
+    <label class="paper-btn margin" for="calc-modal">Open Calculator</label>
   </div>
   <input class="modal-state" id="calc-modal" type="checkbox">
   <div class="modal">
@@ -156,11 +156,14 @@
       <div class="row">
         <div class="col-12 col">
           <h5>Character</h5>
+          <form>
           <select class="calc-char-select">
+              <option value="null"></option>
             {{#each characters}}
               <option value='{{this.dataValues.id}}' data='{{JSON2string this}}'>{{this.dataValues.name}}</option>
             {{/each}}
           </select>
+          </form>
         </div>
       </div>
       <div class="row flex-spaces tabs">
@@ -191,16 +194,17 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col">
+                <div id="attack-stat-choice-area" class="col">
                   <fieldset class="form-group">
-
-                    <label for="paperRadios1" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="paperRadios1" value="strength" checked>
+                    {{!-- <form> --}}
+                    <label for="attack-stat-choice1" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="attack-stat-choice1" value="strength">
                       <span>Strength</span>
                     </label>
-                    <label for="paperRadios2" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="paperRadios2" value="dexterity"> <span>Dexterity</span>
+                    <label for="attack-stat-choice2" class="paper-radio">
+                      <input type="radio" name="paperRadios" id="attack-stat-choice2" value="dexterity"> <span>Dexterity</span>
                     </label>
+                    {{!-- </form> --}}
                   </fieldset>
                 </div>
 
@@ -218,7 +222,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal">
+                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal" disabled>
                 </div>
               </div>
               {{!-- <p>Ability Modifier: <span></span></p> --}}
@@ -280,22 +284,22 @@
             <div class="col-4 col option-pane">
               <fieldset id="weapon-choice" class="form-group">
 
-                <label for="dmgType1" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
+                <label for="damageType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="damageType1" value="equipped-weapon">
                   <span>Equipped Weapon</span>
                 </label>
-                <label for="dmgType2" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="dmgType2" value="another-weapon"> <span>Another
+                <label for="damageType2" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="damageType2" value="another-weapon"> <span>Another
                     Weapon</span>
                 </label>
-                <label for="dmgType3" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="dmgType3" value="custom-weapon" checked> <span>Custom</span>
+                <label for="damageType3" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="damageType3" value="custom-weapon" checked> <span>Custom</span>
                 </label>
               </fieldset>
-              <div id="other-weap-select-area" class="form-group">
+              <div id="other-weapon-select-area" class="form-group">
                 <label for="other-weapon-select">Weapon</label>
                 <select id="other-weapon-select">
-                  <option value="null"></option>
+                  {{!-- <option value="null"></option> --}}
                   {{#each weapons}}
                   <option value={{this.dataValues.id}} data='{{JSON2string this.dataValues}}'>{{this.dataValues.name}}
                   </option>
@@ -323,7 +327,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal">
+                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal" disabled>
                 </div>
               </div>
               {{!-- <p>Ability Modifier: <span></span></p> --}}
@@ -385,17 +389,17 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <fieldset class="form-group">
+                  <fieldset id="spell-stat-choice-area" class="form-group">
 
                     <label for="spell-ability1" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="spell-ability1" value="intelligence" checked>
+                      <input type="radio" name="spell-stat" id="spell-ability1" value="intelligence" checked>
                       <span>Intelligence</span>
                     </label>
                     <label for="spell-ability2" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="spell-ability2" value="wisdom"> <span>Wisdom</span>
+                      <input type="radio" name="spell-stat" id="spell-ability2" value="wisdom"> <span>Wisdom</span>
                     </label>
                     <label for="spell-ability3" class="paper-radio">
-                      <input type="radio" name="paperRadios" id="spell-ability3" value="charisma"> <span>Charisma</span>
+                      <input type="radio" name="spell-stat" id="spell-ability3" value="charisma"> <span>Charisma</span>
                     </label>
                   </fieldset>
                 </div>
@@ -414,7 +418,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input id="spell-attack-stat-modifier" type="text" value="0" class="square-normal">
+                  <input id="spell-attack-stat-modifier" type="text" value="0" class="square-normal" disabled>
                 </div>
               </div>
             </div>
@@ -467,18 +471,18 @@
             <div class="col-4 col option-pane">
               <fieldset id="spell-choice" class="form-group">
                 <label for="spellType1" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="spellType1" value="standard-spell">
+                  <input type="radio" name="spell-choices" id="spellType1" value="standard-spell">
                   <span>Standard Spell</span>
                 </label>
                 <label for="spellType2" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="spellType2" value="custom-spell" checked> <span>Custom
+                  <input type="radio" name="spell-choices" id="spellType2" value="custom-spell" checked> <span>Custom
                     Spell</span>
                 </label>
               </fieldset>
               <div id="spell-select-area" class="form-group">
                 <label for="spell-select">Spell</label>
                 <select id="spell-select">
-                  <option value="null"></option>
+                  {{!-- <option value="null"></option> --}}
                   {{#each spells}}
                   <option value={{this.dataValues.id}} data='{{JSON2string this.dataValues}}'>{{this.dataValues.name}}
                   </option>
@@ -629,7 +633,7 @@
           <tr data-id={{this.dataValues.id}}>
             <td class="name">{{this.dataValues.name}}</td>
             <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
-            <td class="text-right"><label class="paper-btn char-btn action">Action</label>
+            <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
             </td>
             <td class="text-right"><label class="btn-close remove-from-campaign"
                 data-id="{{this.dataValues.id}}">X</label></td>
@@ -665,7 +669,7 @@
       <td class="name">{{this.dataValues.name}}</td>
       <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
       <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
-      <td class="text-right"><label class="paper-btn action">Action</label></td>
+      <td class="text-right"><label class="paper-btn action" for="calc-modal">Action</label></td>
       <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
     </tr>
     {{/each}}
