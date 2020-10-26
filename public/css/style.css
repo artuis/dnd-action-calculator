@@ -9,6 +9,15 @@ body {
   padding-bottom: 5rem;
 }
 
+.inline .form-group {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.inline .paper-switch-2 {
+  border: none
+}
+
 .container {
   top: 2em;
 }
