@@ -22,7 +22,16 @@
 body {
   background-image: url("../img/background.jpg");
   background-repeat: repeat-y;
-  background-size: 100%;
+  background-size: 100%;;
+}
+
+.basic-info select {
+  margin: 0 auto;
+  width: 85%;
+}
+
+.dark body {
+  background-image: url("../img/dark-wood.jpg");
 }
 
 .index {
@@ -30,8 +39,27 @@ body {
   padding-bottom: 5rem;
 }
 
+.inline .form-group {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.inline .paper-switch-2 {
+  border: none
+}
+
 .container {
   top: 2em;
+}
+
+.campaign-char-select {
+  display: inline-block;
+  width: 50%;
+  height: 2.8rem;
+}
+
+.campaign-add-char-btn {
+  display: inline-block;
 }
 
 .error-message {
@@ -93,6 +121,9 @@ nav {
   text-align: center;
 }
 
+.name-generated {
+  width: 75%;
+}
 
 #save-character {
   margin: 0 auto;
@@ -192,6 +223,27 @@ h3 {
 h4 {
     margin-block-start: 1em;
     margin-block-end: 0em;
+}
+
+.collapsible .x, .x {
+  color: #41403e;
+  color: var(--primary-light);
+  transition: all 235ms ease-in-out 0s;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: normal;
+  height: 1.1rem;
+  text-decoration: none;
+  top: 1rem;
+  width: 2rem;
+  border-bottom: 0;
+  padding: 0.5rem;
+  display: inline-block;
+}
+
+.x:hover {
+  color: #41403e !important;
+  color: var(--primary) !important;
 }
 
 .float-right {
