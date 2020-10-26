@@ -219,4 +219,58 @@ h4 {
   padding: .5rem;
 }
 
+#roll-btn {
+  position: absolute;
+  right: 150px;
+  width: 85px;
+  height: 50px;
+
+}
+
+#attAdv {
+  position: absolute;
+  right: 125px;
+  width: 10px;
+  height: 10px;
+  
+}
+
+#attDis {
+  position: absolute;
+  right: 125px;
+  width: 10px;
+  height: 10px;
+}
+
+ #attAdd{
+  position: absolute;
+  right: 125px;
+  width: 12px;
+  height: 12px;
+}
+
+#attDsv {
+  position: absolute;
+  right: 125px;
+  width: 12px;
+  height: 12px;
+
+}
+
+#num-one {
+  position: absolute;
+  right: 125px;
+  width: 150;
+  height: 150;
+
+}
+
+#num-two {
+  position: absolute;
+  right: 125px;
+  width: 150;
+  height: 150;
+
+}
+
 
