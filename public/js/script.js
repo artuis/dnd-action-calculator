@@ -273,6 +273,11 @@ $("#create-btn").click(() => {
 
 //calculator stuff
 
+$("#attack-stat").on("input", function() {
+  const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
+  $("#attack-stat-modifier").val(value)
+})
+
 $("#attack-advantage").on("click",function() {
   let other = $("#attack-disadvantage");
   if($(this).prop("checked") && other.prop("checked")) other.prop("checked",false);
@@ -304,6 +309,87 @@ $("#attack-roll-button").on("click", function() {
   $("#attack-result").text(result);
 })
 
+//damage section
+$("#dmg-stat").on("input", function() {
+  const value = $(this).val() != "" ? modifier(parseInt($(this).val())) : 0;
+  $("#dmg-stat-modifier").val(value)
+})
+
+$("#other-weapon-select").on("change", function() {
+  const twoHandChkBx = $("#two-handed");
+  if($(this).find(":selected").attr("value") === "null") {
+    $("#custom-weapon").val("");
+    twoHandChkBx.prop("checked", false);
+    twoHandChkBx.prop("disabled",true);
+    return;
+  }
+  const data = JSON.parse($(this).find(":selected").attr("data"));
+  //set the 2handed
+  if(data["1h_dmg"] === null) {
+    twoHandChkBx.prop("checked",true);
+    twoHandChkBx.prop("disabled",true);
+    $("#custom-weapon").val(data["2h_dmg"]);
+  }
+  else if(data["2h_dmg"] === null) {
+    twoHandChkBx.prop("checked",false);
+    twoHandChkBx.prop("disabled",true);
+    $("#custom-weapon").val(data["1h_dmg"]);
+  }
+  else {
+    twoHandChkBx.prop("disabled",false);
+    if(twoHandChkBx.prop("checked")) $("#custom-weapon").val(data["2h_dmg"]);
+    else $("#custom-weapon").val(data["1h_dmg"]);
+  }
+})
+
+$("#two-handed").on("click", function() {
+  const data = JSON.parse($("#other-weapon-select").find(":selected").attr("data"));
+  if($(this).prop("checked")) $("#custom-weapon").val(data["2h_dmg"]);
+  else $("#custom-weapon").val(data["1h_dmg"]);
+})
+
+$("#weapon-choice").on("change", function(e) {
+  if($(e.target).prop("value") === "equipped-weapon") {
+    //set weapon select to equipped weapon
+    //disable weapon select
+    $("#other-weapon-select").prop("disabled",true);
+    //disable damage
+    $("#custom-weapon").prop("disabled",true);
+  }
+  if($(e.target).prop("value") === "another-weapon") {
+    //enable weapon select
+    $("#other-weapon-select").prop("disabled",false);
+    //disable damage
+    $("#custom-weapon").prop("disabled",true);
+  }
+  if($(e.target).prop("value") === "custom-weapon") {
+    $("#other-weapon-select :nth-child(1)").prop("selected",true).change();
+    //disable weapon select
+    $("#other-weapon-select").prop("disabled",true);
+    //enable damage
+    $("#custom-weapon").prop("disabled",false);
+  }
+  
+})
+
+$("#dmg-roll-button").on("click", function() {
+  let str = "";
+  //damage
+  str += $("#custom-weapon").val().trim();
+  //crit
+  if($("#crit-hit").prop("checked")) {
+    const temp = str.split("d");
+    temp[0] = 2*parseInt(temp[0]);
+    str = temp.join("d");
+  }
+  //modifier
+  str += `+${$("#dmg-stat-modifier").val().trim()}`
+  //other mods
+  str += $("#other-dmg-mods-field").val().trim();
+  console.log(str);
+  $("#dmg-result").text(calculate(str).total);
+})
+
 $("#custom-calculate").on("click",function() {
   let expr = $("#custom-expression").val().trim();
   let result = calculate(expr);
@@ -313,9 +399,7 @@ $("#custom-calculate").on("click",function() {
 // utility functions
 
 // converts ability score to modifier
-const modifier = (stat) => {
-  Math.floor((stat - 10) / 2)
-}
+const modifier = stat => Math.floor((stat - 10) / 2);
 
 const profBonus = level => Math.floor((level+7)/4);
 
