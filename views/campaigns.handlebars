@@ -607,9 +607,7 @@
         
       </div>
       <table class="campaign-char-table" data-id={{this.dataValues.id}}>
-        <thead>
-          <tr>
-            <th class="row table-header">
+            <div class="row table-header">
               <div class="col-6 col">
                 <h4>Name</h4>
               </div>
@@ -622,23 +620,23 @@
                 </select>
                 <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
               </div>
+              </div>
 
-            </th>
-          </tr>
+            
 
-        </thead>
-        <tbody>
-          {{#each this.dataValues.Characters}}
-          <tr data-id={{this.dataValues.id}}>
-            <td class="name">{{this.dataValues.name}}</td>
-            <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
-            <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
-            </td>
-            <td class="text-right"><label class="btn-close x remove-from-campaign"
-                data-id="{{this.dataValues.id}}">X</label></td>
-          </tr>
-          {{/each}}
-        </tbody>
+        <thead></thead>
+        <tbody id="campaign-char-{{this.dataValues.id}}">
+            {{#each this.dataValues.Characters}}
+            <tr data-id={{this.dataValues.id}}>
+              <td class="name-generated">{{this.dataValues.name}}</td>
+              <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
+              <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
+              </td>
+              <td class="remove"><label class="x remove-from-campaign"
+                  data-id="{{this.dataValues.id}}">X</label></td>
+            </tr>
+            {{/each}}
+          </tbody>
       </table>
     </div>
   </div>

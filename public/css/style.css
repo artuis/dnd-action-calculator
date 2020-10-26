@@ -63,6 +63,9 @@ nav {
   text-align: center;
 }
 
+.name-generated {
+  width: 75%;
+}
 
 #save-character {
   margin: 0 auto;
