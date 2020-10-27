@@ -177,8 +177,8 @@
         <input class="tab-input" id="tab2" type="radio" name="tabs">
         <label class="tab-input-label" for="tab2">Spell</label>
 
-        <input class="tab-input" id="tab3" type="radio" name="tabs">
-        <label class="tab-input-label" for="tab3">Custom</label>
+        <input class="tab-input" id="tab4" type="radio" name="tabs">
+        <label class="tab-input-label" for="tab4">Custom</label>
 
         <div class="content" id="content1">
           <h3>Attack Roll</h3>
@@ -192,7 +192,7 @@
                 </div>
               </div>
               <div class="row">
-                <div id="attack-stat-choice-area" class="col">
+                <div class="col">
                   <fieldset class="form-group">
                     <label for="attack-stat-choice1" class="paper-radio">
                       <input type="radio" name="paperRadios" id="attack-stat-choice1" value="strength">
@@ -214,7 +214,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal" disabled>
+                  <input id="attack-stat-modifier" type="text" value="0" class="square-normal">
                 </div>
               </div>
               {{!-- <p>Ability Modifier: <span></span></p> --}}
@@ -285,12 +285,12 @@
             <div class="col-4 col option-pane">
               <fieldset id="weapon-choice" class="form-group">
 
-                <label for="damageType1" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="damageType1" value="equipped-weapon">
+                <label for="dmgType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
                   <span>Equipped Weapon</span>
                 </label>
-                <label for="damageType2" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="damageType2" value="another-weapon"> <span>Another
+                <label for="dmgType2" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType2" value="another-weapon" checked> <span>Another
                     Weapon</span>
                 </label>
                 <label for="damageType3" class="paper-radio">
@@ -298,13 +298,12 @@
                   <span>Custom</span>
                 </label>
               </fieldset>
-              <div id="other-weapon-select-area" class="form-group">
+              <div id="other-weap-select-area" class="form-group">
                 <label for="other-weapon-select">Weapon</label>
                 <select id="other-weapon-select">
-                  {{!-- <option value="null"></option> --}}
+                  <option value="null"></option>
                   {{#each weapons}}
-                  <option value={{this.dataValues.id}} data='{{JSON2string this.dataValues}}'>{{this.dataValues.name}}
-                  </option>
+                      <option value={{this.dataValues.id}} data={{JSON2string this.dataValues}}>{{this.dataValues.name}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -319,7 +318,7 @@
                   <h5 class="text-center">Ability Modifier</h5>
                 </div>
               </div>
-
+              
               <div class="flex-horizontal space-between position-relative">
                 <div>
                   <p class="text-center">Stat</p>
@@ -329,7 +328,7 @@
                 <p class="center big">=</p>
                 <div>
                   <p class="text-center">Modifier</p>
-                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal" disabled>
+                  <input id="dmg-stat-modifier" type="text" value="0" class="square-normal">
                 </div>
               </div>
             </div>
@@ -436,9 +435,6 @@
               <div>
                 <input id="spell-prof-bonus-field" type="text" value="0" class="calc-input">
               </div>
-
-
-
             </div>
             <div class="col-4 col">
               <div class="row">
@@ -571,7 +567,7 @@
             </div>
           </div>
         </div>
-        <div class="content" id="content3">
+        <div class="content" id="content4">
 
 
 
