@@ -194,6 +194,10 @@ nav {
   padding-right: 1rem;
 }
 
+.add-character select {
+  width: 13rem;
+}
+
 .campaign-char-select {
   display: flex;
   margin: auto 0;
@@ -284,6 +288,8 @@ h4 {
   width: 70px;
   height: 70px;
 }
+
+
 
 .center {
   margin: 0;

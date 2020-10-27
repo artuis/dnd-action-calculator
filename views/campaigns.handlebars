@@ -636,7 +636,7 @@
     {{#each campaigns}}
 
 
-    <div class="collapsible campaign">
+    <div id="campaign-{{this.dataValues.id}}" class="collapsible campaign">
       <input id="collapsible-{{this.dataValues.id}}" type="checkbox" name="collapsible">
       <label for="collapsible-{{this.dataValues.id}}">{{this.dataValues.name}}</label>
       <div class="collapsible-body">
@@ -646,12 +646,12 @@
           </div>
           <div class="col-4 col"><button class="delete-campaign float-right"
 
-              data-id={{this.dataValues.id}}>Delete</button></div>
+              data-id={{this.dataValues.id}}>- Delete Campaign</button></div>
         </div>
         <table class="campaign-char-table" data-id={{this.dataValues.id}}>
           <thead>
             <tr>
-              <th class="row table-header">
+              <div class="row table-header">
                 <div class="col-6 col">
                   <h4>Name</h4>
                 </div>
@@ -665,18 +665,19 @@
                   <label class="paper-btn margin char-btn campaign-add-char-btn">Add Character</label>
                 </div>
 
-              </th>
+              </div>
+              <th></th>
             </tr>
 
           </thead>
-          <tbody>
+          <tbody id="campaign-chars-{{this.dataValues.id}}">
             {{#each this.dataValues.Characters}}
             <tr data-id={{this.dataValues.id}}>
-              <td class="name">{{this.dataValues.name}}</td>
+              <td class="name-generated">{{this.dataValues.name}}</td>
               <td class="text-right"><label class="paper-btn char-btn view" for="characterModal">View</label></td>
               <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
               </td>
-              <td class="text-right"><label class="btn-close remove-from-campaign"
+              <td class="text-right"><label class="btn-close x remove-from-campaign"
 
                   data-id="{{this.dataValues.id}}">X</label></td>
             </tr>
@@ -722,7 +723,7 @@
         <td class="text-right"><label class="paper-btn view" for="characterModal">View</label></td>
         <td class="text-right"><label class="paper-btn update" for="characterModal">Update</label></td>
         <td class="text-right"><label class="paper-btn action" for="calc-modal">Action</label></td>
-        <td class="text-right"><label class="btn-close delete" id="delete">X</label></td>
+        <td class="text-right"><label class="btn-close x delete" id="delete">X</label></td>
       </tr>
       {{/each}}
     </tbody>

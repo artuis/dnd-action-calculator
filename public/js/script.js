@@ -149,11 +149,11 @@ $(".campaign-add-char-btn").on("click",function() {
     
     //add row to table
     const row = $("<tr>").attr("data-id",newID)
-    row.append($("<td>").addClass("name").text(newName));
+    row.append($("<td>").addClass("name-generated").text(newName));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action" for="calc-modal">Action</label>'));
     row.append($("<td>").addClass("text-right").html(`<label class="btn-close x remove-from-campaign" data-id=${newID}>X</label>`));
-    $("#campaign-char-" + button.parent().attr("data-id")).append(row);
+    $("#campaign-chars-" + button.parent().attr("data-id")).append(row);
     //remove option from select
     button.prev().find(`option[value=${newID}]`).remove();
   });
@@ -178,11 +178,12 @@ $(".campaign-char-table").on("click", function(e) {
 
 function removeFromCampaign(e) {
   const button = $(e.target);
-  const charName = button.closest("tr").find(".name").text();
-  console.log(charName)
+  const charName = button.closest("tr").find(".name-generated").text();
+  console.log(button.closest("table").attr("data-id"));
+  
   const charId = button.attr("data-id");
   ajaxDelete(`api/campaigns/${button.closest("table").attr("data-id")}/characters/${charId}`).then(res=>{
-    button.closest("table").find(".campaign-char-select").append(new Option(charName,charId));
+    $("#campaign-" + button.closest("table").attr("data-id") + " .campaign-char-select").append(new Option(charName,charId));
     button.closest("tr").remove();
     //add to select
     
