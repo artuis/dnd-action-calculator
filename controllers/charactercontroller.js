@@ -23,6 +23,7 @@ router.get('/:id',function(req,res){
 
 router.post('/',function(req,res){
     if(req.session.user) {
+        if(req.body.WeaponId === "") req.body.WeaponId = null;
         db.Character.create({
             name: req.body.name,
             player_name: req.body.player_name,
@@ -45,6 +46,8 @@ router.post('/',function(req,res){
             ClassId: req.body.ClassId,
             RaceId: req.body.RaceId,
             AccountId: req.session.user.id
+        },{
+            omitNull: false
         }).then(newChar => {
             res.status(200).json(newChar)
         }).catch(err=>{
@@ -65,13 +68,16 @@ router.put('/',function(req,res){
                 return res.status(404).send("no such character")
             }
             else if(char.AccountId===req.session.user.id) {
+                if(req.body.WeaponId === "") req.body.WeaponId = null;
                 db.Character.update(req.body,{
                     where:{
                         id:req.body.id
-                    }
+                    },
+                    omitNull: false
                 }).then(editChar => {
                     res.json(editChar)
                 }).catch(err=>{
+                    console.log(err)
                     res.status(500).send("Server Error")
                 })
             }

@@ -41,7 +41,7 @@ app.set('view engine', 'handlebars');
 
 // session
 app.use(session({
-  secret: "potato",//process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

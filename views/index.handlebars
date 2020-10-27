@@ -3,10 +3,24 @@
         
         <h1>D&amp;D Character Manager</h1>
     </div>
-    <div class="row main-btn">
-        <div class="col col-12 text-center">
+
+    <div class="row flex-center main-btn">
+        <div class="col">
+            {{#unless user}}
             <button id="login-btn">Login</button>
+            {{/unless}}
+            {{#if user}}
+            <button id="profile-btn" onclick="location.href='/campaigns';">Profile</button>
+            {{/if}}
+        </div>
+        <div class="col">
+            {{#unless user}}
+
             <button id="create-btn">Create Account</button>
+            {{/unless}}
+            {{#if user}}
+            <button id="profile-btn" onclick="location.href='/api/accounts/logout';">Logout</button>
+            {{/if}}
         </div>
     </div>
 </div>
