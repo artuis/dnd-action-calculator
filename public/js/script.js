@@ -134,7 +134,7 @@ $("#save-campaign").click(() => {
   var newCampaign = {
     name: $("#campaign-name").val()
   }
-  ajaxPost("api/campaigns", newCampaign).then(res => location.reload()).fail($("#invalid-camp-alert").prop("checked",false));
+  ajaxPost("api/campaigns", newCampaign).then(res => location.reload()).fail(res => $("#invalid-camp-alert").prop("checked",false));
 })
 
 $(".campaign-add-char-btn").on("click",function() {
