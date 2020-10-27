@@ -9,38 +9,73 @@ module.exports = function(sequelize, DataTypes) {
     },
     player_name: {
       type:DataTypes.STRING,
+      validate: {
+        len: [1]
+      }
     },
     experience: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 355000
+      }
     },
     level: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 1,
+      validate: {
+        min: 1,
+        max: 20
+      }
     },
     strength: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     dexterity: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     constitution: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     intelligence: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     wisdom: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     charisma: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     perception: {
       type: DataTypes.INTEGER,
@@ -48,23 +83,40 @@ module.exports = function(sequelize, DataTypes) {
     },
     initiative: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     hp_current: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0
+      }
     },
     hp_temp: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0
+      }
     },
     hp_max: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0
+      }
     },
     armor_class: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 99
+      }
     },
     shield: {
       type: DataTypes.BOOLEAN,
@@ -74,7 +126,11 @@ module.exports = function(sequelize, DataTypes) {
 
   Character.associate = function(models) {
     
-    Character.belongsTo(models.Weapon);
+    Character.belongsTo(models.Weapon, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
 
     Character.belongsTo(models.Account);
     
