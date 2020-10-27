@@ -302,6 +302,15 @@ h4 {
   position: relative;
 }
 
+.campaign-char-select {
+  min-width: 200px;
+}
+
+#shield {
+  width:30px;
+    height:30px;
+}
+
 /* .paper-switch-tile {
   margin: 0 !important;
   padding: 0 !important;
