@@ -192,7 +192,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col">
+                <div id="attack-stat-choice-area" class="col">
                   <fieldset class="form-group">
                     <label for="attack-stat-choice1" class="paper-radio">
                       <input type="radio" name="paperRadios" id="attack-stat-choice1" value="strength">
@@ -285,12 +285,12 @@
             <div class="col-4 col option-pane">
               <fieldset id="weapon-choice" class="form-group">
 
-                <label for="dmgType1" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
+                <label for="damageType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="damageType1" value="equipped-weapon">
                   <span>Equipped Weapon</span>
                 </label>
-                <label for="dmgType2" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="dmgType2" value="another-weapon" checked> <span>Another
+                <label for="damageType2" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="damageType2" value="another-weapon" checked> <span>Another
                     Weapon</span>
                 </label>
                 <label for="damageType3" class="paper-radio">
@@ -301,7 +301,6 @@
               <div id="other-weap-select-area" class="form-group">
                 <label for="other-weapon-select">Weapon</label>
                 <select id="other-weapon-select">
-                  <option value="null"></option>
                   {{#each weapons}}
                       <option value={{this.dataValues.id}} data={{JSON2string this.dataValues}}>{{this.dataValues.name}}</option>
                   {{/each}}

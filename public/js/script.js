@@ -30,13 +30,6 @@ $(document).ready(function() {
   
 })
 
-$(window).on("load",function() {
-  
-  //$(".calc-char-select :nth-child(1)").prop("selected",true).change();
-  //$("#spellType1").prop("checked",true).change();
-  //$("#spell-select :nth-child(1)").prop("selected",true).change();
-})
-
 //ajax functions
 const ajaxPost = (url, body) => {
   return $.ajax({
@@ -159,8 +152,8 @@ $(".campaign-add-char-btn").on("click",function() {
     row.append($("<td>").addClass("name").text(newName));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn view" for="characterModal">View</label>'));
     row.append($("<td>").addClass("text-right").html('<label class="paper-btn char-btn action" for="calc-modal">Action</label>'));
-    row.append($("<td>").addClass("text-right").html(`<label class="btn-close x remove-from-campaign" data-id=${newID}>X</label>`));
-    $("#campaign-char-" + button.parent().attr("data-id")).append(row);
+    row.append($("<td>").addClass("text-right").html(`<label class="btn-close remove-from-campaign" data-id=${newID}>X</label>`));
+    button.closest("thead").next().append(row);
     //remove option from select
     button.prev().find(`option[value=${newID}]`).remove();
   });
@@ -661,7 +654,7 @@ $("#spell-slot-select").on("change", function() {
 })
 
 $("#spell-dmg-roll-button").on("click", function() {
-  const dmgEntry = $("#custom-weapon").val().trim();
+  const dmgEntry = $("#custom-spell").val().trim();
   let otherMods = $("#other-spell-dmg-mods-field").val().trim();
   if(otherMods === "") otherMods = "0";
   if(!dicePattern.test(dmgEntry) || !otherModsPattern.test(otherMods)) {
