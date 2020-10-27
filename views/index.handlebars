@@ -1,7 +1,9 @@
-<div class="paper container">
+<div class="paper container index">
     <div class="row text-title">
+        
         <h1>D&amp;D Character Manager</h1>
     </div>
+
     <div class="row flex-center main-btn">
         <div class="col">
             {{#unless user}}
@@ -13,6 +15,7 @@
         </div>
         <div class="col">
             {{#unless user}}
+
             <button id="create-btn">Create Account</button>
             {{/unless}}
             {{#if user}}

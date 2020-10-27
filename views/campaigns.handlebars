@@ -153,6 +153,7 @@
       <label class="btn-close" for="calc-modal">X</label>
       <h1 class="modal-title text-center">Calculator</h1>
       <div class="row">
+
         <h3>Character</h3>
       </div>
       <div class="row margin-bottom-small">
@@ -170,6 +171,7 @@
         </div>
         <div class="col-9 col">
           <p id="char-description" class="big"></p>
+
         </div>
       </div>
       <div class="row flex-spaces tabs">
@@ -178,6 +180,7 @@
 
         <input class="tab-input" id="tab2" type="radio" name="tabs">
         <label class="tab-input-label" for="tab2">Spell</label>
+
 
         <input class="tab-input" id="tab4" type="radio" name="tabs">
         <label class="tab-input-label" for="tab4">Custom</label>
@@ -194,8 +197,9 @@
                 </div>
               </div>
               <div class="row">
-                <div id="attack-stat-choice-area" class="col">
+                <div class="col">
                   <fieldset class="form-group">
+
                     <label for="attack-stat-choice1" class="paper-radio">
                       <input type="radio" name="paperRadios" id="attack-stat-choice1" value="strength">
                       <span>Strength</span>
@@ -203,6 +207,7 @@
                     <label for="attack-stat-choice2" class="paper-radio">
                       <input type="radio" name="paperRadios" id="attack-stat-choice2" value="dexterity">
                       <span>Dexterity</span>
+
                     </label>
                   </fieldset>
                 </div>
@@ -287,10 +292,11 @@
             <div class="col-4 col option-pane">
               <fieldset id="weapon-choice" class="form-group">
 
-                <label for="damageType1" class="paper-radio">
-                  <input type="radio" name="weapon-choices" id="damageType1" value="equipped-weapon">
+                <label for="dmgType1" class="paper-radio">
+                  <input type="radio" name="weapon-choices" id="dmgType1" value="equipped-weapon">
                   <span>Equipped Weapon</span>
                 </label>
+
                 <label for="damageType2" class="paper-radio">
                   <input type="radio" name="weapon-choices" id="damageType2" value="another-weapon" checked> <span>Another
                     Weapon</span>
@@ -298,11 +304,14 @@
                 <label for="damageType3" class="paper-radio">
                   <input type="radio" name="weapon-choices" id="damageType3" value="custom-weapon" checked>
                   <span>Custom</span>
+
                 </label>
               </fieldset>
               <div id="other-weap-select-area" class="form-group">
                 <label for="other-weapon-select">Weapon</label>
                 <select id="other-weapon-select">
+
+
                   {{#each weapons}}
                       <option value={{this.dataValues.id}} data={{JSON2string this.dataValues}}>{{this.dataValues.name}}</option>
                   {{/each}}
@@ -381,6 +390,7 @@
           </div>
         </div>
         <div class="content" id="content2">
+
           
               <h3>Attack Roll</h3>
 
@@ -535,6 +545,7 @@
             <div class="col-4 col">
               <div class="row">
                 <h5 class="text-center">Critical Hit</h5>
+
               </div>
               <fieldset class="form-group">
                 <div>
@@ -542,6 +553,7 @@
                     <input type="checkbox" name="paperChecks" id="crit-spell" value="crit" />
                     <span></span></label>
                 </div>
+
 
               </fieldset>
 
@@ -582,6 +594,7 @@
 
             </div>
             <div class="col-3 col ">
+
               <button id="custom-calculate">Calculate</button>
             </div>
           </div>
@@ -610,11 +623,13 @@
     <div class="text-center">
       <h1>Campaigns</h1>
     </div>
+
     <input class="alert-state" id="invalid-camp-alert" type="checkbox" checked>
     <div class="alert alert-danger dismissible">
       Campaign could not be created
       <label class="btn-close" for="invalid-camp-alert">X</label>
     </div>
+
     <div class="text-right">
       <label class="paper-btn margin" id="new-camp-btn" for="campaignModal">+ New Campaign</label>
     </div>
@@ -630,6 +645,7 @@
             <h3>Characters</h3>
           </div>
           <div class="col-4 col"><button class="delete-campaign float-right"
+
               data-id={{this.dataValues.id}}>Delete</button></div>
         </div>
         <table class="campaign-char-table" data-id={{this.dataValues.id}}>
@@ -661,12 +677,15 @@
               <td class="text-right"><label class="paper-btn char-btn action" for="calc-modal">Action</label>
               </td>
               <td class="text-right"><label class="btn-close remove-from-campaign"
+
                   data-id="{{this.dataValues.id}}">X</label></td>
             </tr>
             {{/each}}
           </tbody>
+
         </table>
       </div>
+
     </div>
     {{/each}}
   </div>
@@ -675,11 +694,13 @@
   <div class="text-center">
     <h1>Characters</h1>
   </div>
+
   <input class="alert-state" id="invalid-char-alert" type="checkbox" checked>
   <div class="alert alert-danger dismissible">
     Character could not be created
     <label class="btn-close" for="invalid-char-alert">X</label>
   </div>
+
   <table id="all-char-table">
     <thead>
       <tr>
@@ -690,6 +711,7 @@
           <div class="col-6 col text-right"><label id="add-character" class="paper-btn margin new-char-btn"
               for="characterModal">+ New Character</label></div>
         </div>
+
       </tr>
 
     </thead>
@@ -705,4 +727,5 @@
       {{/each}}
     </tbody>
   </table>
+
 </div>
